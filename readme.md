@@ -518,6 +518,8 @@ hitbox defined in the last viewport defined takes priority.
 
 Hitboxes cannot be animated.
 
+Their origin is their center.
+
 ##### `sound`
 
 ```typescript

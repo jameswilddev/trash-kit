@@ -117,7 +117,7 @@ function renderInteractiveMode(
       sprite(mainViewport, background_title_svg)
       hitbox(
         mainViewport,
-        -safeAreaWidthVirtualPixels, -safeAreaHeightVirtualPixels,
+        0, 0,
         doubleSafeAreaWidthVirtualPixels, doubleSafeAreaHeightVirtualPixels,
         () => enterMode({
           type: `levelSelect`
@@ -150,7 +150,7 @@ function render(): undefined | (() => void) {
   if (state.transitioning) {
     hitbox(
       mainViewport,
-      -safeAreaWidthVirtualPixels, -safeAreaHeightVirtualPixels,
+      0, 0,
       doubleSafeAreaWidthVirtualPixels, doubleSafeAreaHeightVirtualPixels,
       () => state.transitioning = false
     )

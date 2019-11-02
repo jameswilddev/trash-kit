@@ -12,6 +12,8 @@ function engineHitboxesCreate(
   element.style.top = `${topVirtualPixels}`
   element.style.width = `${widthVirtualPixels}`
   element.style.height = `${heightVirtualPixels}`
+  element.style.marginLeft = `${widthVirtualPixels / -2}`
+  element.style.marginTop = `${heightVirtualPixels / -2}`
   element.onmousedown = handler
   element.ontouchstart = handler
   function handler(

@@ -29,25 +29,25 @@ function render(): undefined | (() => void) {
   sprite(mainViewport, background_svg)
 
   // Kick
-  hitbox(mainViewport, -35, -10, 85, 112, () => sound(kick))
+  hitbox(mainViewport, 8, 47, 85, 112, () => sound(kick))
 
   // Snare
-  hitbox(mainViewport, 0, -65, 87, 55, () => sound(snare))
+  hitbox(mainViewport, 43, -37, 87, 55, () => sound(snare))
 
   // Closed Hat
-  hitbox(mainViewport, -93, -65, 85, 53, () => sound(time => hat(time, 0.05)))
+  hitbox(mainViewport, -50, -39, 85, 53, () => sound(time => hat(time, 0.05)))
 
   // Open Hat
-  hitbox(mainViewport, -40, -105, 97, 48, () => sound(time => hat(time, 0.15)))
+  hitbox(mainViewport, 10, -82, 97, 48, () => sound(time => hat(time, 0.15)))
 
   // Cowbell
-  hitbox(mainViewport, 55, -10, 35, 50, () => sound(cowbell))
+  hitbox(mainViewport, 75, 15, 35, 50, () => sound(cowbell))
 
   // Metronome
-  hitbox(mainViewport, -83, 2, 22.5, 35, () => { })
+  hitbox(mainViewport, -71, 20, 22.5, 35, () => { })
 
   // Tape Recorder
-  hitbox(mainViewport, -98, 50, 35, 45, () => { })
+  hitbox(mainViewport, -79, 72, 35, 45, () => { })
 
   return
 }

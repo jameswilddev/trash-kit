@@ -398,8 +398,8 @@ function renderInteractiveGame(
       mapKey(key.keycode, callback)
       hitbox(
         mainViewport,
-        halfSafeAreaWidthVirtualPixels + key.x * 32,
-        halfSafeAreaHeightVirtualPixels + key.y * 32,
+        halfSafeAreaWidthVirtualPixels + key.x * 32 + 16,
+        halfSafeAreaHeightVirtualPixels + key.y * 32 + 16,
         32, 32,
         callback
       )

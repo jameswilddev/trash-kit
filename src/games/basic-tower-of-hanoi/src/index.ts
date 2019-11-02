@@ -50,7 +50,7 @@ function render(): undefined | (() => void) {
     if (state.lifting === null && towerValues.length && !won) {
       hitbox(
         mainViewport,
-        xVirtualPixels - halfTowerWidthVirtualPixels, -halfSafeAreaHeightVirtualPixels,
+        xVirtualPixels, 0,
         towerWidthVirtualPixels, safeAreaHeightVirtualPixels,
         () => {
           state.lifting = {
@@ -65,7 +65,7 @@ function render(): undefined | (() => void) {
       lifting
       hitbox(
         mainViewport,
-        xVirtualPixels - halfTowerWidthVirtualPixels, -halfSafeAreaHeightVirtualPixels,
+        xVirtualPixels, 0,
         towerWidthVirtualPixels, safeAreaHeightVirtualPixels,
         () => {
           towerValues.push(lifting.piece)
@@ -84,7 +84,7 @@ function render(): undefined | (() => void) {
   }
   hitbox(
     mainViewport,
-    35 / -2, 25 - halfSafeAreaHeightVirtualPixels - 37.5 / 2,
+    0, 25 - halfSafeAreaHeightVirtualPixels,
     35, 37.5,
     () => state = initial()
   )

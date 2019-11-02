@@ -26,7 +26,7 @@ function renderInteractiveCredits(
 ): void {
   hitbox(
     mainViewport,
-    -safeAreaWidthVirtualPixels, -safeAreaHeightVirtualPixels,
+    0, 0,
     doubleSafeAreaWidthVirtualPixels, doubleSafeAreaHeightVirtualPixels,
     () => enterMode({
       type: `title`

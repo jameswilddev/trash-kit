@@ -51,9 +51,9 @@ function renderInteractiveMenu(
   mainViewport: EngineViewport,
   menu: Menu,
 ): void {
-  let y = (menu.options.length - 1) * -16
+  let y = (menu.options.length - 2) * -16
   for (const option of menu.options) {
-    hitbox(mainViewport, -109, y, 218, 32, option.callback)
+    hitbox(mainViewport, 0, y, 218, 32, option.callback)
     y += 32
   }
 }
