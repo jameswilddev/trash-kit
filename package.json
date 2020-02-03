@@ -26,7 +26,7 @@
     "@types/uuid": "3.4.7",
     "archiver": "3.1.1",
     "bl": "4.0.0",
-    "chokidar": "3.3.0",
+    "chokidar": "3.3.1",
     "express": "4.17.1",
     "html-minifier": "4.0.0",
     "mkdirp-promise": "5.0.1",
