@@ -13,7 +13,7 @@ function generateTypeScriptPath(file: types.EngineFile): string {
 }
 
 export default function (
-  typeScriptDiff: Diff<types.GameFile>
+  typeScriptDiff: Diff<types.GameSrcFile>
 ): StepBase {
   return typeScriptDiff.generateSteps(
     `typeScript`,

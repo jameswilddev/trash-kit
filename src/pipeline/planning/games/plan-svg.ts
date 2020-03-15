@@ -16,12 +16,12 @@ import gameSvgOptimizedStore from "../../stores/game-svg-optimized-store"
 import gameSvgTypeScriptTextStore from "../../stores/game-svg-type-script-text-store"
 import gameSvgTypeScriptParsedStore from "../../stores/game-svg-type-script-parsed-store"
 
-function generateSvgPath(file: types.GameFile): string {
+function generateSvgPath(file: types.GameSrcFile): string {
   return path.join(`.generated-type-script`, `${file.name}.ts`)
 }
 
 export default function (
-  svgDiff: Diff<types.GameFile>
+  svgDiff: Diff<types.GameSrcFile>
 ): StepBase {
   return svgDiff.generateSteps(
     `svg`,

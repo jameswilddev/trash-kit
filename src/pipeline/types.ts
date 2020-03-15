@@ -10,12 +10,15 @@ export type EngineFile = {
   readonly extension: string
 }
 
-export type GameFile = {
+export type GameSrcFile = {
   readonly path: string
   readonly game: string
   readonly name: string
   readonly extension: string
 }
+
+export type GameFile =
+  | GameSrcFile
 
 export type EnginePlanningResult = {
   readonly allGamesRequireJavascriptRegeneration: boolean

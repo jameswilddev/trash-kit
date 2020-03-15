@@ -6,8 +6,8 @@ export default function (
   gamesDiff: Diff<types.GameFile>
 ): {
   readonly sortedByKey: {
-    readonly typeScript: Diff<types.GameFile>
-    readonly svg: Diff<types.GameFile>
+    readonly typeScript: Diff<types.GameSrcFile>
+    readonly svg: Diff<types.GameSrcFile>
   }
   readonly allSorted: Diff<types.GameFile>
 } {
