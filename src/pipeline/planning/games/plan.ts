@@ -4,12 +4,14 @@ import StepBase from "../../steps/step-base"
 import ParallelStep from "../../steps/aggregators/parallel-step"
 import SerialStep from "../../steps/aggregators/serial-step"
 import separateByType from "./separate-by-type"
+import planCreationOfTemporaryDirectories from "./plan-creation-of-temporary-directories"
 import planGeneratedTypeScript from "./plan-generated-type-script"
 import planTypeScript from "./plan-type-script"
 import planSvg from "./plan-svg"
 import planJavascriptGeneration from "./plan-javascript-generation"
 import planHtmlGeneration from "./plan-html-generation"
 import planTsconfig from "./plan-tsconfig"
+import planDeletionOfTemporaryDirectories from "./plan-creation-of-temporary-directories"
 
 export default function (
   debug: boolean,
@@ -20,7 +22,8 @@ export default function (
   const games = typeSeparated.allSorted
     .mapItems(item => item.game)
     .deduplicateItems()
-  const generatedTypeScriptSteps = planGeneratedTypeScript(games)
+  const creationOfTemporaryDirectoriesSteps = planCreationOfTemporaryDirectories(games)
+  const generatedTypeScriptSteps = planGeneratedTypeScript(typeSeparated.sortedByKey.metadata)
   const typeScriptSteps = planTypeScript(typeSeparated.sortedByKey.typeScript)
   const svgSteps = planSvg(typeSeparated.sortedByKey.svg)
   const javaScriptSteps = planJavascriptGeneration(
@@ -30,23 +33,25 @@ export default function (
     enginePlanningResult, games
   )
   const tsconfigSteps = planTsconfig(games)
+  const deletionOfTemporaryDirectoriesSteps = planDeletionOfTemporaryDirectories(games)
 
   return new ParallelStep(
     `games`,
     [
+      creationOfTemporaryDirectoriesSteps,
       tsconfigSteps,
       new SerialStep(
         `builds`,
         [
-          generatedTypeScriptSteps,
           new ParallelStep(
             `files`,
-            [typeScriptSteps, svgSteps]
+            [generatedTypeScriptSteps, typeScriptSteps, svgSteps]
           ),
           javaScriptSteps,
           htmlGenerationSteps
         ]
-      )
+      ),
+      deletionOfTemporaryDirectoriesSteps,
     ]
   )
 }
