@@ -1,10 +1,10 @@
 {
-  "name": "junk-kit",
+  "name": "trash-kit",
   "description": "Js13kGames framework.",
   "version": "0.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sunruse/junk-kit"
+    "url": "https://github.com/jameswilddev/trash-kit"
   },
   "license": "MIT",
   "scripts": {

@@ -1,4 +1,4 @@
-# junk-kit [![Travis](https://img.shields.io/travis/sunruse/junk-kit.svg)](https://travis-ci.org/sunruse/junk-kit) [![License](https://img.shields.io/github/license/sunruse/junk-kit.svg)](https://github.com/sunruse/junk-kit/blob/master/license) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fsunruse%2Fjunk-kit.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fsunruse%2Fjunk-kit?ref=badge_shield) [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
+# trash-kit [![Travis](https://img.shields.io/travis/jameswilddev/trash-kit.svg)](https://travis-ci.org/jameswilddev/trash-kit) [![License](https://img.shields.io/github/license/jameswilddev/trash-kit.svg)](https://github.com/jameswilddev/trash-kit/blob/master/license) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjameswilddev%2Ftrash-kit.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjameswilddev%2Ftrash-kit?ref=badge_shield) [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 
 This repository is intended to be a "one-stop shop" for building a subset of
 types of [Js13kGames](https://js13kgames.com/) entries.  It features:
@@ -28,7 +28,7 @@ See an [example game](src/games/basic-tower-of-hanoi/src)!
   repository's page on GitHub.
 
 - Update all the license link in this file to point to your fork (change
-  `sunruse` to your GitHub name).
+  `jameswilddev` to your GitHub name).
 
 ### Development
 
@@ -82,9 +82,9 @@ This means that your games will be built for you whenever you push changes to
 your fork, and the zipped games uploaded as GitHub releases.
 
 - Sign into [Travis CI](https://travis-ci.org/) with GitHub.
-- Click on the slide toggle next to `junk-kit`.
+- Click on the slide toggle next to `trash-kit`.
 - Update all Travis CI links in this file to point to your fork (change
-  `sunruse` to your GitHub name).
+  `jameswilddev` to your GitHub name).
 
 ##### Travis CI to GitHub releases
 
@@ -110,7 +110,7 @@ to you as GitHub pull requests in your fork.
 
 - Click `Install` at (https://github.com/apps/renovate).
 - Either select `All Repositories` or `Only select repositories` and ensure that
-  `junk-kit` is selected.
+  `trash-kit` is selected.
 
 ##### FOSSA
 
@@ -123,10 +123,10 @@ licenses do not conflict or present unexpected obligations.
 - Choose `Quick Import`.
 - Choose `GitHub`.
 - Click `Connect With Service`.
-- Tick `junk-kit`.
+- Tick `trash-kit`.
 - Click `Import 1`.
 - Update all FOSSA links in this file to point to your fork (change
-  `sunruse` to your GitHub name).
+  `jameswilddev` to your GitHub name).
 
 ## File structure
 
@@ -817,4 +817,4 @@ To do this, call `getNomNoml` on the result of `plan`.
 
 ## License
 
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fsunruse%2Fjunk-kit.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fsunruse%2Fjunk-kit?ref=badge_large)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjameswilddev%2Ftrash-kit.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjameswilddev%2Ftrash-kit?ref=badge_large)
