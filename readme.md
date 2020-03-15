@@ -270,11 +270,11 @@ function render(): undefined | (() => void) {
     return () => {
       // Executed at the end of the animation; modify state here.
       // Another render will then be performed.
-      // Will not be executed if a mapped key or hitbox is triggered.
+      // Will not be executed if a hitbox is triggered.
     }
   } else {
     // Use render emitters here.
-    // Any animations will loop until interrupted by a mapped key or hitbox.
+    // Any animations will loop until interrupted by a hitbox.
     return undefined
   }
 }
@@ -361,11 +361,6 @@ console.log(distance(8, 20, 5, 16)) // 3.872983346
 ```
 
 Calculates the distance between two vectors.
-
-#### `KeyCode`
-
-A type which represents a [HTML5 key code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code).
-This maps to a location on the keyboard, not what the key is mapped to.
 
 #### Render emitters
 
@@ -461,7 +456,7 @@ hitbox(
   widthVirtualPixels,
   heightVirtualPixels,
   () => {
-    state.aKeyPressed = true
+    state.hitboxPressed = true
   }
 )
 ```
@@ -660,17 +655,6 @@ scaleUniform(groupOrSprite, 2)
 ```
 
 Scales by the given factor on the X and Y axes.
-
-##### `mapKey`
-
-```typescript
-mapKey(`KeyA`, () => {
-  state.aKeyPressed = true
-})
-```
-
-Maps a `KeyCode` to a mutation callback.  If multiple are defined with the same
-`KeyCode`, the last defined takes priority.
 
 #### Mutation Callback Helpers
 

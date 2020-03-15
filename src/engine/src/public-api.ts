@@ -55,8 +55,6 @@ function distance(
   return magnitude(x2 - x1, y2 - y1)
 }
 
-type KeyCode = EngineKeyCode
-
 function elapse(
   milliseconds: number,
 ): void {
@@ -223,13 +221,6 @@ function scaleUniform(
   factor: number,
 ): void {
   engineTransformsApplyTransform(animation, `scale(${factor})`)
-}
-
-function mapKey(
-  key: EngineKeyCode,
-  callback: EngineMutationCallback
-): void {
-  engineKeyInputCallbacks[key] = callback
 }
 
 function save<T extends EngineJson>(name: string, content: T): Truthiness {
