@@ -9,8 +9,8 @@ import DeleteStep from "../../steps/actions/files/delete-step"
 import CreateFolderStep from "../../steps/actions/files/create-folder-step"
 import WriteFileStep from "../../steps/actions/files/write-file-step"
 import ParseTypeScriptStep from "../../steps/actions/type-script/parse-type-script-step"
-import gameNameTypeScriptTextStore from "../../stores/game-name-type-script-text-store"
-import gameNameTypeScriptParsedStore from "../../stores/game-name-type-script-parsed-store"
+import gameMetadataTypeScriptTextStore from "../../stores/game-metadata-type-script-text-store"
+import gameMetadataTypeScriptParsedStore from "../../stores/game-metadata-type-script-parsed-store"
 
 export default function (
   games: Diff<string>
@@ -22,8 +22,7 @@ export default function (
       [
         new ArbitraryStep(
           `generateTypeScript`,
-          async () => gameNameTypeScriptTextStore.set(
-            game, `const gameName = ${JSON.stringify(game)}`
+          async () => gameMetadataTypeScriptTextStore.set(
           )
         ),
         new ParallelStep(
@@ -31,8 +30,8 @@ export default function (
           [
             new ParseTypeScriptStep(
               path.join(`.generated-type-script`, `game-name.ts`),
-              () => gameNameTypeScriptTextStore.get(game),
-              parsed => gameNameTypeScriptParsedStore.set(game, parsed)
+              () => gameMetadataTypeScriptTextStore.get(game),
+              parsed => gameMetadataTypeScriptParsedStore.set(game, parsed)
             ),
             new SerialStep(
               `write`,
@@ -41,7 +40,7 @@ export default function (
                   path.join(`src`, `games`, game, `src`, `.generated-type-script`)
                 ),
                 new WriteFileStep(
-                  () => gameNameTypeScriptTextStore.get(game),
+                  () => gameMetadataTypeScriptTextStore.get(game),
                   path.join(`src`, `games`, game, `src`, `.generated-type-script`, `game-name.ts`)
                 )
               ]
@@ -60,14 +59,14 @@ export default function (
   const deletionGameNameTypeScriptTextStoreRemovals: ReadonlyArray<StepBase> = games
     .deleted
     .map(game => new DeleteFromKeyValueStoreIfSetStep(
-      gameNameTypeScriptTextStore,
+      gameMetadataTypeScriptTextStore,
       game
     ))
 
   const deletionGameNameTypeScriptParsedStoreRemovals: ReadonlyArray<StepBase> = games
     .deleted
     .map(game => new DeleteFromKeyValueStoreIfSetStep(
-      gameNameTypeScriptParsedStore,
+      gameMetadataTypeScriptParsedStore,
       game
     ))
 
