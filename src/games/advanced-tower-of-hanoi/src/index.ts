@@ -31,8 +31,6 @@ function initial(): State {
   }
 }
 
-const safeAreaWidthVirtualPixels = 426
-const safeAreaHeightVirtualPixels = 240
 const halfSafeAreaWidthVirtualPixels = safeAreaWidthVirtualPixels / 2
 const halfSafeAreaHeightVirtualPixels = safeAreaHeightVirtualPixels / 2
 

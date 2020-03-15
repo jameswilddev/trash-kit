@@ -47,3 +47,7 @@ export type Json =
   | { readonly [key: string]: Json }
   | null
 
+export type MetadataJson = {
+  readonly safeAreaWidthVirtualPixels: number
+  readonly safeAreaHeightVirtualPixels: number
+}

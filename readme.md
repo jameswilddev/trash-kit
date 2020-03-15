@@ -175,6 +175,30 @@ Rendered as `index.html` in zipped games.  The following variables are defined:
 | ------------ | ----------------------------------------------- |
 | `javascript` | The minified JavaScript generated for the game. |
 
+#### `src/games/{game-name}/metadata.json`
+
+Static data regarding the game.  Must resemble the following:
+
+```json
+{
+  "safeAreaWidthVirtualPixels": 640,
+  "safeAreaHeightVirtualPixels": 480
+}
+```
+
+##### `safeAreaWidthVirtualPixels`/`safeAreaWidthVirtualPixels`
+
+These define the width and height of the "safe area", in SVG pixels.  This is
+centered on the page, and scaled up to be as large as possible without being
+cropped.
+
+If the page's aspect ratio does not match that of the safe area, the extra space
+to the top and bottom or left and right will be visible; the game is not cropped
+to the safe area.
+
+The top left corner of the safe area is at X 0, Y 0 in SVG pixels.  The X axis
+extends to the right, while the Y axis extends to the bottom.
+
 #### `src/games/{game-name}/src/{file-path}.ts`
 
 TypeScript included in the game.
@@ -296,6 +320,14 @@ and will be followed by a re-`render`.
 #### `gameName`
 
 The name of the game from its path under `src/games`, as a string.
+
+#### `safeAreaWidthVirtualPixels`
+
+Imported from `metadata.json`.
+
+#### `safeAreaHeightVirtualPixels`
+
+Imported from `metadata.json`.
 
 #### `state`
 
