@@ -8,12 +8,14 @@ export default function (
   readonly sortedByKey: {
     readonly typeScript: Diff<types.GameSrcFile>
     readonly svg: Diff<types.GameSrcFile>
+    readonly metadata: Diff<types.GameMetadataFile>
   }
   readonly allSorted: Diff<types.GameFile>
 } {
   const typeSeparated = gamesDiff.separate({
-    typeScript: file => file.extension === `ts` ? file : null,
-    svg: file => file.extension === `svg` ? file : null
+    typeScript: file => file.type === `src` && file.extension === `ts` ? file : null,
+    svg: file => file.type === `src` && file.extension === `svg` ? file : null,
+    metadata: file => file.type === `metadata` ? file : null,
   })
 
   const unsortedAddedOrUpdated = typeSeparated.unsorted.added

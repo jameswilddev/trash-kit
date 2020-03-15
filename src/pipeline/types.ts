@@ -11,14 +11,22 @@ export type EngineFile = {
 }
 
 export type GameSrcFile = {
+  readonly type: `src`
   readonly path: string
   readonly game: string
   readonly name: string
   readonly extension: string
 }
 
+export type GameMetadataFile = {
+  readonly type: `metadata`
+  readonly path: string
+  readonly game: string
+}
+
 export type GameFile =
   | GameSrcFile
+  | GameMetadataFile
 
 export type EnginePlanningResult = {
   readonly allGamesRequireJavascriptRegeneration: boolean

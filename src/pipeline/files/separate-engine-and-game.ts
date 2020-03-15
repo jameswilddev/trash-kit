@@ -47,19 +47,34 @@ export default function (
       }
     },
     game: path => {
-      const match = /^src[\\\/]games[\\\/]([a-z]|[a-z][a-z0-9-]{0,48}[a-z0-9])[\\\/]src((?:[\\\/](?:[a-z][a-z0-9-]*[a-z0-9]|[a-z]))+)\.([a-z\.]*[a-z])$/
+      const srcMatch = /^src[\\\/]games[\\\/]([a-z]|[a-z][a-z0-9-]{0,48}[a-z0-9])[\\\/]src((?:[\\\/](?:[a-z][a-z0-9-]*[a-z0-9]|[a-z]))+)\.([a-z\.]*[a-z])$/
         .exec(path)
-      if (match === null) {
-        return null
-      } else {
-        return {
+      if (srcMatch !== null) {
+        const srcFile: types.GameSrcFile = {
+          type: `src`,
           path,
-          game: match[1],
-          name: assembleName(match[2], match[3]),
-          extension: match[3]
+          game: srcMatch[1],
+          name: assembleName(srcMatch[2], srcMatch[3]),
+          extension: srcMatch[3]
         }
+
+        return srcFile
       }
-    }
+
+      const metadataMatch = /^src[\\\/]games[\\\/]([a-z]|[a-z][a-z0-9-]{0,48}[a-z0-9])[\\\/]metadata\.json$/
+        .exec(path)
+      if (metadataMatch !== null) {
+        const metadataFile: types.GameMetadataFile = {
+          type: `metadata`,
+          path,
+          game: metadataMatch[1],
+        }
+
+        return metadataFile
+      }
+
+      return null
+    },
   })
 
   const unsortedAddedOrUpdated = typeSeparated.unsorted.added
