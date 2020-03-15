@@ -1,4 +1,4 @@
-import mkdirpPromise = require("mkdirp-promise")
+import * as fs from "fs"
 import StepBase from "../../step-base"
 import ActionStepBase from "../action-step-base"
 
@@ -17,6 +17,6 @@ export default class CreateFolderStep extends ActionStepBase {
   }
 
   async execute(): Promise<void> {
-    await mkdirpPromise(this.path)
+    await fs.promises.mkdir(this.path, { recursive: true })
   }
 }
