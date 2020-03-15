@@ -30,3 +30,12 @@ export type GeneratedHtml = {
   readonly html: string
   readonly uuid: string
 }
+
+export type Json =
+  | string
+  | number
+  | boolean
+  | ReadonlyArray<Json>
+  | { readonly [key: string]: Json }
+  | null
+
