@@ -16,7 +16,7 @@ types of [Js13kGames](https://js13kgames.com/) entries.  It is a re-working of
 
 - Continuous integration.
 
-See an [example game](src/games/basic-tower-of-hanoi/src)!
+See an [example game](src/games/tower-of-hanoi/src)!
 
 ## Usage
 
@@ -63,8 +63,8 @@ See an [example game](src/games/basic-tower-of-hanoi/src)!
 
 - Your games should now be testable at `http://localhost:3333/{game-name}`,
   where `{game-name}` is the name of a sub-folder of `src/games` such as
-  `basic-tower-of-hanoi`, which would be
-  `http://localhost:3333/basic-tower-of-hanoi`.
+  `tower-of-hanoi`, which would be
+  `http://localhost:3333/tower-of-hanoi`.
 
 - Any changes you make, to code or content, will be reflected there
   automatically.
