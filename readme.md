@@ -27,8 +27,9 @@ See an [example game](src/games/basic-tower-of-hanoi/src)!
   heart's content.  To do this, click `Fork` in the top right corner of this
   repository's page on GitHub.
 
-- Update all the license link in this file to point to your fork (change
-  `jameswilddev` to your GitHub name).
+- Change all references to `jameswilddev/trash-kit` (links in this file,
+  `package.json`, license, etc.) to point to your fork; noting that some of
+  these will be URL-encoded, i.e. `jameswilddev%2Ftrash-kit`.
 
 ### Development
 
