@@ -9,7 +9,7 @@ export default class DeleteStep extends ActionStepBase {
     super(
       `delete`,
       [{
-        key: `pattern`,
+        key: `path`,
         value: path
       }],
       (self: StepBase) => []
