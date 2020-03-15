@@ -1,7 +1,8 @@
 # trash-kit [![Travis](https://img.shields.io/travis/jameswilddev/trash-kit.svg)](https://travis-ci.org/jameswilddev/trash-kit) [![License](https://img.shields.io/github/license/jameswilddev/trash-kit.svg)](https://github.com/jameswilddev/trash-kit/blob/master/license) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjameswilddev%2Ftrash-kit.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjameswilddev%2Ftrash-kit?ref=badge_shield) [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 
 This repository is intended to be a "one-stop shop" for building a subset of
-types of [Js13kGames](https://js13kgames.com/) entries.  It features:
+types of [Js13kGames](https://js13kgames.com/) entries.  It is a re-working of
+[junk-kit](https://github.com/SUNRUSE/junk-kit).  It features:
 
 - A "watch" pipeline including minification, zipping and size checking for
   realtime feedback on how your changes affect artifact size.
