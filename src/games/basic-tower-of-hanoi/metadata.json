@@ -1,4 +1,5 @@
 {
   "safeAreaWidthVirtualPixels": 300,
-  "safeAreaHeightVirtualPixels": 200
+  "safeAreaHeightVirtualPixels": 200,
+  "backgroundColor": "#000"
 }

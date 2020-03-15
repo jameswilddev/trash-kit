@@ -42,6 +42,7 @@ export default function (
         required: [
           `safeAreaWidthVirtualPixels`,
           `safeAreaHeightVirtualPixels`,
+          `backgroundColor`,
         ],
         properties: {
           safeAreaWidthVirtualPixels: {
@@ -53,6 +54,10 @@ export default function (
             type: `number`,
             minimum: 0,
             exclusiveMinimum: true,
+          },
+          backgroundColor: {
+            type: `string`,
+            pattern: `^#[0-9a-f]{3}$`,
           },
         },
       })),

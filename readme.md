@@ -171,9 +171,10 @@ Defines types which the engine expects games to define.
 
 Rendered as `index.html` in zipped games.  The following variables are defined:
 
-| Name         | Description                                     |
-| ------------ | ----------------------------------------------- |
-| `javascript` | The minified JavaScript generated for the game. |
+| Name              | Description                                     |
+| ----------------- | ----------------------------------------------- |
+| `javascript`      | The minified JavaScript generated for the game. |
+| `backgroundColor` | Imported from `metadata.json`.                  |
 
 #### `src/games/{game-name}/metadata.json`
 
@@ -182,7 +183,8 @@ Static data regarding the game.  Must resemble the following:
 ```json
 {
   "safeAreaWidthVirtualPixels": 640,
-  "safeAreaHeightVirtualPixels": 480
+  "safeAreaHeightVirtualPixels": 480,
+  "backgroundColor": "#a4c"
 }
 ```
 
@@ -198,6 +200,11 @@ to the safe area.
 
 The top left corner of the safe area is at X 0, Y 0 in SVG pixels.  The X axis
 extends to the right, while the Y axis extends to the bottom.
+
+##### `backgroundColor`
+
+The background color of the page.  This must be a three-character hex code in
+lower case.
 
 #### `src/games/{game-name}/src/{file-path}.ts`
 

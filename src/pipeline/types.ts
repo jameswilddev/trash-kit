@@ -50,4 +50,5 @@ export type Json =
 export type MetadataJson = {
   readonly safeAreaWidthVirtualPixels: number
   readonly safeAreaHeightVirtualPixels: number
+  readonly backgroundColor: string
 }

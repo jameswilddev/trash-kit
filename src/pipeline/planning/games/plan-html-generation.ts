@@ -16,6 +16,7 @@ import gameMinifiedHtmlStore from "../../stores/game-minified-html-store"
 import gameZipStore from "../../stores/game-zip-store"
 import enginePugStore from "../../stores/engine-pug-store"
 import gameJavascriptStore from "../../stores/game-javascript-store"
+import gameMetadataJsonStore from "../../stores/game-metadata-json-store"
 
 export default function (
   enginePlanningResult: types.EnginePlanningResult,
@@ -37,7 +38,8 @@ export default function (
         new RenderPugStep(
           () => enginePugStore.get(),
           () => ({
-            javascript: gameJavascriptStore.get(item)
+            javascript: gameJavascriptStore.get(item),
+            backgroundColor: gameMetadataJsonStore.get(item).backgroundColor,
           }),
           html => gameHtmlStore.set(item, html)
         ),
