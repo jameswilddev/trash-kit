@@ -37,10 +37,16 @@ export default function (
       item => [
         new RenderPugStep(
           () => enginePugStore.get(),
-          () => ({
-            javascript: gameJavascriptStore.get(item),
-            backgroundColor: gameMetadataJsonStore.get(item).backgroundColor,
-          }),
+          () => {
+            const metadata = gameMetadataJsonStore.get(item)
+
+            return {
+              javascript: gameJavascriptStore.get(item),
+              backgroundColor: metadata.backgroundColor,
+              safeAreaWidthVirtualPixels: metadata.safeAreaWidthVirtualPixels,
+              safeAreaHeightVirtualPixels: metadata.safeAreaHeightVirtualPixels,
+            }
+          },
           html => gameHtmlStore.set(item, html)
         ),
         new MinifyHtmlStep(

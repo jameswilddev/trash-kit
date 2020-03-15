@@ -171,10 +171,12 @@ Defines types which the engine expects games to define.
 
 Rendered as `index.html` in zipped games.  The following variables are defined:
 
-| Name              | Description                                     |
-| ----------------- | ----------------------------------------------- |
-| `javascript`      | The minified JavaScript generated for the game. |
-| `backgroundColor` | Imported from `metadata.json`.                  |
+| Name                          | Description                                     |
+| ----------------------------- | ----------------------------------------------- |
+| `javascript`                  | The minified JavaScript generated for the game. |
+| `safeAreaWidthVirtualPixels`  | Imported from `metadata.json`.                  |
+| `safeAreaHeightVirtualPixels` | Imported from `metadata.json`.                  |
+| `backgroundColor`             | Imported from `metadata.json`.                  |
 
 #### `src/games/{game-name}/metadata.json`
 
