@@ -15,7 +15,7 @@ export default class KeyValueStore<TValue> extends StoreBase {
     if (this.hasKey(key)) {
       return this.keysAndValues[key]
     } else {
-      throw new Error(`Unable to get key ${JSON.stringify(key)} which is not currently set.`)
+      throw new Error(`Unable to get key ${JSON.stringify(key)} which is not currently set in store "${this.name}".`)
     }
   }
 
@@ -42,7 +42,7 @@ export default class KeyValueStore<TValue> extends StoreBase {
     value: TValue
   ): void {
     if (this.hasKey(key)) {
-      throw new Error(`Unable to set key ${JSON.stringify(key)} which is already set.`)
+      throw new Error(`Unable to set key ${JSON.stringify(key)} which is already set in store "${this.name}".`)
     } else {
       this.keysAndValues[key] = value
     }

@@ -26,9 +26,9 @@ export default class KeyPairValueStore<TValue> extends StoreBase {
     if (this.hasKeyPair(a, b)) {
       return this.keyPairsAndValues[a][b]
     } else if (this.hasBaseKey(a)) {
-      throw new Error(`Unable to retrieve key pair ${JSON.stringify(a)}:${JSON.stringify(b)} of which the second is not set.`)
+      throw new Error(`Unable to retrieve key pair ${JSON.stringify(a)}:${JSON.stringify(b)} of which the second is not set in store "${this.name}".`)
     } else {
-      throw new Error(`Unable to retrieve key pair ${JSON.stringify(a)}:${JSON.stringify(b)} of which the first is not set.`)
+      throw new Error(`Unable to retrieve key pair ${JSON.stringify(a)}:${JSON.stringify(b)} of which the first is not set in store "${this.name}".`)
     }
   }
 
@@ -50,7 +50,7 @@ export default class KeyPairValueStore<TValue> extends StoreBase {
     value: TValue
   ): void {
     if (this.hasKeyPair(a, b)) {
-      throw new Error(`Unable to set key pair ${JSON.stringify(a)}:${JSON.stringify(b)} which is already set.`)
+      throw new Error(`Unable to set key pair ${JSON.stringify(a)}:${JSON.stringify(b)} which is already set in store "${this.name}".`)
     } else {
       if (!this.hasBaseKey(a)) {
         this.keyPairsAndValues[a] = {}
