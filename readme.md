@@ -1,4 +1,4 @@
-# junk-kit [![Travis](https://img.shields.io/travis/jameswilddev/junk-kit.svg)](https://travis-ci.org/jameswilddev/junk-kit) [![License](https://img.shields.io/github/license/jameswilddev/junk-kit.svg)](https://github.com/jameswilddev/junk-kit/blob/master/license) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjameswilddev%2Fjunk-kit.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjameswilddev%2Fjunk-kit?ref=badge_shield) [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
+# junk-kit [![Travis](https://img.shields.io/travis/sunruse/junk-kit.svg)](https://travis-ci.org/sunruse/junk-kit) [![License](https://img.shields.io/github/license/sunruse/junk-kit.svg)](https://github.com/sunruse/junk-kit/blob/master/license) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fsunruse%2Fjunk-kit.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fsunruse%2Fjunk-kit?ref=badge_shield) [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 
 This repository is intended to be a "one-stop shop" for building a subset of
 types of [Js13kGames](https://js13kgames.com/) entries.  It features:
@@ -28,7 +28,7 @@ See an [example game](src/games/basic-tower-of-hanoi/src)!
   repository's page on GitHub.
 
 - Update all the license link in this file to point to your fork (change
-  `jameswilddev` to your GitHub name).
+  `sunruse` to your GitHub name).
 
 ### Development
 
@@ -84,7 +84,7 @@ your fork, and the zipped games uploaded as GitHub releases.
 - Sign into [Travis CI](https://travis-ci.org/) with GitHub.
 - Click on the slide toggle next to `junk-kit`.
 - Update all Travis CI links in this file to point to your fork (change
-  `jameswilddev` to your GitHub name).
+  `sunruse` to your GitHub name).
 
 ##### Travis CI to GitHub releases
 
@@ -126,7 +126,7 @@ licenses do not conflict or present unexpected obligations.
 - Tick `junk-kit`.
 - Click `Import 1`.
 - Update all FOSSA links in this file to point to your fork (change
-  `jameswilddev` to your GitHub name).
+  `sunruse` to your GitHub name).
 
 ## File structure
 
@@ -817,4 +817,4 @@ To do this, call `getNomNoml` on the result of `plan`.
 
 ## License
 
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjameswilddev%2Fjunk-kit.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjameswilddev%2Fjunk-kit?ref=badge_large)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fsunruse%2Fjunk-kit.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fsunruse%2Fjunk-kit?ref=badge_large)
