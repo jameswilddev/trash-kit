@@ -294,28 +294,13 @@ that loaded from local storage, `initial` will be used instead.
 #### `render`
 
 ```typescript
-function render(): undefined | (() => void) {
-  if (state.someCondition) {
-    // Use render emitters here.
-    // Any animations will play once.
-    return () => {
-      // Executed at the end of the animation; modify state here.
-      // Another render will then be performed.
-      // Will not be executed if a hitbox is triggered.
-    }
-  } else {
-    // Use render emitters here.
-    // Any animations will loop until interrupted by a hitbox.
-    return undefined
-  }
+function render(): void {
+  // Use render emitters here.
+  // Any animations will loop until interrupted by a hitbox.
 }
 ```
-
 Executed when `state` is known to have changed, to re-render the scene.  See
 Render Emitters for details on what can be done in this callback.
-
-A mutation callback may be returned which is executed at the end of the
-animation.
 
 ##### Mutation callbacks
 

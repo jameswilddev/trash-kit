@@ -25,7 +25,7 @@ const pieceHeightVirtualPixels = 20
 
 const pieces = [piece0_svg, piece1_svg, piece2_svg, piece3_svg, piece4_svg]
 
-function render(): undefined | (() => void) {
+function render(): void {
   const mainViewport = viewport(
     safeAreaWidthVirtualPixels, safeAreaHeightVirtualPixels,
     fullWidthVirtualPixels, fullHeightVirtualPixels,
@@ -85,6 +85,4 @@ function render(): undefined | (() => void) {
     35, 37.5,
     () => state = initial()
   )
-
-  return
 }

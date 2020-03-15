@@ -176,25 +176,10 @@ function engineAnimationsSendToBrowser(): void {
 
         engineAnimationsRenderedAnimations.push(element.animate(keyframes, {
           duration: engineAnimationsElapsed,
-          iterations: engineViewportsCallback ? 1 : Infinity,
+          iterations: Infinity,
           fill: `forwards`,
         }))
       }
-    }
-  }
-
-  if (engineViewportsCallback) {
-    const callback = engineViewportsCallback
-
-    if (engineAnimationsRenderedAnimations.length) {
-      engineAnimationsRenderedAnimations[0].onfinish = handleCallback
-    } else {
-      engineAnimationsTimeout = setTimeout(handleCallback, engineAnimationsElapsed)
-    }
-
-    function handleCallback(): void {
-      callback()
-      engineRender()
     }
   }
 }
