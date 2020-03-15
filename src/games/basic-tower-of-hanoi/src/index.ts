@@ -1,5 +1,4 @@
 const version = 0
-const beatsPerMinute = 1
 
 type State = {
   lifting: null | {
@@ -90,10 +89,4 @@ function render(): undefined | (() => void) {
   )
 
   return
-}
-
-function audioReady(): void {
-}
-
-function renderBeat(): void {
 }

@@ -1,5 +1,4 @@
 const version = 1
-const beatsPerMinute = 120
 
 type State = {
   action:
@@ -40,12 +39,6 @@ const halfSafeAreaHeightVirtualPixels = safeAreaHeightVirtualPixels / 2
 const towerWidthVirtualPixels = safeAreaWidthVirtualPixels / 3
 
 const pieceHeightVirtualPixels = 19
-
-function audioReady(): void {
-}
-
-function renderBeat(): void {
-}
 
 const pieceAtRestShadows = [
   piece0AtRestShadow_svg,

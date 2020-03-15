@@ -2,16 +2,6 @@ let state: State
 
 let saveLoadAvailable: Truthiness
 
-let audioContext: AudioContext
-
-let beat: number
-
-function beatTime(
-  beats: number,
-): number {
-  return engineAudioBeatTime(beats)
-}
-
 type Truthiness = 1 | undefined
 
 type Json = EngineJson
@@ -120,14 +110,6 @@ function hitbox(
     heightVirtualPixels,
     callback
   )
-}
-
-function sound(
-  callback: (time: number) => void
-): void {
-  if (audioContext && audioContext.state == `running`) {
-    callback(audioContext.currentTime + engineAnimationsElapsed / 1000)
-  }
 }
 
 function stepEnd(
