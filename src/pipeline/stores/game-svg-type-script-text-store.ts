@@ -1,3 +1,3 @@
-import KeyPairValueStore from "./key-pair-value-store"
+import KeyValueStore from "./key-value-store"
 
-export default new KeyPairValueStore<string>(`gameSvgTypeScriptText`)
+export default new KeyValueStore<string>(`gameSvgTypeScriptText`)

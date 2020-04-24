@@ -17,6 +17,7 @@ import gameZipStore from "../../stores/game-zip-store"
 import enginePugStore from "../../stores/engine-pug-store"
 import gameJavascriptStore from "../../stores/game-javascript-store"
 import gameMetadataJsonStore from "../../stores/game-metadata-json-store"
+import gameSvgDefCombinationStore from "../../stores/game-svg-def-combination-store"
 
 export default function (
   enginePlanningResult: types.EnginePlanningResult,
@@ -45,6 +46,7 @@ export default function (
               backgroundColor: metadata.backgroundColor,
               safeAreaWidthVirtualPixels: metadata.safeAreaWidthVirtualPixels,
               safeAreaHeightVirtualPixels: metadata.safeAreaHeightVirtualPixels,
+              defs: gameSvgDefCombinationStore.get(item),
             }
           },
           html => gameHtmlStore.set(item, html)

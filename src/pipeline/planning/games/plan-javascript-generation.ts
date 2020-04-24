@@ -47,7 +47,10 @@ export default function (
                 path.join(`.generated-type-script`, `game-name.ts`),
                 gameNameTypeScriptParsedStore.get(item)
               ),
-              gameSvgTypeScriptParsedStore.tryGetAllByBaseKey(item),
+              keyValueObject(
+                path.join(`.generated-type-script`, `svg.ts`),
+                gameSvgTypeScriptParsedStore.get(item)
+              ),
               gameTypeScriptParsedStore.tryGetAllByBaseKey(item)
             ]
           },

@@ -1,6 +1,4 @@
 import * as typeScript from "typescript"
-import KeyPairValueStore from "./key-pair-value-store";
+import KeyValueStore from "./key-value-store"
 
-export default new KeyPairValueStore<typeScript.SourceFile>(
-  `gameSvgTypeScriptParsed`
-)
+export default new KeyValueStore<typeScript.SourceFile>(`gameSvgTypeScriptParsed`)

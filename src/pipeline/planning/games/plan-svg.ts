@@ -1,24 +1,15 @@
-import * as path from "path"
+const svg2js = require("svgo/lib/svgo/svg2js")
+const JS2SVG = require("svgo/lib/svgo/js2svg")
 import * as types from "../../types"
 import Diff from "../../files/diff"
 import StepBase from "../../steps/step-base"
-import SerialStep from "../../steps/aggregators/serial-step"
-import ParallelStep from "../../steps/aggregators/parallel-step"
 import ArbitraryStep from "../../steps/actions/arbitrary-step"
 import DeleteFromKeyPairValueStoreIfSetStep from "../../steps/actions/stores/delete-from-key-pair-value-store-if-set-step"
-import DeleteStep from "../../steps/actions/files/delete-step"
-import WriteFileStep from "../../steps/actions/files/write-file-step"
 import ReadTextFileStep from "../../steps/actions/files/read-text-file-step"
-import ParseTypeScriptStep from "../../steps/actions/type-script/parse-type-script-step"
 import OptimizeSvgStep from "../../steps/actions/optimize-svg-step"
 import gameSvgTextStore from "../../stores/game-svg-text-store"
 import gameSvgOptimizedStore from "../../stores/game-svg-optimized-store"
-import gameSvgTypeScriptTextStore from "../../stores/game-svg-type-script-text-store"
-import gameSvgTypeScriptParsedStore from "../../stores/game-svg-type-script-parsed-store"
-
-function generateSvgPath(file: types.GameSrcFile): string {
-  return path.join(`.generated-type-script`, `${file.name}.ts`)
-}
+import gameSvgDefStore from "../../stores/game-svg-def-store"
 
 export default function (
   svgDiff: Diff<types.GameSrcFile>
@@ -29,66 +20,54 @@ export default function (
     item => item.name,
     item => [
       new DeleteFromKeyPairValueStoreIfSetStep(
-        gameSvgTextStore, item.game, generateSvgPath(item)
+        gameSvgTextStore, item.game, item.name
       ),
       new DeleteFromKeyPairValueStoreIfSetStep(
-        gameSvgOptimizedStore, item.game, generateSvgPath(item)
+        gameSvgOptimizedStore, item.game, item.name
       ),
       new DeleteFromKeyPairValueStoreIfSetStep(
-        gameSvgTypeScriptTextStore, item.game, generateSvgPath(item)
+        gameSvgDefStore, item.game, item.name
       ),
-      new DeleteFromKeyPairValueStoreIfSetStep(
-        gameSvgTypeScriptParsedStore, item.game, generateSvgPath(item)
-      ),
-      new DeleteStep(
-        path.join(`src`, `games`, item.game, `src`, `.generated-type-script`, `${item.name}.ts`)
-      )
     ],
     item => [
       new ReadTextFileStep(
         item.path,
-        text => gameSvgTextStore.set(item.game, generateSvgPath(item), text)
+        text => gameSvgTextStore.set(item.game, item.name, text)
       ),
       new OptimizeSvgStep(
-        () => gameSvgTextStore.get(item.game, generateSvgPath(item)),
+        () => gameSvgTextStore.get(item.game, item.name),
         optimized => gameSvgOptimizedStore.set(
-          item.game, generateSvgPath(item), optimized
+          item.game, item.name, optimized
         )
       ),
       new ArbitraryStep(
-        `generateTypeScript`,
+        `convertSvgDocumentToDef`,
         async () => {
-          const text = gameSvgOptimizedStore.get(item.game, generateSvgPath(item))
-          const match = /^<svg width="(\d+)" height="(\d+)"><(.*)><\/svg>$/.exec(text)
-          if (match === null) {
-            throw new Error(
-              `Failed to find root element in SVG ${JSON.stringify(text)}.`
-            )
+          const text = gameSvgOptimizedStore.get(item.game, item.name)
+
+          const root = await new Promise<any>(resolve => svg2js(text, resolve))
+
+          const children = root.content[0].content
+
+          if (children.length === 1) {
+            // Remove the wrapping <svg> (there's already a single root).
+            root.content = children
+          } else {
+            // Replace the wrapping <svg> with a <g>.
+            const groupSource = await new Promise<any>(resolve => svg2js(`<svg><g></g></svg>`, resolve))
+            root.content = groupSource.content[0].content
+            groupSource.content[0].content[0].content = children
           }
 
-          const typeScript = `const ${item.name} = [${match[1]}, ${match[2]}, ${JSON.stringify(match[3])}]`
-          gameSvgTypeScriptTextStore.set(item.game, generateSvgPath(item), typeScript)
+          // Inject a blank ID.  This should be safely replaceable later down
+          // the line, as we've already filtered out IDs using SVGO.
+          const idSource = await new Promise<any>(resolve => svg2js(`<svg id="" />`, resolve))
+          root.content[0].attrs.id = idSource.content[0].attrs.id
+
+          const generated = new JS2SVG(root).data
+          gameSvgDefStore.set(item.game, item.name, generated)
         }
       ),
-      new ParallelStep(
-        `parseAndWrite`,
-        [
-          new ParseTypeScriptStep(
-            generateSvgPath(item),
-            () => gameSvgTypeScriptTextStore.get(item.game, generateSvgPath(item)),
-            parsed => gameSvgTypeScriptParsedStore.set(item.game, generateSvgPath(item), parsed)
-          ),
-          new SerialStep(
-            `write`,
-            [
-              new WriteFileStep(
-                () => gameSvgTypeScriptTextStore.get(item.game, generateSvgPath(item)),
-                path.join(`src`, `games`, item.game, `src`, `.generated-type-script`, `${item.name}.ts`)
-              )
-            ]
-          )
-        ]
-      )
     ]
   )
 }

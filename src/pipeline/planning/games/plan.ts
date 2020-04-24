@@ -8,6 +8,7 @@ import planCreationOfTemporaryDirectories from "./plan-creation-of-temporary-dir
 import planGeneratedTypeScript from "./plan-generated-type-script"
 import planTypeScript from "./plan-type-script"
 import planSvg from "./plan-svg"
+import planSvgCombination from "./plan-svg-combination"
 import planJavascriptGeneration from "./plan-javascript-generation"
 import planHtmlGeneration from "./plan-html-generation"
 import planTsconfig from "./plan-tsconfig"
@@ -26,6 +27,7 @@ export default function (
   const generatedTypeScriptSteps = planGeneratedTypeScript(typeSeparated.sortedByKey.metadata)
   const typeScriptSteps = planTypeScript(typeSeparated.sortedByKey.typeScript)
   const svgSteps = planSvg(typeSeparated.sortedByKey.svg)
+  const svgCombinationSteps = planSvgCombination(typeSeparated.sortedByKey.svg)
   const javaScriptSteps = planJavascriptGeneration(
     enginePlanningResult, typeSeparated.allSorted
   )
@@ -47,6 +49,7 @@ export default function (
             `files`,
             [generatedTypeScriptSteps, typeScriptSteps, svgSteps]
           ),
+          svgCombinationSteps,
           javaScriptSteps,
           htmlGenerationSteps
         ]
