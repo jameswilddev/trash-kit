@@ -28,7 +28,7 @@ export default function (
       new DeleteFromKeyValueStoreIfSetStep(gameMetadataJsonStore, item.game),
       new DeleteFromKeyValueStoreIfSetStep(gameMetadataTypeScriptTextStore, item.game),
       new DeleteFromKeyValueStoreIfSetStep(gameMetadataTypeScriptParsedStore, item.game),
-      new DeleteStep(path.join(`src`, `games`, item.game, `src`, `.generated-type-script`, `game-name.ts`)),
+      new DeleteStep(path.join(`src`, `games`, item.game, `src`, `.generated-type-script`, `metadata.ts`)),
     ],
     item => [
       new ReadTextFileStep(item.path, text => gameMetadataTextStore.set(item.game, text)),
@@ -77,13 +77,13 @@ export default function (
         `parseAndWrite`,
         [
           new ParseTypeScriptStep(
-            path.join(`.generated-type-script`, `game-name.ts`),
+            path.join(`.generated-type-script`, `metadata.ts`),
             () => gameMetadataTypeScriptTextStore.get(item.game),
             parsed => gameMetadataTypeScriptParsedStore.set(item.game, parsed),
           ),
           new WriteFileStep(
             () => gameMetadataTypeScriptTextStore.get(item.game),
-            path.join(`src`, `games`, item.game, `src`, `.generated-type-script`, `game-name.ts`),
+            path.join(`src`, `games`, item.game, `src`, `.generated-type-script`, `metadata.ts`),
           ),
         ],
       )

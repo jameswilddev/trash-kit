@@ -44,7 +44,7 @@ export default function (
             return [
               nonPlaceholderEngineTypeScript,
               keyValueObject(
-                path.join(`.generated-type-script`, `game-name.ts`),
+                path.join(`.generated-type-script`, `metadata.ts`),
                 gameNameTypeScriptParsedStore.get(item)
               ),
               keyValueObject(
