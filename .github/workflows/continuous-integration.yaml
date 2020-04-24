@@ -12,4 +12,7 @@ jobs:
     - run: npm ci
     - run: npm run-script ci
     - uses: actions/create-release@latest
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: ${{ github.ref }}
       if: github.ref == 'refs/heads/master' && github.repository == 'jameswilddev/trash-kit'
