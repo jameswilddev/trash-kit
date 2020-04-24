@@ -73,32 +73,8 @@ See `File structure` for details on adding new or modifying existing games.
 
 ### Continuous Integration
 
-#### Recommended
-
-It is highly recommended to set up the following continuous integration
-services.
-
-##### Travis CI
-
-This means that your games will be built for you whenever you push changes to
-your fork, and the zipped games uploaded as GitHub releases.
-
-- Sign into [Travis CI](https://travis-ci.org/) with GitHub.
-- Click on the slide toggle next to `trash-kit`.
-- Update all Travis CI links in this file to point to your fork (change
-  `jameswilddev` to your GitHub name).
-
-##### Travis CI to GitHub releases
-
-This means that the zipped build results will automatically be added as GitHub
-releases on every commit.
-
-- Generate a [GitHub personal access token](https://github.com/settings/tokens).
-- Install [Ruby](https://www.ruby-lang.org/en/downloads/).
-- In the terminal, type `gem install travis`.
-- In the terminal, type `travis encrypt your-personal-access-token --repo your-github-name/your-repository-name`.
-- Replace the existing `secure: "encrypted-personal-access-token"` in
-  [.travis.yml](.travis.yml) with that written to the terminal.
+By default, a GitHub Action will build every game in your repository and make
+the HTML and zip files available in a new GitHub release.
 
 #### Optional
 
