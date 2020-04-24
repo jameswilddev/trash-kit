@@ -27,7 +27,7 @@
     "chokidar": "3.3.1",
     "express": "4.17.1",
     "html-minifier": "4.0.0",
-    "jsonschema": "1.2.5",
+    "jsonschema": "1.2.6",
     "progress": "2.0.3",
     "pug": "2.0.4",
     "recursive-readdir": "2.2.2",
