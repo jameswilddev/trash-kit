@@ -29,8 +29,8 @@ See an [example game](src/games/tower-of-hanoi/src)!
   repository's page on GitHub.
 
 - Change all references to `jameswilddev/trash-kit` (links in this file,
-  `package.json`, license, etc.) to point to your fork; noting that some of
-  these will be URL-encoded, i.e. `jameswilddev%2Ftrash-kit`.
+  `package.json`, license, GitHub Actions, etc.) to point to your fork; noting
+  that some of these will be URL-encoded, i.e. `jameswilddev%2Ftrash-kit`.
 
 ### Development
 
