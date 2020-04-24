@@ -11,10 +11,7 @@ jobs:
         registry-url: 'https://registry.npmjs.org'
     - run: npm ci
     - run: npm run-script ci
-    - uses: actions/create-release@latest
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/upload-artifact@v2-preview
       with:
-        tag_name: ${{ github.ref }}
-        release_name: ${{ github.ref }}
-      if: github.ref == 'refs/heads/master' && github.repository == 'jameswilddev/trash-kit'
+        name: artifacts.zip
+        path: dist/*
