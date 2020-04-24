@@ -2,7 +2,6 @@ name: Continuous Integration
 on: [push, pull_request]
 jobs:
   build:
-    if: github.ref == 'refs/heads/master' && github.repository == 'jameswilddev/neurofoam'
     needs: build
     runs-on: ubuntu-18.04
     steps:
@@ -14,3 +13,4 @@ jobs:
     - run: npm ci
     - run: npm run-script ci
     - uses: actions/create-release@latest
+      if: github.ref == 'refs/heads/master' && github.repository == 'jameswilddev/neurofoam'
