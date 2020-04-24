@@ -74,7 +74,7 @@ See `File structure` for details on adding new or modifying existing games.
 ### Continuous Integration
 
 By default, a GitHub Action will build every game in your repository and make
-the HTML and zip files available in a new GitHub release.
+the HTML and zip files available as artifacts attached to the builds.
 
 #### Optional
 
