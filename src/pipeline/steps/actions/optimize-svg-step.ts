@@ -2,6 +2,8 @@ import * as Svgo from "svgo"
 import StepBase from "../step-base"
 import ActionStepBase from "./action-step-base"
 
+const floatPrecision = 0
+
 const svgo = new Svgo({
   plugins: [{
     cleanupAttrs: true
@@ -54,8 +56,8 @@ const svgo = new Svgo({
       straightCurves: true,
       lineShorthands: true,
       curveSmoothShorthands: true,
-      floatPrecision: 0,
-      transformPrecision: 5,
+      floatPrecision,
+      transformPrecision: floatPrecision,
       removeUseless: true,
       collapseRepeated: true,
       utilizeAbsolute: true,
@@ -65,7 +67,9 @@ const svgo = new Svgo({
       forceAbsolutePath: false
     }
   }, {
-    convertTransform: true
+    convertTransform: {
+      floatPrecision,
+    },
   }, {
     removeUnknownsAndDefaults: true
   }, {
@@ -77,9 +81,13 @@ const svgo = new Svgo({
   }, {
     cleanupIDs: true
   }, {
-    cleanupNumericValues: true
+    cleanupNumericValues: {
+      floatPrecision,
+    },
   }, {
-    cleanupListOfValues: true
+    cleanupListOfValues: {
+      floatPrecision,
+    },
   }, {
     moveElemsAttrsToGroup: true
   }, {
