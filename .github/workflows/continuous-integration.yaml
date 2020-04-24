@@ -13,4 +13,4 @@ jobs:
     - run: npm ci
     - run: npm run-script ci
     - uses: actions/create-release@latest
-      if: github.ref == 'refs/heads/master' && github.repository == 'jameswilddev/neurofoam'
+      if: github.ref == 'refs/heads/master' && github.repository == 'jameswilddev/trash-kit'
