@@ -1,7 +1,5 @@
 let state: State
 
-let saveLoadAvailable: Truthiness
-
 type Truthiness = 1 | undefined
 
 type Json = EngineJson

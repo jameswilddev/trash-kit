@@ -303,13 +303,6 @@ Imported from `metadata.json`.
 
 The current state; modify as you please.
 
-#### `saveLoadAvailable`
-
-When truthy, mutation callbacks' `save`, `load` and `drop` are likely to work.
-
-When falsy, mutation callbacks' `save`, `load` and `drop` will definitely not
-work.
-
 #### `Truthiness`
 
 Either `1` or `undefined`.  Useful for indicating a `true`/`false` flag without
@@ -372,6 +365,14 @@ render emits.
 #### Mutation Callback Helpers
 
 These are intended to be used only during a mutation callback.
+
+#### `saveLoadAvailable`
+
+When returns truthy, mutation callbacks' `save`, `load` and `drop` are likely to
+work.
+
+When returns falsy, mutation callbacks' `save`, `load` and `drop` will
+definitely not work.
 
 ##### `save`
 
