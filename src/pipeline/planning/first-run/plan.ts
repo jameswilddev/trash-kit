@@ -9,7 +9,7 @@ import planCreationOfDirectories from "./plan-creation-of-directories"
 import planParsingOfTypeScriptLibraries from "./plan-parsing-of-type-script-libraries"
 import planParsingOfEnvironment from "./plan-parsing-of-environment"
 import gameMinifiedHtmlDebugStore from "../../stores/game-minified-html-debug-store"
-import compilerOptions from "../../steps/actions/type-script/compiler-options"
+import tsconfigContent from "../../steps/actions/type-script/tsconfig-content"
 
 export default function (
   firstRun: boolean,
@@ -72,7 +72,7 @@ export default function (
             path.join(`**`, `*.d.ts`),
             path.join(`**`, `*.json`)
           ],
-          compilerOptions
+          compilerOptions: tsconfigContent
         }),
         path.join(`src`, `engine`, `tsconfig.json`)
       ),

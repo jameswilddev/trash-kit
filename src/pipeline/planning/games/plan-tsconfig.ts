@@ -4,7 +4,7 @@ import StepBase from "../../steps/step-base"
 import ParallelStep from "../../steps/aggregators/parallel-step"
 import DeleteStep from "../../steps/actions/files/delete-step"
 import WriteFileStep from "../../steps/actions/files/write-file-step"
-import compilerOptions from "../../steps/actions/type-script/compiler-options"
+import tsconfigContent from "../../steps/actions/type-script/tsconfig-content"
 
 export default function (
   games: Diff<string>
@@ -21,7 +21,7 @@ export default function (
         exclude: [
           path.join(`..`, `..`, `engine`, `src`, `**`, `*.d.ts`)
         ],
-        compilerOptions
+        compilerOptions: tsconfigContent
       }),
       path.join(`src`, `games`, game, `tsconfig.json`)
     ))
