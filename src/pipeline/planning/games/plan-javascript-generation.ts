@@ -56,11 +56,13 @@ export default function (
           gameJavascriptProductionStore
         )
 
-        addEnvironment(
-          `debug`,
-          gameTypeScriptCombinedJavascriptTextDebugStore,
-          gameJavascriptDebugStore
-        )
+        if (debug) {
+          addEnvironment(
+            `debug`,
+            gameTypeScriptCombinedJavascriptTextDebugStore,
+            gameJavascriptDebugStore
+          )
+        }
 
         return steps
       },
