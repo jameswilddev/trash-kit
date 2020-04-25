@@ -1,11 +1,10 @@
-html(style=`padding: 0; ${backgroundColor === `#fff` ? `` : `background: ${backgroundColor}`};`)
+html(style=`padding: 0; ${backgroundColor === `#fff` ? `` : `background: ${backgroundColor}`}; overflow: hidden;`)
   head
     meta(charset=`utf-8`)
     meta(name=`viewport`, content=`initial-scale=1, user-scalable=no`)
   body
     svg(
-      width=`100%`,
-      height=`100%`,
+      style=`position: fixed; left: 0; top: 0; width: 100%; height: 100%;`
       viewbox=`0 0 ${safeAreaWidthVirtualPixels} ${safeAreaHeightVirtualPixels}`,
     )
       defs !{defs}
