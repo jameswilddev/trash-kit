@@ -2,10 +2,11 @@ import * as express from "express"
 import * as types from "../../types"
 import StepBase from "../step-base"
 import ActionStepBase from "./action-step-base"
+import KeyValueStore from "stores/key-value-store"
 
 export default class HostStep extends ActionStepBase {
   constructor(
-    private readonly tryGetHtml: (gameName: string) => null | types.Versioned<string>
+    private readonly gameHtmlStore: KeyValueStore<types.Versioned<string>>,
   ) {
     super(
       `host`,
@@ -19,7 +20,7 @@ export default class HostStep extends ActionStepBase {
       (resolve, reject) => express()
         .get(/^\/([a-z]|[a-z][a-z0-9-]{0,48}[a-z0-9])$/, (request, response) => {
           const gameName = Array.isArray(request.params) ? request.params[0] : request.params[0]
-          const html = this.tryGetHtml(gameName)
+          const html = this.gameHtmlStore.tryGet(gameName)
           if (html === null) {
             response.sendStatus(404)
           } else {
@@ -28,7 +29,7 @@ export default class HostStep extends ActionStepBase {
         })
         .get(/^\/([a-z]|[a-z][a-z0-9-]{0,48}[a-z0-9])\/uuid$/, (request, response) => {
           const gameName = Array.isArray(request.params) ? request.params[0] : request.params[0]
-          const html = this.tryGetHtml(gameName)
+          const html = this.gameHtmlStore.tryGet(gameName)
           if (html === null) {
             response.sendStatus(404)
           } else {

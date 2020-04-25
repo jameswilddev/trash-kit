@@ -35,7 +35,7 @@ export default function (
     if (debug) {
       hostSteps.push(
         new HostStep(
-          gameName => gameMinifiedHtmlDebugStore.tryGet(gameName)
+          gameMinifiedHtmlDebugStore,
         )
       )
     }
