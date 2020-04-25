@@ -427,6 +427,108 @@ scaleUniform(2)
 
 Scales by the given factor on the X and Y axes.
 
+#### Filters
+
+These can be strung together to describe postprocessing effects applied to
+sprites and groups.
+
+##### `soften`
+
+```typescript
+soften(20)
+```
+
+Blurs with a radius of the given virtual pixels.
+
+##### `brightness`
+
+```typescript
+brightness(0.5)
+```
+
+Adjusts brightness by the given factor.
+
+##### `contrast`
+
+```typescript
+contrast(0.5)
+```
+
+Adjusts contrast by the given factor.
+
+##### `sharpDropShadow`
+
+```typescript
+sharpDropShadow(20, 40)        // Black.
+sharpDropShadow(20, 40, `f0f`) // Magenta.
+```
+
+Produces a sharp-edged drop shadow, offset by the given numbers of virtual
+pixels on the X and Y axes.  A color may optionally be specified, as a
+three-character hex code in lower case; if no color is specified, the shadow is
+black.
+
+##### `softDropShadow`
+
+```typescript
+softDropShadow(20, 40, 5)        // Black.
+softDropShadow(20, 40, 5, `f0f`) // Magenta.
+```
+
+Produces a soft-edged drop shadow, offset by the given numbers of virtual
+pixels on the X and Y axes.  The blur radius is specified in virtual pixels.  A
+color may optionally be specified, as a three-character hex code in lower case;
+if no color is specified, the shadow is black.
+
+##### `greyscale`
+
+```typescript
+greyscale(0.5)
+```
+
+Reduces saturation by the given factor.
+
+##### `hueRotate`
+
+```typescript
+hueRotate(180)
+```
+
+"Rotates" colors by the specified number of degrees.  For example, a value of
+120 would replace red with blue, blue with green and green with red.
+
+##### `invert`
+
+```typescript
+invert(1)
+```
+
+Inverts colors; 1 is a full inversion of color, while 0 has no effect.
+
+##### `opacity`
+
+```typescript
+opacity(0.5)
+```
+
+Multiplies opacity by the given factor.
+
+##### `saturate`
+
+```typescript
+saturate(0.5)
+```
+
+Multiplies saturation by the given factor.
+
+##### `sepia`
+
+```typescript
+sepia(0.5)
+```
+
+Applies a sepia filter with the given opacity.
+
 #### Mutation Callback Helpers
 
 These are intended to be used only during a mutation callback.

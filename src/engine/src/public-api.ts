@@ -105,6 +105,91 @@ function scaleUniform(
   return `scale(${factor})`
 }
 
+type Filter = string
+
+function soften(
+  virtualPixels: number
+): Filter {
+  return `blur(${virtualPixels}px)`
+}
+
+function brightness(
+  factor: number
+): Filter {
+  return `brightness(${factor})`
+}
+
+function contrast(
+  factor: number
+): Filter {
+  return `contrast(${factor})`
+}
+
+function sharpDropShadow(
+  offsetXVirtualPixels: number,
+  offsetYVirtualPixels: number,
+  color?: string
+): Filter {
+  let output = `drop-shadow(${offsetXVirtualPixels}px ${offsetYVirtualPixels}px`
+
+  if (color) {
+    output += ` #${color}`
+  }
+
+  return `${output})`
+}
+
+function softDropShadow(
+  offsetXVirtualPixels: number,
+  offsetYVirtualPixels: number,
+  radiusVirtualPixels: number,
+  color?: string
+): Filter {
+  let output = `drop-shadow(${offsetXVirtualPixels}px ${offsetYVirtualPixels}px ${radiusVirtualPixels}px`
+
+  if (color) {
+    output += ` #${color}`
+  }
+
+  return `${output})`
+}
+
+function grayscale(
+  factor: number
+): Filter {
+  return `grayscale(${factor})`
+}
+
+function hueRotate(
+  degrees: number
+): Filter {
+  return `hue-rotate(${degrees}deg)`
+}
+
+function invert(
+  factor: number
+): Filter {
+  return `invert(${factor})`
+}
+
+function opacity(
+  factor: number
+): Filter {
+  return `opacity(${factor})`
+}
+
+function saturate(
+  factor: number
+): Filter {
+  return `saturate(${factor})`
+}
+
+function sepia(
+  factor: number
+): Filter {
+  return `sepia(${factor})`
+}
+
 function saveLoadAvailable(): Truthiness {
   try {
     localStorage.setItem(`${gameName}-check`, `check`)
