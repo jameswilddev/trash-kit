@@ -29,10 +29,10 @@ export default function (
   const svgSteps = planSvg(typeSeparated.sortedByKey.svg)
   const svgCombinationSteps = planSvgCombination(typeSeparated.sortedByKey.svg)
   const javaScriptSteps = planJavascriptGeneration(
-    enginePlanningResult, typeSeparated.allSorted
+    debug, enginePlanningResult, typeSeparated.allSorted
   )
   const htmlGenerationSteps = planHtmlGeneration(
-    enginePlanningResult, games
+    debug, enginePlanningResult, games
   )
   const tsconfigSteps = planTsconfig(games)
   const deletionOfTemporaryDirectoriesSteps = planDeletionOfTemporaryDirectories(games)

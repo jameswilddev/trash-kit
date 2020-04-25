@@ -11,7 +11,8 @@ import WriteFileStep from "../../steps/actions/files/write-file-step"
 import planDeletionOfPreviousArtifacts from "./plan-deletion-of-previous-artifacts"
 import planCreationOfDirectories from "./plan-creation-of-directories"
 import planParsingOfTypeScriptLibraries from "./plan-parsing-of-type-script-libraries"
-import gameMinifiedHtmlProductionStore from "../../stores/game-minified-html-production-store"
+import planParsingOfEnvironment from "./plan-parsing-of-environment"
+import gameMinifiedHtmlDebugStore from "../../stores/game-minified-html-debug-store"
 import hotReloadTextStore from "../../stores/hot-reload-text-store"
 import hotReloadParsedStore from "../../stores/hot-reload-parsed-store"
 import hotReloadCombinedStore from "../../stores/hot-reload-combined-store"
@@ -23,6 +24,7 @@ export default function (
 ): StepBase {
   const deletionOfPreviousArtifactsThenCreationOfDirectoriesSteps: StepBase[] = []
   const typeScriptSteps: StepBase[] = []
+  const environmentSteps: StepBase[] = []
   const hostSteps: StepBase[] = []
   if (firstRun) {
     deletionOfPreviousArtifactsThenCreationOfDirectoriesSteps.push(
@@ -32,6 +34,10 @@ export default function (
     typeScriptSteps.push(
       planParsingOfTypeScriptLibraries()
     )
+
+    for (const step of planParsingOfEnvironment(debug)) {
+      environmentSteps.push(step)
+    }
 
     if (debug) {
       const hotReloadIndex = path.join(`src`, `hot-reload`, `src`, `index.ts`)
@@ -58,7 +64,7 @@ export default function (
         ),
         new HostStep(
           () => hotReloadCombinedStore.get(),
-          gameName => gameMinifiedHtmlProductionStore.tryGet(gameName)
+          gameName => gameMinifiedHtmlDebugStore.tryGet(gameName)
         )
       )
     }
@@ -70,6 +76,10 @@ export default function (
       new SerialStep(
         `deletionOfPreviousArtifactsThenCreationOfDirectories`,
         deletionOfPreviousArtifactsThenCreationOfDirectoriesSteps
+      ),
+      new ParallelStep(
+        `parseEnvironments`,
+        environmentSteps
       ),
       new SerialStep(
         `loadTypeScriptThenHost`,
