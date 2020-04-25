@@ -6,7 +6,7 @@ import ActionStepBase from "./action-step-base"
 export default class HostStep extends ActionStepBase {
   constructor(
     private readonly getPrefix: () => string,
-    private readonly tryGetHtml: (gameName: string) => null | types.GeneratedHtml
+    private readonly tryGetHtml: (gameName: string) => null | types.Versioned<string>
   ) {
     super(
       `host`,
@@ -29,7 +29,7 @@ export default class HostStep extends ActionStepBase {
                 var engineUuid = ${JSON.stringify(html.uuid)}
                 ${this.getPrefix()}
               </script>
-              ${html.html}
+              ${html.payload}
             `)
           }
         })

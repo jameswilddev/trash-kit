@@ -34,8 +34,8 @@ export type EnginePlanningResult = {
   readonly step: StepBase
 }
 
-export type GeneratedHtml = {
-  readonly html: string
+export type Versioned<T> = {
+  readonly payload: T
   readonly uuid: string
 }
 

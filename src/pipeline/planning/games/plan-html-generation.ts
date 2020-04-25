@@ -129,7 +129,7 @@ export default function (
               new MinifyHtmlStep(
                 () => gameHtmlDebugStore.get(item),
                 html => gameMinifiedHtmlDebugStore.set(item, {
-                  html,
+                  payload: html,
                   uuid: uuid.v4()
                 })
               ),
