@@ -13,5 +13,5 @@ jobs:
     - run: npm run-script ci
     - uses: actions/upload-artifact@v2-preview
       with:
-        name: artifacts.zip
+        name: artifacts
         path: dist/*
