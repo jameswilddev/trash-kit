@@ -22,6 +22,8 @@ import ParallelStep from "../../steps/aggregators/parallel-step"
 import KeyValueStore from "../../stores/key-value-store"
 import environmentParsedDebugStore from "../../stores/environment-parsed-debug-store"
 import environmentParsedProductionStore from "../../stores/environment-parsed-production-store"
+import gameUuidParsedStore from "../../stores/game-uuid-parsed-store"
+import ParseTypeScriptStep from "../../steps/actions/type-script/parse-type-script-step"
 
 export default function (
   debug: boolean,
@@ -36,7 +38,9 @@ export default function (
       enginePlanningResult.allGamesRequireJavascriptRegeneration,
       item => item,
       item => {
-        const steps: StepBase[] = []
+        const steps: StepBase[] = [
+          new DeleteFromKeyValueStoreIfSetStep(gameUuidParsedStore, item)
+        ]
 
         function addEnvironment(
           name: string,
@@ -68,9 +72,15 @@ export default function (
         return steps
       },
       item => {
-        const steps: StepBase[] = []
-
         const buildUuid = uuid.v4()
+
+        const steps: StepBase[] = [
+          new ParseTypeScriptStep(
+            path.join(`.generated-type-script`, `metadata.ts`),
+            () => `const engineUuid = ${JSON.stringify(buildUuid)}`,
+            parsed => gameUuidParsedStore.set(item, parsed),
+          ),
+        ]
 
         function addEnvironment(
           name: string,
@@ -89,6 +99,10 @@ export default function (
                   nonPlaceholderEngineTypeScript[key] = allEngineTypeScript[key]
                 }
                 return [
+                  keyValueObject(
+                    path.join(`.generated-type-script`, `uuid.ts`),
+                    gameUuidParsedStore.get(item)
+                  ),
                   keyValueObject(
                     path.join(`.generated-type-script`, `environment.ts`),
                     environmentParsedStore.get()

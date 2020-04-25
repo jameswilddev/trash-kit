@@ -1,4 +1,5 @@
 declare const engineDebug: boolean
+declare const engineUuid: string
 declare const gameName: string
 
 declare const safeAreaWidthVirtualPixels: number

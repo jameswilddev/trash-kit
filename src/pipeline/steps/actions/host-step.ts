@@ -5,7 +5,6 @@ import ActionStepBase from "./action-step-base"
 
 export default class HostStep extends ActionStepBase {
   constructor(
-    private readonly getPrefix: () => string,
     private readonly tryGetHtml: (gameName: string) => null | types.Versioned<string>
   ) {
     super(
@@ -24,13 +23,7 @@ export default class HostStep extends ActionStepBase {
           if (html === null) {
             response.sendStatus(404)
           } else {
-            response.send(`
-              <script>
-                var engineUuid = ${JSON.stringify(html.uuid)}
-                ${this.getPrefix()}
-              </script>
-              ${html.payload}
-            `)
+            response.send(html.payload)
           }
         })
         .get(/^\/([a-z]|[a-z][a-z0-9-]{0,48}[a-z0-9])\/uuid$/, (request, response) => {
