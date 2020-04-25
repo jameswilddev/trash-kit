@@ -8,8 +8,8 @@ import DeleteFromKeyValueStoreIfSetStep from "../../steps/actions/stores/delete-
 import CombineTypeScriptStep from "../../steps/actions/type-script/combine-type-script-step"
 import MinifyJsStep from "../../steps/actions/minify-js-step"
 import gameNameTypeScriptParsedStore from "../../stores/game-metadata-type-script-parsed-store"
-import gameTypeScriptCombinedJavascriptTextStore from "../../stores/game-type-script-combined-javascript-text-store"
-import gameJavascriptStore from "../../stores/game-javascript-store"
+import gameTypeScriptCombinedJavascriptTextProductionStore from "../../stores/game-type-script-combined-javascript-text-production-store"
+import gameJavascriptProductionStore from "../../stores/game-javascript-production-store"
 import gameSvgTypeScriptParsedStore from "../../stores/game-svg-type-script-parsed-store"
 import engineTypeScriptParsedStore from "../../stores/engine-type-script-parsed-store"
 import gameTypeScriptParsedStore from "../../stores/game-type-script-parsed-store"
@@ -27,9 +27,9 @@ export default function (
       item => item,
       item => [
         new DeleteFromKeyValueStoreIfSetStep(
-          gameTypeScriptCombinedJavascriptTextStore, item
+          gameTypeScriptCombinedJavascriptTextProductionStore, item
         ),
-        new DeleteFromKeyValueStoreIfSetStep(gameJavascriptStore, item)
+        new DeleteFromKeyValueStoreIfSetStep(gameJavascriptProductionStore, item)
       ],
       item => [
         new CombineTypeScriptStep(
@@ -54,13 +54,13 @@ export default function (
               gameTypeScriptParsedStore.tryGetAllByBaseKey(item)
             ]
           },
-          javascript => gameTypeScriptCombinedJavascriptTextStore.set(
+          javascript => gameTypeScriptCombinedJavascriptTextProductionStore.set(
             item, javascript
           ),
         ),
         new MinifyJsStep(
-          () => gameTypeScriptCombinedJavascriptTextStore.get(item),
-          combined => gameJavascriptStore.set(item, combined)
+          () => gameTypeScriptCombinedJavascriptTextProductionStore.get(item),
+          combined => gameJavascriptProductionStore.set(item, combined)
         ),
       ]
     )

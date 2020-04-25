@@ -11,11 +11,11 @@ import MinifyHtmlStep from "../../steps/actions/minify-html-step"
 import ZipStep from "../../steps/actions/zip-step"
 import ArbitraryStep from "../../steps/actions/arbitrary-step"
 import WriteFileStep from "../../steps/actions/files/write-file-step"
-import gameHtmlStore from "../../stores/game-html-store"
-import gameMinifiedHtmlStore from "../../stores/game-minified-html-store"
+import gameHtmlProductionStore from "../../stores/game-html-production-store"
+import gameMinifiedHtmlProductionStore from "../../stores/game-minified-html-production-store"
 import gameZipStore from "../../stores/game-zip-store"
 import enginePugStore from "../../stores/engine-pug-store"
-import gameJavascriptStore from "../../stores/game-javascript-store"
+import gameJavascriptProductionStore from "../../stores/game-javascript-production-store"
 import gameMetadataJsonStore from "../../stores/game-metadata-json-store"
 import gameSvgDefCombinationStore from "../../stores/game-svg-def-combination-store"
 
@@ -29,8 +29,8 @@ export default function (
       enginePlanningResult.allGamesRequireHtmlRegeneration,
       item => item,
       item => [
-        new DeleteFromKeyValueStoreIfSetStep(gameHtmlStore, item),
-        new DeleteFromKeyValueStoreIfSetStep(gameMinifiedHtmlStore, item),
+        new DeleteFromKeyValueStoreIfSetStep(gameHtmlProductionStore, item),
+        new DeleteFromKeyValueStoreIfSetStep(gameMinifiedHtmlProductionStore, item),
         new DeleteFromKeyValueStoreIfSetStep(gameZipStore, item),
         new DeleteStep(path.join(`dist`, `${item}.zip`)),
         new DeleteStep(path.join(`dist`, `${item}.html`))
@@ -42,30 +42,30 @@ export default function (
             const metadata = gameMetadataJsonStore.get(item)
 
             return {
-              javascript: gameJavascriptStore.get(item),
+              javascript: gameJavascriptProductionStore.get(item),
               backgroundColor: metadata.backgroundColor,
               safeAreaWidthVirtualPixels: metadata.safeAreaWidthVirtualPixels,
               safeAreaHeightVirtualPixels: metadata.safeAreaHeightVirtualPixels,
               defs: gameSvgDefCombinationStore.get(item),
             }
           },
-          html => gameHtmlStore.set(item, html)
+          html => gameHtmlProductionStore.set(item, html)
         ),
         new MinifyHtmlStep(
-          () => gameHtmlStore.get(item),
-          html => gameMinifiedHtmlStore.set(item, {
+          () => gameHtmlProductionStore.get(item),
+          html => gameMinifiedHtmlProductionStore.set(item, {
             html,
             uuid: uuid.v4()
           })
         ),
         new WriteFileStep(
-          () => gameMinifiedHtmlStore.get(item).html,
+          () => gameMinifiedHtmlProductionStore.get(item).html,
           path.join(`dist`, `${item}.html`)
         ),
         new ZipStep(
           () => keyValueObject(
             `index.html`,
-            Buffer.from(gameMinifiedHtmlStore.get(item).html, `utf8`)
+            Buffer.from(gameMinifiedHtmlProductionStore.get(item).html, `utf8`)
           ),
           buffer => gameZipStore.set(item, buffer)
         ),

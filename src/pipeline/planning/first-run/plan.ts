@@ -11,7 +11,7 @@ import WriteFileStep from "../../steps/actions/files/write-file-step"
 import planDeletionOfPreviousArtifacts from "./plan-deletion-of-previous-artifacts"
 import planCreationOfDirectories from "./plan-creation-of-directories"
 import planParsingOfTypeScriptLibraries from "./plan-parsing-of-type-script-libraries"
-import gameMinifiedHtmlStore from "../../stores/game-minified-html-store"
+import gameMinifiedHtmlProductionStore from "../../stores/game-minified-html-production-store"
 import hotReloadTextStore from "../../stores/hot-reload-text-store"
 import hotReloadParsedStore from "../../stores/hot-reload-parsed-store"
 import hotReloadCombinedStore from "../../stores/hot-reload-combined-store"
@@ -58,7 +58,7 @@ export default function (
         ),
         new HostStep(
           () => hotReloadCombinedStore.get(),
-          gameName => gameMinifiedHtmlStore.tryGet(gameName)
+          gameName => gameMinifiedHtmlProductionStore.tryGet(gameName)
         )
       )
     }
