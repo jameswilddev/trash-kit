@@ -1,4 +1,5 @@
 import * as path from "path"
+import uuid = require("uuid")
 import * as typeScript from "typescript"
 import keyValueObject from "../../utilities/key-value-object"
 import * as types from "../../types"
@@ -40,7 +41,7 @@ export default function (
         function addEnvironment(
           name: string,
           gameTypeScriptCombinedJavascriptTextStore: KeyValueStore<string>,
-          gameJavascriptStore: KeyValueStore<string>
+          gameJavascriptStore: KeyValueStore<string | types.Versioned<string>>
         ): void {
           steps.push(new ParallelStep(name, [
             new DeleteFromKeyValueStoreIfSetStep(
@@ -69,11 +70,13 @@ export default function (
       item => {
         const steps: StepBase[] = []
 
+        const buildUuid = uuid.v4()
+
         function addEnvironment(
           name: string,
           environmentParsedStore: ValueStore<typeScript.SourceFile>,
           gameTypeScriptCombinedJavascriptTextStore: KeyValueStore<string>,
-          gameJavascriptStore: KeyValueStore<string>
+          storeJavascript: (javascript: string) => void
         ): void {
           steps.push(new SerialStep(name, [
             new CombineTypeScriptStep(
@@ -108,7 +111,7 @@ export default function (
             ),
             new MinifyJsStep(
               () => gameTypeScriptCombinedJavascriptTextStore.get(item),
-              combined => gameJavascriptStore.set(item, combined)
+              storeJavascript
             ),
           ]))
         }
@@ -117,7 +120,7 @@ export default function (
           `production`,
           environmentParsedProductionStore,
           gameTypeScriptCombinedJavascriptTextProductionStore,
-          gameJavascriptProductionStore
+          javascript => gameJavascriptProductionStore.set(item, javascript)
         )
 
         if (debug) {
@@ -125,7 +128,10 @@ export default function (
             `debug`,
             environmentParsedDebugStore,
             gameTypeScriptCombinedJavascriptTextDebugStore,
-            gameJavascriptDebugStore
+            javascript => gameJavascriptDebugStore.set(item, {
+              payload: javascript,
+              uuid: buildUuid,
+            })
           )
         }
 

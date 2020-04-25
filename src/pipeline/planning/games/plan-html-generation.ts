@@ -1,5 +1,4 @@
 import * as path from "path"
-import uuid = require("uuid")
 import keyValueObject from "../../utilities/key-value-object"
 import * as types from "../../types"
 import Diff from "../../files/diff"
@@ -117,20 +116,23 @@ export default function (
                   const metadata = gameMetadataJsonStore.get(item)
 
                   return {
-                    javascript: gameJavascriptDebugStore.get(item),
+                    javascript: gameJavascriptDebugStore.get(item).payload,
                     backgroundColor: metadata.backgroundColor,
                     safeAreaWidthVirtualPixels: metadata.safeAreaWidthVirtualPixels,
                     safeAreaHeightVirtualPixels: metadata.safeAreaHeightVirtualPixels,
                     defs: gameSvgDefCombinationStore.get(item),
                   }
                 },
-                html => gameHtmlDebugStore.set(item, html)
+                html => gameHtmlDebugStore.set(item, {
+                  payload: html,
+                  uuid: gameJavascriptDebugStore.get(item).uuid,
+                })
               ),
               new MinifyHtmlStep(
-                () => gameHtmlDebugStore.get(item),
+                () => gameHtmlDebugStore.get(item).payload,
                 html => gameMinifiedHtmlDebugStore.set(item, {
                   payload: html,
-                  uuid: uuid.v4()
+                  uuid: gameHtmlDebugStore.get(item).uuid
                 })
               ),
             ]
