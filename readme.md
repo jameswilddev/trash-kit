@@ -357,6 +357,76 @@ Calculates the distance between two vectors.
 These can be called during the render callback to describe something which the
 render emits.
 
+#### Transforms
+
+These can be strung together to describe transformations applied to sprites,
+groups and hitboxes.
+
+##### `translateX`
+
+```typescript
+translateX(20)
+```
+
+Translates by the given number of virtual pixels on the X axis.
+
+##### `translateY`
+
+```typescript
+translateY(20)
+```
+
+Translates by the given number of virtual pixels on the Y axis.
+
+##### `translate`
+
+```typescript
+translate(20, 65)
+```
+
+Translates by the given numbers of virtual pixels on the X and Y axes
+respectively.
+
+##### `rotate`
+
+```typescript
+rotate(90)
+```
+
+Rotates by the given number of degrees clockwise.
+
+##### `scaleX`
+
+```typescript
+scaleX(2)
+```
+
+Scales by the given factor on the X axis.
+
+##### `scaleY`
+
+```typescript
+scaleY(2)
+```
+
+Scales by the given factor on the Y axis.
+
+##### `scale`
+
+```typescript
+scale(2, 4)
+```
+
+Scales by the given factors on the X and Y axes respectively.
+
+##### `scaleUniform`
+
+```typescript
+scaleUniform(2)
+```
+
+Scales by the given factor on the X and Y axes.
+
 #### Mutation Callback Helpers
 
 These are intended to be used only during a mutation callback.

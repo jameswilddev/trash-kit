@@ -53,6 +53,58 @@ function distance(
   return magnitude(x2 - x1, y2 - y1)
 }
 
+type Transform = string
+
+function translateX(
+  virtualPixels: number,
+): Transform {
+  return `translateX(${virtualPixels}px)`
+}
+
+function translateY(
+  virtualPixels: number,
+): Transform {
+  return `translateY(${virtualPixels}px)`
+}
+
+function translate(
+  xVirtualPixels: number,
+  yVirtualPixels: number,
+): Transform {
+  return `translate(${xVirtualPixels}px,${yVirtualPixels}px)`
+}
+
+function rotate(
+  degreesClockwise: number,
+): Transform {
+  return `rotate(${degreesClockwise}deg)`
+}
+
+function scaleX(
+  factor: number,
+): Transform {
+  return `scaleX(${factor})`
+}
+
+function scaleY(
+  factor: number,
+): Transform {
+  return `scaleY(${factor})`
+}
+
+function scale(
+  xFactor: number,
+  yFactor: number,
+): Transform {
+  return `scale(${xFactor},${yFactor})`
+}
+
+function scaleUniform(
+  factor: number,
+): Transform {
+  return `scale(${factor})`
+}
+
 function save<T extends EngineJson>(name: string, content: T): Truthiness {
   return engineStorageSave(`custom-${name}`, content)
 }
