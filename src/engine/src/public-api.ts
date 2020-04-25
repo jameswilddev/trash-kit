@@ -105,6 +105,14 @@ function scaleUniform(
   return `scale(${factor})`
 }
 
+function saveLoadAvailable(): Truthiness {
+  try {
+    localStorage.setItem(`${gameName}-check`, `check`)
+    return 1
+  } catch { }
+  return
+}
+
 function save<T extends EngineJson>(name: string, content: T): Truthiness {
   return engineStorageSave(`custom-${name}`, content)
 }

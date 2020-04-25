@@ -1,11 +1,3 @@
-function saveLoadAvailable(): Truthiness {
-  try {
-    localStorage.setItem(`${gameName}-check`, `check`)
-    return 1
-  } catch { }
-  return
-}
-
 function engineStorageSave<T extends EngineJson>(key: string, content: T): Truthiness {
   try {
     localStorage.setItem(`${gameName}-${key}`, JSON.stringify(content))
