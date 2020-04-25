@@ -61,13 +61,13 @@ See an [example game](src/games/tower-of-hanoi/src)!
 - Press Ctrl+Shift+B and you should see a command-line application start in the
   terminal at the bottom of Visual Studio Code.
 
-- Your games should now be testable at `http://localhost:3333/{game-name}`,
-  where `{game-name}` is the name of a sub-folder of `src/games` such as
-  `tower-of-hanoi`, which would be
-  `http://localhost:3333/tower-of-hanoi`.
+- Your games should now be testable at `http://localhost:3333/`.
 
 - Any changes you make, to code or content, will be reflected there
   automatically.
+
+- You can scan the displayed QR code to open your games on your phones or
+  tablets for testing purposes.
 
 See `File structure` for details on adding new or modifying existing games.
 
@@ -270,6 +270,7 @@ that loaded from local storage, `initial` will be used instead.
 function render(): void {
   // Use render emitters here.
   // Any animations will loop until interrupted by a hitbox.
+  // TODO: is this true...
 }
 ```
 Executed when `state` is known to have changed, to re-render the scene.  See

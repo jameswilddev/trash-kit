@@ -1,4 +1,7 @@
+import * as os from "os"
 import * as path from "path"
+const qrcodeTerminal = require(`qrcode-terminal`)
+import ArbitraryStep from "../../steps/actions/arbitrary-step"
 import StepBase from "../../steps/step-base"
 import SerialStep from "../../steps/aggregators/serial-step"
 import ParallelStep from "../../steps/aggregators/parallel-step"
@@ -10,6 +13,8 @@ import planParsingOfTypeScriptLibraries from "./plan-parsing-of-type-script-libr
 import planParsingOfEnvironment from "./plan-parsing-of-environment"
 import gameMinifiedHtmlDebugStore from "../../stores/game-minified-html-debug-store"
 import tsconfigContent from "../../steps/actions/type-script/tsconfig-content"
+import ParsePugStep from "../../steps/actions/pug/parse-pug-step"
+import gameListPugStore from "../../stores/game-list-pug-store"
 
 export default function (
   firstRun: boolean,
@@ -33,11 +38,38 @@ export default function (
     }
 
     if (debug) {
+      hostSteps.push(new ParsePugStep(
+        path.join(__dirname, `game-list.pug`),
+        parsed => gameListPugStore.set(parsed)
+      ))
+
       hostSteps.push(
         new HostStep(
           gameMinifiedHtmlDebugStore,
+          gameListPugStore,
         )
       )
+
+      hostSteps.push(new ArbitraryStep(`displayQrCode`, async () => {
+        let chosen = `127.0.0.1`
+
+        for (const iface of Object.values(os.networkInterfaces())) {
+          for (const address of iface) {
+            if (address.family !== 'IPv4') {
+              continue
+            }
+
+            if (address.internal) {
+              continue
+            }
+
+            chosen = address.address
+          }
+        }
+
+        console.log(`Scan the following QR code to open the game/list:`)
+        qrcodeTerminal.generate(`http://${chosen}:3333`)
+      }))
     }
   }
 

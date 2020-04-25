@@ -22,7 +22,7 @@ export default function (
     [
       firstRunStep,
       enginePlanningResult.step,
-      gamesStep
+      gamesStep,
     ]
   )
 }
