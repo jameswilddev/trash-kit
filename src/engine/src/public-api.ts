@@ -55,18 +55,6 @@ function distance(
 
 type Transform = string
 
-function translateX(
-  virtualPixels: number,
-): Transform {
-  return `translateX(${virtualPixels}px)`
-}
-
-function translateY(
-  virtualPixels: number,
-): Transform {
-  return `translateY(${virtualPixels}px)`
-}
-
 function translate(
   xVirtualPixels: number,
   yVirtualPixels: number,
@@ -78,18 +66,6 @@ function rotate(
   degreesClockwise: number,
 ): Transform {
   return `rotate(${degreesClockwise}deg)`
-}
-
-function scaleX(
-  factor: number,
-): Transform {
-  return `scaleX(${factor})`
-}
-
-function scaleY(
-  factor: number,
-): Transform {
-  return `scaleY(${factor})`
 }
 
 function scale(

@@ -363,20 +363,6 @@ render emits.
 These can be strung together to describe transformations applied to sprites,
 groups and hitboxes.
 
-##### `translateX`
-
-```typescript
-translateX(20)
-```
-
-Translates by the given number of virtual pixels on the X axis.
-
-##### `translateY`
-
-```typescript
-translateY(20)
-```
-
 Translates by the given number of virtual pixels on the Y axis.
 
 ##### `translate`
@@ -395,20 +381,6 @@ rotate(90)
 ```
 
 Rotates by the given number of degrees clockwise.
-
-##### `scaleX`
-
-```typescript
-scaleX(2)
-```
-
-Scales by the given factor on the X axis.
-
-##### `scaleY`
-
-```typescript
-scaleY(2)
-```
 
 Scales by the given factor on the Y axis.
 
