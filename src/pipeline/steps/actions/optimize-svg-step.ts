@@ -1,6 +1,7 @@
 import * as Svgo from "svgo"
 import StepBase from "../step-base"
 import ActionStepBase from "./action-step-base"
+import iterativelyMinify from "../../utilities/iteratively-minify"
 
 const floatPrecision = 0
 
@@ -123,8 +124,10 @@ export default class OptimizeSvgStep extends ActionStepBase {
     )
   }
 
-
   async execute(): Promise<void> {
-    this.storeResult((await svgo.optimize(this.getText())).data)
+    this.storeResult(await iterativelyMinify(
+      this.getText(),
+      async previous => (await svgo.optimize(previous)).data
+    ))
   }
 }
