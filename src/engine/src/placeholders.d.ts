@@ -6,6 +6,7 @@ declare const safeAreaWidthVirtualPixels: number
 declare const safeAreaHeightVirtualPixels: number
 
 type State = `STATE PLACEHOLDER`
+type AnySvg = `ANY SVG PLACEHOLDER`
 
 declare function initial(): State
 
