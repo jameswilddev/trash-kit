@@ -1,0 +1,4 @@
+function engineRender(): void {
+  engineDebugger()
+}
+

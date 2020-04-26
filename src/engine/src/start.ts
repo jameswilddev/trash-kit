@@ -1,3 +1,4 @@
 onload = () => {
   engineStateLoad()
+  engineRender()
 }
