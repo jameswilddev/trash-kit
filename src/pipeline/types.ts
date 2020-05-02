@@ -52,3 +52,22 @@ export type MetadataJson = {
   readonly safeAreaHeightVirtualPixels: number
   readonly backgroundColor: string
 }
+
+export type ConstantDeclaration = {
+  readonly type: `constant`
+  readonly name: string
+  readonly valueType: string
+  readonly value: Json
+}
+
+export type TypeDeclaration = {
+  readonly type: `type`
+  readonly name: string
+  readonly definition: string
+}
+
+export type Declaration =
+  | ConstantDeclaration
+  | TypeDeclaration
+
+export type DeclarationSet = ReadonlyArray<Declaration>
