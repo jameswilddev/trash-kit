@@ -357,7 +357,7 @@ console.log(distance(8, 20, 5, 16)) // 3.872983346
 
 Calculates the distance between two vectors.
 
-#### Render emitters
+#### Render helpers
 
 These can be used during the render callback to describe something which the
 render emits.
