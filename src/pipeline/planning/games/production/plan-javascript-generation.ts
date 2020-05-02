@@ -5,7 +5,6 @@ import keyValueObject from "../../../utilities/key-value-object"
 import * as types from "../../../types"
 import Diff from "../../../files/diff"
 import StepBase from "../../../steps/step-base"
-import ArbitraryStep from "../../../steps/actions/arbitrary-step"
 import DeleteFromKeyValueStoreIfSetStep from "../../../steps/actions/stores/delete-from-key-value-store-if-set-step"
 import CombineTypeScriptStep from "../../../steps/actions/type-script/combine-type-script-step"
 import MinifyJsStep from "../../../steps/actions/minify-js-step"
@@ -28,6 +27,7 @@ import ParseTypeScriptStep from "../../../steps/actions/type-script/parse-type-s
 import WriteFileStep from "../../../steps/actions/files/write-file-step"
 import DeleteStep from "../../../steps/actions/files/delete-step"
 import GenerateDeclarations from "../../../steps/actions/generate-declarations"
+import ConvertDeclarationsToTypeScriptStep from "../../../steps/actions/convert-declarations-to-type-script-step"
 
 export default function (
   debug: boolean,
@@ -111,22 +111,7 @@ export default function (
 
           environmentSteps.push(new GenerateDeclarations(item, engineDebug, buildUuid, gameDeclarationsStore))
 
-          environmentSteps.push(new ArbitraryStep(
-            `generateDeclarationTypeScript`,
-            async () => {
-              const declarations = gameDeclarationsStore.get(item)
-
-              const types = declarations
-                .filter((declaration): declaration is types.TypeDeclaration => declaration.type === `type`)
-                .map(typeDeclaration => `type ${typeDeclaration.name} = ${typeDeclaration.definition}`)
-
-              const constants = declarations
-                .filter((declaration): declaration is types.ConstantDeclaration => declaration.type === `constant`)
-                .map(constantDeclaration => `declare const ${constantDeclaration.name}: ${constantDeclaration.valueType}`)
-
-              gameDeclarationsTypeScriptTextStore.set(item, types.concat(constants).join(`\n`))
-            }
-          ))
+          environmentSteps.push(new ConvertDeclarationsToTypeScriptStep(item, gameDeclarationsStore, gameDeclarationsTypeScriptTextStore))
 
           if (engineDebug) {
             environmentSteps.push(new WriteFileStep(
