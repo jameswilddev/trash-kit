@@ -8,7 +8,7 @@ function engineRender(): void {
 
     if (last.tagName === `defs`) {
       break
-}
+    }
 
     root.removeChild(last)
   }
@@ -46,4 +46,20 @@ function engineRectangle(
   element.setAttribute('fill', fill || `transparent`)
   parent.appendChild(element)
   return element
+}
+
+function engineClick(
+  child: ClickableChild,
+  then: () => void,
+): void {
+  child.onmousedown = handler
+  child.ontouchstart = handler
+
+  function handler(
+    e: Event
+  ): void {
+    e.preventDefault()
+    then()
+    engineRender()
+  }
 }

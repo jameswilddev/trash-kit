@@ -396,6 +396,22 @@ The rectangle is positioned in the top left corner.
 
 These are usually used to accept user input.
 
+#### Input
+
+##### `click`
+
+Specify a callback to execute when a group, sprite or rectangle is clicked on or
+tapped.
+
+```typescript
+click(object, () => {
+  state.value = `changed`
+})
+```
+
+This is a render callback; as a consequence, you can freely edit the state here
+and the scene will be re-rendered after the callback completes.
+
 #### Animation
 
 Each of these functions can be used the same way; apply transforms and filters,

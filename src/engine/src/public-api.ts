@@ -198,6 +198,8 @@ type TransformableChild = Group | Sprite | Rectangle
 type FilterableChild = Group | Sprite | Rectangle
 type TransformableOrFilterableChild = TransformableChild | FilterableChild
 
+type ClickableChild = Group | Sprite | Rectangle
+
 function group(
   parent: Parent,
 ): Group {
@@ -274,4 +276,11 @@ function ease(
   durationSeconds: number,
 ): void {
   engineSetTransition(child, `ease`, durationSeconds)
+}
+
+function click(
+  child: ClickableChild,
+  then: () => void,
+): void {
+  engineClick(child, then)
 }
