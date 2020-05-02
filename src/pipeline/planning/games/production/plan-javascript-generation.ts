@@ -26,7 +26,7 @@ import gameDeclarationsTypeScriptParsedProductionStore from "../../../stores/gam
 import ParseTypeScriptStep from "../../../steps/actions/type-script/parse-type-script-step"
 import WriteFileStep from "../../../steps/actions/files/write-file-step"
 import DeleteStep from "../../../steps/actions/files/delete-step"
-import GenerateDeclarations from "../../../steps/actions/generate-declarations"
+import GenerateDeclarationsStep from "../../../steps/actions/generate-declarations-step"
 import ConvertDeclarationsToTypeScriptStep from "../../../steps/actions/convert-declarations-to-type-script-step"
 
 export default function (
@@ -109,7 +109,7 @@ export default function (
         ): void {
           const environmentSteps: StepBase[] = []
 
-          environmentSteps.push(new GenerateDeclarations(item, engineDebug, buildUuid, gameDeclarationsStore))
+          environmentSteps.push(new GenerateDeclarationsStep(item, engineDebug, buildUuid, gameDeclarationsStore))
 
           environmentSteps.push(new ConvertDeclarationsToTypeScriptStep(item, gameDeclarationsStore, gameDeclarationsTypeScriptTextStore))
 

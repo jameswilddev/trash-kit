@@ -5,7 +5,7 @@ import KeyValueStore from "../../stores/key-value-store"
 import gameMetadataJsonStore from "../../stores/game-metadata-json-store"
 import gameSvgDefStore from "../../stores/game-svg-def-store"
 
-export default class GenerateDeclarations extends ActionStepBase {
+export default class GenerateDeclarationsStep extends ActionStepBase {
   constructor(
     private readonly game: string,
     private readonly engineDebug: boolean,
