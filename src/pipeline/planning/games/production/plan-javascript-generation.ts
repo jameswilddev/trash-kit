@@ -18,17 +18,16 @@ import gameTypeScriptParsedStore from "../../../stores/game-type-script-parsed-s
 import SerialStep from "../../../steps/aggregators/serial-step"
 import ParallelStep from "../../../steps/aggregators/parallel-step"
 import KeyValueStore from "../../../stores/key-value-store"
-import gameSvgDefStore from "../../../stores/game-svg-def-store"
 import gameDeclarationsDebugStore from "../../../stores/game-declarations-debug-store"
 import gameDeclarationsTypeScriptTextDebugStore from "../../../stores/game-declarations-type-script-text-debug-store"
 import gameDeclarationsTypeScriptParsedDebugStore from "../../../stores/game-declarations-type-script-parsed-debug-store"
 import gameDeclarationsProductionStore from "../../../stores/game-declarations-production-store"
 import gameDeclarationsTypeScriptTextProductionStore from "../../../stores/game-declarations-type-script-text-production-store"
 import gameDeclarationsTypeScriptParsedProductionStore from "../../../stores/game-declarations-type-script-parsed-production-store"
-import gameMetadataJsonStore from "../../../stores/game-metadata-json-store"
 import ParseTypeScriptStep from "../../../steps/actions/type-script/parse-type-script-step"
 import WriteFileStep from "../../../steps/actions/files/write-file-step"
 import DeleteStep from "../../../steps/actions/files/delete-step"
+import GenerateDeclarations from "../../../steps/actions/generate-declarations"
 
 export default function (
   debug: boolean,
@@ -110,77 +109,7 @@ export default function (
         ): void {
           const environmentSteps: StepBase[] = []
 
-          environmentSteps.push(new ArbitraryStep(
-            `generateDeclarations`,
-            async () => {
-              const declarations: types.Declaration[] = []
-
-
-              declarations.push({
-                type: `constant`,
-                name: `engineDebug`,
-                valueType: JSON.stringify(engineDebug),
-                value: engineDebug,
-              })
-
-              declarations.push({
-                type: `constant`,
-                name: `engineUuid`,
-                valueType: JSON.stringify(buildUuid),
-                value: buildUuid
-              })
-
-
-              const metadata = gameMetadataJsonStore.get(item)
-
-              declarations.push({
-                type: `constant`,
-                name: `gameName`,
-                valueType: JSON.stringify(item),
-                value: item,
-              })
-
-              declarations.push({
-                type: `constant`,
-                name: `safeAreaWidthVirtualPixels`,
-                valueType: `${metadata.safeAreaWidthVirtualPixels}`,
-                value: metadata.safeAreaWidthVirtualPixels,
-              })
-
-              declarations.push({
-                type: `constant`,
-                name: `safeAreaHeightVirtualPixels`,
-                valueType: `${metadata.safeAreaHeightVirtualPixels}`,
-                value: metadata.safeAreaHeightVirtualPixels,
-              })
-
-
-              const orderedSvgNames = Object
-                .keys(gameSvgDefStore.tryGetAllByBaseKey(item))
-                .sort()
-
-              orderedSvgNames.forEach((typeScriptName, index) => declarations.push({
-                type: `type`,
-                name: `${typeScriptName.slice(0, 1).toUpperCase()}${typeScriptName.slice(1)}`,
-                definition: `\`d${index}\``,
-              }))
-
-              declarations.push({
-                type: `type`,
-                name: `AnySvg`,
-                definition: orderedSvgNames.map(typeScriptName => `${typeScriptName.slice(0, 1).toUpperCase()}${typeScriptName.slice(1)}`).join(` | `),
-              })
-
-              orderedSvgNames.forEach((typeScriptName, index) => declarations.push({
-                type: `constant`,
-                name: typeScriptName,
-                valueType: `${typeScriptName.slice(0, 1).toUpperCase()}${typeScriptName.slice(1)}`,
-                value: `d${index}`,
-              }))
-
-              gameDeclarationsStore.set(item, declarations)
-            }
-          ))
+          environmentSteps.push(new GenerateDeclarations(item, engineDebug, buildUuid, gameDeclarationsStore))
 
           environmentSteps.push(new ArbitraryStep(
             `generateDeclarationTypeScript`,
