@@ -192,8 +192,12 @@ TypeScript included in the game.
 
 SVG minified and included in the game's TypeScript global scope.  For instance,
 `src/games/test-game-name/src/complex-multi-level/folder-structure/with-a-file.svg`
-will be available in the game's TypeScript global scope as
-`complexMultiLevel_folderStructure_withAFile_svg`.
+will be available in the game's TypeScript global scope as a constant called
+`complexMultiLevel_folderStructure_withAFile_svg`, of a type called
+`ComplexMultiLevel_folderStructure_withAFile_svg`.
+
+Additionally, a type is generated called `AnySvg`, which is the union of all of
+the types generated to represent SVG files.
 
 #### `dist/{game-name}.zip`
 
