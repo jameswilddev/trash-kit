@@ -226,8 +226,8 @@ It is not good for:
 
 ```
 initial -.-> state -> render -> viewports -.-> groups/sprites
-         |                                 '-> hitboxes --.
-         '------------------------------------------------'
+         |                                 '-> click handlers -.
+         '-----------------------------------------------------'
 ```
 
 #### State
@@ -272,9 +272,7 @@ that loaded from local storage, `initial` will be used instead.
 
 ```typescript
 function render(): void {
-  // Use render emitters here.
-  // Any animations will loop until interrupted by a hitbox.
-  // TODO: is this true...
+  // Use render helpers here.
 }
 ```
 Executed when `state` is known to have changed, to re-render the scene.  See
@@ -400,8 +398,8 @@ These are usually used to accept user input.
 
 #### Transforms
 
-These can be strung together to describe transformations applied to sprites,
-groups and hitboxes.
+These can be strung together to describe transformations applied to groups,
+sprites and rectangles.
 
 Translates by the given number of virtual pixels on the Y axis.
 
@@ -443,7 +441,7 @@ Scales by the given factor on the X and Y axes.
 #### Filters
 
 These can be strung together to describe postprocessing effects applied to
-sprites and groups.
+groups, sprites and rectangles.
 
 ##### `soften`
 
