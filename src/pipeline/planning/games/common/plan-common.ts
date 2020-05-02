@@ -10,18 +10,18 @@ import planSvgCombination from "./plan-svg-combination"
 export default function (
   typeSeparated: types.TypeSeparated
 ): StepBase {
-  return new SerialStep(
+  return new ParallelStep(
     `common`,
     [
-      new ParallelStep(
-        `files`,
+      planGeneratedTypeScript(typeSeparated.sortedByKey.metadata),
+      planTypeScript(typeSeparated.sortedByKey.typeScript),
+      new SerialStep(
+        `svg`,
         [
-          planGeneratedTypeScript(typeSeparated.sortedByKey.metadata),
-          planTypeScript(typeSeparated.sortedByKey.typeScript),
           planSvg(typeSeparated.sortedByKey.svg),
+          planSvgCombination(typeSeparated.sortedByKey.svg),
         ]
       ),
-      planSvgCombination(typeSeparated.sortedByKey.svg),
     ],
   )
 }
