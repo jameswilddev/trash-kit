@@ -1,8 +1,8 @@
 import * as path from "path"
-import Diff from "../../files/diff"
-import StepBase from "../../steps/step-base"
-import ParallelStep from "../../steps/aggregators/parallel-step"
-import DeleteStep from "../../steps/actions/files/delete-step"
+import Diff from "../../../files/diff"
+import StepBase from "../../../steps/step-base"
+import ParallelStep from "../../../steps/aggregators/parallel-step"
+import DeleteStep from "../../../steps/actions/files/delete-step"
 
 export default function (
   games: Diff<string>

@@ -1,5 +1,5 @@
-import * as types from "../../types"
-import Diff from "../../files/diff"
+import * as types from "../../../types"
+import Diff from "../../../files/diff"
 
 export default function (
   debug: boolean,

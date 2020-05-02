@@ -1,15 +1,15 @@
 const svg2js = require("svgo/lib/svgo/svg2js")
 const JS2SVG = require("svgo/lib/svgo/js2svg")
-import * as types from "../../types"
-import Diff from "../../files/diff"
-import StepBase from "../../steps/step-base"
-import ArbitraryStep from "../../steps/actions/arbitrary-step"
-import DeleteFromKeyPairValueStoreIfSetStep from "../../steps/actions/stores/delete-from-key-pair-value-store-if-set-step"
-import ReadTextFileStep from "../../steps/actions/files/read-text-file-step"
-import OptimizeSvgStep from "../../steps/actions/optimize-svg-step"
-import gameSvgTextStore from "../../stores/game-svg-text-store"
-import gameSvgOptimizedStore from "../../stores/game-svg-optimized-store"
-import gameSvgDefStore from "../../stores/game-svg-def-store"
+import * as types from "../../../types"
+import Diff from "../../../files/diff"
+import StepBase from "../../../steps/step-base"
+import ArbitraryStep from "../../../steps/actions/arbitrary-step"
+import DeleteFromKeyPairValueStoreIfSetStep from "../../../steps/actions/stores/delete-from-key-pair-value-store-if-set-step"
+import ReadTextFileStep from "../../../steps/actions/files/read-text-file-step"
+import OptimizeSvgStep from "../../../steps/actions/optimize-svg-step"
+import gameSvgTextStore from "../../../stores/game-svg-text-store"
+import gameSvgOptimizedStore from "../../../stores/game-svg-optimized-store"
+import gameSvgDefStore from "../../../stores/game-svg-def-store"
 
 export default function (
   svgDiff: Diff<types.GameSrcFile>

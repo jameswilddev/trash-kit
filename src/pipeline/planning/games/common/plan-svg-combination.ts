@@ -1,10 +1,10 @@
-import * as types from "../../types"
-import Diff from "../../files/diff"
-import StepBase from "../../steps/step-base"
-import ArbitraryStep from "../../steps/actions/arbitrary-step"
-import DeleteFromKeyValueStoreIfSetStep from "../../steps/actions/stores/delete-from-key-value-store-if-set-step"
-import gameSvgDefStore from "../../stores/game-svg-def-store"
-import gameSvgDefCombinationStore from "../../stores/game-svg-def-combination-store"
+import * as types from "../../../types"
+import Diff from "../../../files/diff"
+import StepBase from "../../../steps/step-base"
+import ArbitraryStep from "../../../steps/actions/arbitrary-step"
+import DeleteFromKeyValueStoreIfSetStep from "../../../steps/actions/stores/delete-from-key-value-store-if-set-step"
+import gameSvgDefStore from "../../../stores/game-svg-def-store"
+import gameSvgDefCombinationStore from "../../../stores/game-svg-def-combination-store"
 
 function getOrderedTypeScriptNames(game: string): ReadonlyArray<string> {
   return Object

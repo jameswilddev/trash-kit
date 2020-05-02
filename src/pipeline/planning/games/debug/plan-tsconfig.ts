@@ -1,10 +1,10 @@
 import * as path from "path"
-import Diff from "../../files/diff"
-import StepBase from "../../steps/step-base"
-import ParallelStep from "../../steps/aggregators/parallel-step"
-import DeleteStep from "../../steps/actions/files/delete-step"
-import WriteFileStep from "../../steps/actions/files/write-file-step"
-import tsconfigContent from "../../steps/actions/type-script/tsconfig-content"
+import Diff from "../../../files/diff"
+import StepBase from "../../../steps/step-base"
+import ParallelStep from "../../../steps/aggregators/parallel-step"
+import DeleteStep from "../../../steps/actions/files/delete-step"
+import WriteFileStep from "../../../steps/actions/files/write-file-step"
+import tsconfigContent from "../../../steps/actions/type-script/tsconfig-content"
 
 export default function (
   games: Diff<string>

@@ -1,12 +1,12 @@
 import * as path from "path"
-import * as types from "../../types"
-import Diff from "../../files/diff"
-import StepBase from "../../steps/step-base"
-import DeleteFromKeyPairValueStoreIfSetStep from "../../steps/actions/stores/delete-from-key-pair-value-store-if-set-step"
-import ReadTextFileStep from "../../steps/actions/files/read-text-file-step"
-import ParseTypeScriptStep from "../../steps/actions/type-script/parse-type-script-step"
-import gameTypeScriptTextStore from "../../stores/game-type-script-text-store"
-import gameTypeScriptParsedStore from "../../stores/game-type-script-parsed-store"
+import * as types from "../../../types"
+import Diff from "../../../files/diff"
+import StepBase from "../../../steps/step-base"
+import DeleteFromKeyPairValueStoreIfSetStep from "../../../steps/actions/stores/delete-from-key-pair-value-store-if-set-step"
+import ReadTextFileStep from "../../../steps/actions/files/read-text-file-step"
+import ParseTypeScriptStep from "../../../steps/actions/type-script/parse-type-script-step"
+import gameTypeScriptTextStore from "../../../stores/game-type-script-text-store"
+import gameTypeScriptParsedStore from "../../../stores/game-type-script-parsed-store"
 
 function generateTypeScriptPath(file: types.EngineFile): string {
   return path.join(`game`, `${file.name}.${file.extension}`)

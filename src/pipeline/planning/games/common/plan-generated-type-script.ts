@@ -1,12 +1,12 @@
-import * as types from "../../types"
-import Diff from "../../files/diff"
-import StepBase from "../../steps/step-base"
-import DeleteFromKeyValueStoreIfSetStep from "../../steps/actions/stores/delete-from-key-value-store-if-set-step"
-import ReadTextFileStep from "../../steps/actions/files/read-text-file-step"
-import ParseJsonStep from "../../steps/actions/json/parse-json-step"
-import ValidateJsonSchemaStep from "../../steps/actions/json/validate-json-schema-step"
-import gameMetadataTextStore from "../../stores/game-metadata-text-store"
-import gameMetadataJsonStore from "../../stores/game-metadata-json-store"
+import * as types from "../../../types"
+import Diff from "../../../files/diff"
+import StepBase from "../../../steps/step-base"
+import DeleteFromKeyValueStoreIfSetStep from "../../../steps/actions/stores/delete-from-key-value-store-if-set-step"
+import ReadTextFileStep from "../../../steps/actions/files/read-text-file-step"
+import ParseJsonStep from "../../../steps/actions/json/parse-json-step"
+import ValidateJsonSchemaStep from "../../../steps/actions/json/validate-json-schema-step"
+import gameMetadataTextStore from "../../../stores/game-metadata-text-store"
+import gameMetadataJsonStore from "../../../stores/game-metadata-json-store"
 
 export default function (
   metadataDiff: Diff<types.GameMetadataFile>
