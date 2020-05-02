@@ -1,4 +1,5 @@
 import StepBase from "./steps/step-base"
+import Diff from "./files/diff"
 
 export type FileVersions = {
   readonly [path: string]: number
@@ -71,3 +72,12 @@ export type Declaration =
   | TypeDeclaration
 
 export type DeclarationSet = ReadonlyArray<Declaration>
+
+export type TypeSeparated = {
+  readonly sortedByKey: {
+    readonly typeScript: Diff<GameSrcFile>
+    readonly svg: Diff<GameSrcFile>
+    readonly metadata: Diff<GameMetadataFile>
+  }
+  readonly allSorted: Diff<GameFile>
+}
