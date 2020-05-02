@@ -10,7 +10,6 @@ import WriteFileStep from "../../steps/actions/files/write-file-step"
 import planDeletionOfPreviousArtifacts from "./plan-deletion-of-previous-artifacts"
 import planCreationOfDirectories from "./plan-creation-of-directories"
 import planParsingOfTypeScriptLibraries from "./plan-parsing-of-type-script-libraries"
-import planParsingOfEnvironment from "./plan-parsing-of-environment"
 import gameMinifiedHtmlDebugStore from "../../stores/game-minified-html-debug-store"
 import tsconfigContent from "../../steps/actions/type-script/tsconfig-content"
 import ParsePugStep from "../../steps/actions/pug/parse-pug-step"
@@ -22,7 +21,6 @@ export default function (
 ): StepBase {
   const deletionOfPreviousArtifactsThenCreationOfDirectoriesSteps: StepBase[] = []
   const typeScriptSteps: StepBase[] = []
-  const environmentSteps: StepBase[] = []
   const hostSteps: StepBase[] = []
   if (firstRun) {
     deletionOfPreviousArtifactsThenCreationOfDirectoriesSteps.push(
@@ -32,10 +30,6 @@ export default function (
     typeScriptSteps.push(
       planParsingOfTypeScriptLibraries()
     )
-
-    for (const step of planParsingOfEnvironment(debug)) {
-      environmentSteps.push(step)
-    }
 
     if (debug) {
       hostSteps.push(new ParsePugStep(
@@ -79,10 +73,6 @@ export default function (
       new SerialStep(
         `deletionOfPreviousArtifactsThenCreationOfDirectories`,
         deletionOfPreviousArtifactsThenCreationOfDirectoriesSteps
-      ),
-      new ParallelStep(
-        `parseEnvironments`,
-        environmentSteps
       ),
       new SerialStep(
         `loadTypeScriptThenHost`,
