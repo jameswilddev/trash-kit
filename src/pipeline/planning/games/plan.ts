@@ -37,23 +37,18 @@ export default function (
   const tsconfigSteps = planTsconfig(games)
   const deletionOfTemporaryDirectoriesSteps = planDeletionOfTemporaryDirectories(games)
 
-  return new ParallelStep(
+  return new SerialStep(
     `games`,
     [
       creationOfTemporaryDirectoriesSteps,
       tsconfigSteps,
-      new SerialStep(
-        `builds`,
-        [
-          new ParallelStep(
-            `files`,
-            [generatedTypeScriptSteps, typeScriptSteps, svgSteps]
-          ),
-          svgCombinationSteps,
-          javaScriptSteps,
-          htmlGenerationSteps
-        ]
+      new ParallelStep(
+        `files`,
+        [generatedTypeScriptSteps, typeScriptSteps, svgSteps]
       ),
+      svgCombinationSteps,
+      javaScriptSteps,
+      htmlGenerationSteps,
       deletionOfTemporaryDirectoriesSteps,
     ]
   )
