@@ -1,3 +1,11 @@
+function engineApplyTransformOrFilter(
+  element: SVGElement,
+  targetProperty: `transform` | `filter`,
+  transformsOrFilters: ReadonlyArray<string>,
+) {
+  element.style[targetProperty] = transformsOrFilters.join(` `) || `none`
+}
+
 function engineSetTransition(
   element: SVGElement,
   easingFunction: string,

@@ -220,6 +220,20 @@ function rectangle(
   return engineRectangle(parent, widthVirtualPixels, heightVirtualPixels, fill)
 }
 
+function transform(
+  child: TransformableChild,
+  transforms: ReadonlyArray<Transform>,
+): void {
+  engineApplyTransformOrFilter(child, `transform`, transforms)
+}
+
+function filter(
+  child: FilterableChild,
+  filters: ReadonlyArray<Filter>,
+): void {
+  engineApplyTransformOrFilter(child, `filter`, filters)
+}
+
 function delay(
   child: TransformableOrFilterableChild,
   durationSeconds: number,

@@ -497,7 +497,11 @@ easeInOut(object, 2)
 These can be strung together to describe transformations applied to groups,
 sprites and rectangles.
 
-Translates by the given number of virtual pixels on the Y axis.
+Apply them using the `transform` function:
+
+```typescript
+transform(object, [translate(20, 65), rotate(90)])
+```
 
 ##### `translate`
 
@@ -538,6 +542,12 @@ Scales by the given factor on the X and Y axes.
 
 These can be strung together to describe postprocessing effects applied to
 groups, sprites and rectangles.
+
+Apply them using the `filter` function:
+
+```typescript
+filter(object, [brightness(0.5), soften(20)])
+```
 
 ##### `soften`
 
