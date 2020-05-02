@@ -185,3 +185,34 @@ function load<T extends EngineJson>(name: string): null | T {
 function drop(name: string): Truthiness {
   return engineStorageDrop(`custom-${name}`)
 }
+
+let root: SVGSVGElement
+
+type Group = SVGGElement
+type Sprite = SVGUseElement
+type Rectangle = SVGRectElement
+
+type Parent = SVGSVGElement | Group
+
+function group(
+  parent: Parent,
+): Group {
+  return engineGroup(parent)
+}
+
+function sprite(
+  parent: Parent,
+  svg: AnySvg,
+): Sprite {
+  return engineSprite(parent, svg)
+}
+
+function rectangle(
+  parent: Parent,
+  widthVirtualPixels: number,
+  heightVirtualPixels: number,
+  fill?: string
+): Rectangle {
+  return engineRectangle(parent, widthVirtualPixels, heightVirtualPixels, fill)
+}
+

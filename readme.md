@@ -359,8 +359,44 @@ Calculates the distance between two vectors.
 
 #### Render emitters
 
-These can be called during the render callback to describe something which the
+These can be used during the render callback to describe something which the
 render emits.
+
+#### Objects
+
+##### `root`
+
+This represents the scene itself, and can be used as the parent of other objects.
+
+##### `group`
+
+This is an object which is not, itself, visible, but can be used to transform or
+filter other objects as a single unit.
+
+```typescript
+const object = group(parentRootOrGroup)
+```
+
+##### `sprite`
+
+This shows an imported SVG.
+
+```typescript
+const object = sprite(parentRootOrGroup, any_imported_svg)
+```
+
+##### `rectangle`
+
+This creates a rectangle.  It can optionally be assigned a fill color.
+
+```typescript
+const invisible = rectangle(parentRootOrGroup, 200, 100)
+const magenta = rectangle(parentRootOrGroup, 200, 100, `f0f`)
+```
+
+The rectangle is positioned in the top left corner.
+
+These are usually used to accept user input.
 
 #### Transforms
 
