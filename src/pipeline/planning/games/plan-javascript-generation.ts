@@ -1,5 +1,5 @@
 import * as path from "path"
-import uuid = require("uuid")
+import * as uuid from "uuid"
 import * as typeScript from "typescript"
 import keyValueObject from "../../utilities/key-value-object"
 import * as types from "../../types"
