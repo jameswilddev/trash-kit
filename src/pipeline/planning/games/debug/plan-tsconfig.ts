@@ -14,7 +14,7 @@ export default function (
     .map(game => new WriteFileStep(
       () => JSON.stringify({
         include: [
-          path.join(`src`, `.generated-type-script`, `**`, `*.ts`),
+          path.join(`src`, `.declarations.ts`),
           path.join(`src`, `**`, `*.ts`),
           path.join(`..`, `..`, `engine`, `src`, `**`, `*.ts`)
         ],

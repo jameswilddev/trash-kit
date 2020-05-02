@@ -65,7 +65,7 @@ export default function (
           environmentSteps.push(new DeleteFromKeyValueStoreIfSetStep(gameJavascriptStore, item))
 
           environmentSteps.push(new DeleteStep(
-            path.join(`src`, `games`, item, `src`, `.generated-type-script`, `declarations.ts`),
+            path.join(`src`, `games`, item, `src`, `.declarations.ts`),
           ))
 
           steps.push(new ParallelStep(name, environmentSteps))
@@ -116,12 +116,12 @@ export default function (
           if (engineDebug) {
             environmentSteps.push(new WriteFileStep(
               () => gameDeclarationsTypeScriptTextStore.get(item),
-              path.join(`src`, `games`, item, `src`, `.generated-type-script`, `declarations.ts`),
+              path.join(`src`, `games`, item, `src`, `.declarations.ts`),
             ))
           }
 
           environmentSteps.push(new ParseTypeScriptStep(
-            path.join(`.generated-type-script`, `declarations.ts`),
+            `.declarations.ts`,
             () => gameDeclarationsTypeScriptTextStore.get(item),
             parsed => gameDeclarationsTypeScriptParsedStore.set(item, parsed)
           ))
@@ -137,7 +137,7 @@ export default function (
               }
               return [
                 keyValueObject(
-                  path.join(`.generated-type-script`, `declarations.ts`),
+                  `.declarations.ts`,
                   gameDeclarationsTypeScriptParsedStore.get(item)
                 ),
                 nonPlaceholderEngineTypeScript,
