@@ -194,6 +194,10 @@ type Rectangle = SVGRectElement
 
 type Parent = SVGSVGElement | Group
 
+type TransformableChild = Group | Sprite | Rectangle
+type FilterableChild = Group | Sprite | Rectangle
+type TransformableOrFilterableChild = TransformableChild | FilterableChild
+
 function group(
   parent: Parent,
 ): Group {
@@ -216,3 +220,44 @@ function rectangle(
   return engineRectangle(parent, widthVirtualPixels, heightVirtualPixels, fill)
 }
 
+function delay(
+  child: TransformableOrFilterableChild,
+  durationSeconds: number,
+): void {
+  engineSetTransition(child, `jump-end`, durationSeconds)
+}
+
+function linear(
+  child: TransformableOrFilterableChild,
+  durationSeconds: number,
+): void {
+  engineSetTransition(child, `linear`, durationSeconds)
+}
+
+function easeOut(
+  child: TransformableOrFilterableChild,
+  durationSeconds: number,
+): void {
+  engineSetTransition(child, `ease-out`, durationSeconds)
+}
+
+function easeIn(
+  child: TransformableOrFilterableChild,
+  durationSeconds: number,
+): void {
+  engineSetTransition(child, `ease-in`, durationSeconds)
+}
+
+function easeInOut(
+  child: TransformableOrFilterableChild,
+  durationSeconds: number,
+): void {
+  engineSetTransition(child, `ease-in-out`, durationSeconds)
+}
+
+function ease(
+  child: TransformableOrFilterableChild,
+  durationSeconds: number,
+): void {
+  engineSetTransition(child, `ease`, durationSeconds)
+}

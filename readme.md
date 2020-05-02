@@ -396,6 +396,102 @@ The rectangle is positioned in the top left corner.
 
 These are usually used to accept user input.
 
+#### Animation
+
+Each of these functions can be used the same way; apply transforms and filters,
+execute one of these functions, then apply transforms and filters to animate to.
+
+Only *one* animation can be applied per object per render.
+
+```typescript
+const object = rectangle(root, 100, 50, `f0f`)
+transform(object, [scale(2, 1)])
+filter(object, [hueRotate(120)])
+
+linear(object, 2)
+
+transform(object, [scale(0.5, 1)])
+filter(object, [hueRotate(240)])
+```
+
+Groups, sprites and rectangles can be animated.
+
+##### `delay`
+
+No interpolation is performed; the transform and filter change immediately after
+the specified duration.
+
+```typescript
+// Set transform/filter to hold for 2 seconds.
+
+delay(object, 2)
+
+// Set transform/filter to hold after 2 seconds.
+```
+
+##### `linear`
+
+Transform and filter change linearly (without acceleration or deceleration) over
+the specified duration.
+
+```typescript
+// Set transform/filter to linearly interpolate from.
+
+linear(object, 2)
+
+// Set transform/filter to linear interpolate to.
+```
+
+##### `easeOut`
+
+Transform and filter change quickly at first, then gently decelerate over the
+specified duration.
+
+```typescript
+// Set transform/filter to decelerate from.
+
+easeOut(object, 2)
+
+// Set transform/filter to decelerate to.
+```
+
+##### `easeIn`
+
+Transform and filter change slowly at first, then gently accelerate over the
+specified duration.
+
+```typescript
+// Set transform/filter to accelerate from.
+
+easeIn(object, 2)
+
+// Set transform/filter to accelerate to.
+```
+
+##### `ease`
+
+Transform and filter change with slightly abrupt acceleration and deceleration.
+
+```typescript
+// Set transform/filter to accelerate from.
+
+ease(object, 2)
+
+// Set transform/filter to decelerate to.
+```
+
+##### `easeInOut`
+
+Transform and filter change with smooth acceleration and deceleration.
+
+```typescript
+// Set transform/filter to accelerate from.
+
+easeInOut(object, 2)
+
+// Set transform/filter to decelerate to.
+```
+
 #### Transforms
 
 These can be strung together to describe transformations applied to groups,
