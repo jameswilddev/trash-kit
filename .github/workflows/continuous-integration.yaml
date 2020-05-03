@@ -4,6 +4,8 @@ jobs:
   build:
     runs-on: ubuntu-18.04
     steps:
+    - run: sudo apt-get update
+    - run: sudo apt-get install libgbm-dev
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
