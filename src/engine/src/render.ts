@@ -43,7 +43,7 @@ function engineRectangle(
   const element = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
   element.setAttribute('width', `${widthVirtualPixels}px`)
   element.setAttribute('height', `${heightVirtualPixels}px`)
-  element.setAttribute('fill', fill || `transparent`)
+  element.setAttribute('fill', fill || `#0000`)
   parent.appendChild(element)
   return element
 }
