@@ -23,10 +23,12 @@ export default function (
   const typeScriptSteps: StepBase[] = []
   const hostSteps: StepBase[] = []
   if (firstRun) {
-    deletionOfPreviousArtifactsThenCreationOfDirectoriesSteps.push(
-      planDeletionOfPreviousArtifacts(),
-      planCreationOfDirectories()
-    )
+    deletionOfPreviousArtifactsThenCreationOfDirectoriesSteps.push(planDeletionOfPreviousArtifacts())
+
+    if (!debug) {
+      deletionOfPreviousArtifactsThenCreationOfDirectoriesSteps.push(planCreationOfDirectories())
+    }
+
     typeScriptSteps.push(
       planParsingOfTypeScriptLibraries()
     )
