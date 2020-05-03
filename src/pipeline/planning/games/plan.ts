@@ -22,7 +22,7 @@ export default function (
   steps.push(planCommon(typeSeparated))
 
   if (debug) {
-    steps.push(planDebug(games))
+    steps.push(planDebug(games, enginePlanningResult, typeSeparated))
   }
 
   steps.push(planProduction(debug, enginePlanningResult, games, typeSeparated))

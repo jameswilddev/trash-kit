@@ -14,7 +14,7 @@ export default function (
   return new SerialStep(
     `production`,
     [
-      planJavascriptGeneration(debug, enginePlanningResult, typeSeparated.allSorted),
+      planJavascriptGeneration(enginePlanningResult, typeSeparated.allSorted),
       planHtmlGeneration(debug, enginePlanningResult, games),
     ],
   )

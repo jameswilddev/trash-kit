@@ -1,3 +1,4 @@
+import * as path from "path"
 import * as uuid from "uuid"
 import * as typeScript from "typescript"
 import keyValueObject from "../../../utilities/key-value-object"
@@ -7,14 +8,16 @@ import StepBase from "../../../steps/step-base"
 import DeleteFromKeyValueStoreIfSetStep from "../../../steps/actions/stores/delete-from-key-value-store-if-set-step"
 import CombineTypeScriptStep from "../../../steps/actions/type-script/combine-type-script-step"
 import MinifyJsStep from "../../../steps/actions/minify-js-step"
-import gameTypeScriptCombinedJavascriptTextProductionStore from "../../../stores/game-type-script-combined-javascript-text-production-store"
-import gameJavascriptProductionStore from "../../../stores/game-javascript-production-store"
+import gameTypeScriptCombinedJavascriptTextDebugStore from "../../../stores/game-type-script-combined-javascript-text-debug-store"
+import gameJavascriptDebugStore from "../../../stores/game-javascript-debug-store"
 import engineTypeScriptParsedStore from "../../../stores/engine-type-script-parsed-store"
 import gameTypeScriptParsedStore from "../../../stores/game-type-script-parsed-store"
-import gameDeclarationsProductionStore from "../../../stores/game-declarations-production-store"
-import gameDeclarationsTypeScriptTextProductionStore from "../../../stores/game-declarations-type-script-text-production-store"
-import gameDeclarationsTypeScriptParsedProductionStore from "../../../stores/game-declarations-type-script-parsed-production-store"
+import gameDeclarationsDebugStore from "../../../stores/game-declarations-debug-store"
+import gameDeclarationsTypeScriptTextDebugStore from "../../../stores/game-declarations-type-script-text-debug-store"
+import gameDeclarationsTypeScriptParsedDebugStore from "../../../stores/game-declarations-type-script-parsed-debug-store"
 import ParseTypeScriptStep from "../../../steps/actions/type-script/parse-type-script-step"
+import WriteFileStep from "../../../steps/actions/files/write-file-step"
+import DeleteStep from "../../../steps/actions/files/delete-step"
 import GenerateDeclarationsStep from "../../../steps/actions/generate-declarations-step"
 import ConvertDeclarationsToTypeScriptStep from "../../../steps/actions/convert-declarations-to-type-script-step"
 
@@ -30,19 +33,21 @@ export default function (
       enginePlanningResult.allGamesRequireJavascriptRegeneration,
       item => item,
       item => [
-        new DeleteFromKeyValueStoreIfSetStep(gameDeclarationsProductionStore, item),
-        new DeleteFromKeyValueStoreIfSetStep(gameDeclarationsTypeScriptTextProductionStore, item),
-        new DeleteFromKeyValueStoreIfSetStep(gameDeclarationsTypeScriptParsedProductionStore, item),
-        new DeleteFromKeyValueStoreIfSetStep(gameTypeScriptCombinedJavascriptTextProductionStore, item),
-        new DeleteFromKeyValueStoreIfSetStep(gameJavascriptProductionStore, item),
+        new DeleteFromKeyValueStoreIfSetStep(gameDeclarationsDebugStore, item),
+        new DeleteFromKeyValueStoreIfSetStep(gameDeclarationsTypeScriptTextDebugStore, item),
+        new DeleteStep(path.join(`src`, `games`, item, `src`, `.declarations.ts`)),
+        new DeleteFromKeyValueStoreIfSetStep(gameDeclarationsTypeScriptParsedDebugStore, item),
+        new DeleteFromKeyValueStoreIfSetStep(gameTypeScriptCombinedJavascriptTextDebugStore, item),
+        new DeleteFromKeyValueStoreIfSetStep(gameJavascriptDebugStore, item),
       ],
       item => {
         const buildUuid = uuid.v4()
 
         return [
-          new GenerateDeclarationsStep(item, false, buildUuid, gameDeclarationsProductionStore),
-          new ConvertDeclarationsToTypeScriptStep(item, gameDeclarationsProductionStore, gameDeclarationsTypeScriptTextProductionStore),
-          new ParseTypeScriptStep(`.declarations.ts`, () => gameDeclarationsTypeScriptTextProductionStore.get(item), parsed => gameDeclarationsTypeScriptParsedProductionStore.set(item, parsed)),
+          new GenerateDeclarationsStep(item, true, buildUuid, gameDeclarationsDebugStore),
+          new ConvertDeclarationsToTypeScriptStep(item, gameDeclarationsDebugStore, gameDeclarationsTypeScriptTextDebugStore),
+          new WriteFileStep(() => gameDeclarationsTypeScriptTextDebugStore.get(item), path.join(`src`, `games`, item, `src`, `.declarations.ts`)),
+          new ParseTypeScriptStep(`.declarations.ts`, () => gameDeclarationsTypeScriptTextDebugStore.get(item), parsed => gameDeclarationsTypeScriptParsedDebugStore.set(item, parsed)),
           new CombineTypeScriptStep(
             () => {
               const allEngineTypeScript = engineTypeScriptParsedStore.getAll()
@@ -55,17 +60,24 @@ export default function (
               return [
                 keyValueObject(
                   `.declarations.ts`,
-                  gameDeclarationsTypeScriptParsedProductionStore.get(item)
+                  gameDeclarationsTypeScriptParsedDebugStore.get(item)
                 ),
                 nonPlaceholderEngineTypeScript,
                 gameTypeScriptParsedStore.tryGetAllByBaseKey(item)
               ]
             },
-            javascript => gameTypeScriptCombinedJavascriptTextProductionStore.set(
+            javascript => gameTypeScriptCombinedJavascriptTextDebugStore.set(
               item, javascript
             ),
           ),
-          new MinifyJsStep(() => gameTypeScriptCombinedJavascriptTextProductionStore.get(item), () => gameDeclarationsProductionStore.get(item), code => gameJavascriptProductionStore.set(item, code)),
+          new MinifyJsStep(
+            () => gameTypeScriptCombinedJavascriptTextDebugStore.get(item),
+            () => gameDeclarationsDebugStore.get(item),
+            code => gameJavascriptDebugStore.set(item, {
+              payload: code,
+              uuid: buildUuid,
+            }),
+          ),
         ]
       }
     )
