@@ -49,6 +49,7 @@ function run(
     const browser = await puppeteer.launch({ defaultViewport: { width, height } })
     const page = await browser.newPage()
     await page.goto(url())
+    await new Promise(resolve => setTimeout(resolve, 250))
 
     for (const click of clicks) {
       await page.mouse.click(click[0], click[1])
