@@ -7,7 +7,7 @@ import MinifyHtmlStep from "../../../steps/actions/minify-html-step"
 import gameHtmlDebugStore from "../../../stores/game-html-debug-store"
 import gameMinifiedHtmlDebugStore from "../../../stores/game-minified-html-debug-store"
 import enginePugStore from "../../../stores/engine-pug-store"
-import gameJavascriptDebugStore from "../../../stores/game-javascript-debug-store"
+import gameTypeScriptCombinedJavascriptTextDebugStore from "../../../stores/game-type-script-combined-javascript-text-debug-store"
 import gameMetadataJsonStore from "../../../stores/game-metadata-json-store"
 import gameSvgDefCombinationStore from "../../../stores/game-svg-def-combination-store"
 
@@ -31,7 +31,7 @@ export default function (
             const metadata = gameMetadataJsonStore.get(item)
 
             return {
-              javascript: gameJavascriptDebugStore.get(item).payload,
+              javascript: gameTypeScriptCombinedJavascriptTextDebugStore.get(item).payload,
               backgroundColor: metadata.backgroundColor,
               safeAreaWidthVirtualPixels: metadata.safeAreaWidthVirtualPixels,
               safeAreaHeightVirtualPixels: metadata.safeAreaHeightVirtualPixels,
@@ -40,7 +40,7 @@ export default function (
           },
           html => gameHtmlDebugStore.set(item, {
             payload: html,
-            uuid: gameJavascriptDebugStore.get(item).uuid,
+            uuid: gameTypeScriptCombinedJavascriptTextDebugStore.get(item).uuid,
           })
         ),
         new MinifyHtmlStep(

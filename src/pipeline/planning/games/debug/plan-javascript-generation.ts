@@ -7,9 +7,7 @@ import Diff from "../../../files/diff"
 import StepBase from "../../../steps/step-base"
 import DeleteFromKeyValueStoreIfSetStep from "../../../steps/actions/stores/delete-from-key-value-store-if-set-step"
 import CombineTypeScriptStep from "../../../steps/actions/type-script/combine-type-script-step"
-import MinifyJsStep from "../../../steps/actions/minify-js-step"
 import gameTypeScriptCombinedJavascriptTextDebugStore from "../../../stores/game-type-script-combined-javascript-text-debug-store"
-import gameJavascriptDebugStore from "../../../stores/game-javascript-debug-store"
 import engineTypeScriptParsedStore from "../../../stores/engine-type-script-parsed-store"
 import gameTypeScriptParsedStore from "../../../stores/game-type-script-parsed-store"
 import gameDeclarationsDebugStore from "../../../stores/game-declarations-debug-store"
@@ -38,7 +36,6 @@ export default function (
         new DeleteStep(path.join(`src`, `games`, item, `src`, `.declarations.ts`)),
         new DeleteFromKeyValueStoreIfSetStep(gameDeclarationsTypeScriptParsedDebugStore, item),
         new DeleteFromKeyValueStoreIfSetStep(gameTypeScriptCombinedJavascriptTextDebugStore, item),
-        new DeleteFromKeyValueStoreIfSetStep(gameJavascriptDebugStore, item),
       ],
       item => {
         const buildUuid = uuid.v4()
@@ -66,17 +63,7 @@ export default function (
                 gameTypeScriptParsedStore.tryGetAllByBaseKey(item)
               ]
             },
-            javascript => gameTypeScriptCombinedJavascriptTextDebugStore.set(
-              item, javascript
-            ),
-          ),
-          new MinifyJsStep(
-            () => gameTypeScriptCombinedJavascriptTextDebugStore.get(item),
-            () => gameDeclarationsDebugStore.get(item),
-            code => gameJavascriptDebugStore.set(item, {
-              payload: code,
-              uuid: buildUuid,
-            }),
+            javascript => gameTypeScriptCombinedJavascriptTextDebugStore.set(item, { uuid: buildUuid, payload: javascript }),
           ),
         ]
       }
