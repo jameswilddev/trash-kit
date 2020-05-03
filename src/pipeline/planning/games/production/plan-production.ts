@@ -15,7 +15,7 @@ export default function (
     `production`,
     [
       planJavascriptGeneration(enginePlanningResult, typeSeparated.allSorted),
-      planHtmlGeneration(debug, enginePlanningResult, games),
+      planHtmlGeneration(enginePlanningResult, games),
     ],
   )
 }
