@@ -3,7 +3,7 @@ function engineApplyTransformOrFilter(
   targetProperty: `transform` | `filter`,
   transformsOrFilters: ReadonlyArray<string>,
 ) {
-  element.style[targetProperty] = transformsOrFilters.join(` `) || `none`
+  element.style[targetProperty] = transformsOrFilters.join(` `)
 }
 
 function engineSetTransition(
