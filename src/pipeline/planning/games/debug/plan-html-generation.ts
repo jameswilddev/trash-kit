@@ -3,9 +3,7 @@ import Diff from "../../../files/diff"
 import StepBase from "../../../steps/step-base"
 import DeleteFromKeyValueStoreIfSetStep from "../../../steps/actions/stores/delete-from-key-value-store-if-set-step"
 import RenderPugStep from "../../../steps/actions/pug/render-pug-step"
-import MinifyHtmlStep from "../../../steps/actions/minify-html-step"
 import gameHtmlDebugStore from "../../../stores/game-html-debug-store"
-import gameMinifiedHtmlDebugStore from "../../../stores/game-minified-html-debug-store"
 import enginePugStore from "../../../stores/engine-pug-store"
 import gameTypeScriptCombinedJavascriptTextDebugStore from "../../../stores/game-type-script-combined-javascript-text-debug-store"
 import gameMetadataJsonStore from "../../../stores/game-metadata-json-store"
@@ -22,7 +20,6 @@ export default function (
       item => item,
       item => [
         new DeleteFromKeyValueStoreIfSetStep(gameHtmlDebugStore, item),
-        new DeleteFromKeyValueStoreIfSetStep(gameMinifiedHtmlDebugStore, item),
       ],
       item => [
         new RenderPugStep(
@@ -41,13 +38,6 @@ export default function (
           html => gameHtmlDebugStore.set(item, {
             payload: html,
             uuid: gameTypeScriptCombinedJavascriptTextDebugStore.get(item).uuid,
-          })
-        ),
-        new MinifyHtmlStep(
-          () => gameHtmlDebugStore.get(item).payload,
-          html => gameMinifiedHtmlDebugStore.set(item, {
-            payload: html,
-            uuid: gameHtmlDebugStore.get(item).uuid
           })
         ),
       ]

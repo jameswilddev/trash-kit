@@ -10,7 +10,7 @@ import WriteFileStep from "../../steps/actions/files/write-file-step"
 import planDeletionOfPreviousArtifacts from "./plan-deletion-of-previous-artifacts"
 import planCreationOfDirectories from "./plan-creation-of-directories"
 import planParsingOfTypeScriptLibraries from "./plan-parsing-of-type-script-libraries"
-import gameMinifiedHtmlDebugStore from "../../stores/game-minified-html-debug-store"
+import gameHtmlDebugStore from "../../stores/game-html-debug-store"
 import tsconfigContent from "../../steps/actions/type-script/tsconfig-content"
 import ParsePugStep from "../../steps/actions/pug/parse-pug-step"
 import gameListPugStore from "../../stores/game-list-pug-store"
@@ -39,7 +39,7 @@ export default function (
 
       hostSteps.push(
         new HostStep(
-          gameMinifiedHtmlDebugStore,
+          gameHtmlDebugStore,
           gameListPugStore,
         )
       )
