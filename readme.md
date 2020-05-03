@@ -76,6 +76,13 @@ See `File structure` for details on adding new or modifying existing games.
 By default, a GitHub Action will build every game in your repository and make
 the HTML and zip files available as artifacts attached to the builds.
 
+There are additionally basic "smoke tests", which launch the included
+`tower-of-hanoi` in a headless Chrome and ensure that some basic features work.
+Removing or significantly changing this game and/or the included engine are
+likely to break these tests, so you may need to either replace them or remove
+them entirely.  You can quickly disable them by removing `- run: npm test` from
+`.github/workflows/continuous-integration.yaml`.
+
 #### Optional
 
 The following continuous integration services may be useful for forks of the

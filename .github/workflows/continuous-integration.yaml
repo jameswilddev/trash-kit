@@ -10,6 +10,7 @@ jobs:
         node-version: '12.x'
         registry-url: 'https://registry.npmjs.org'
     - run: npm ci
+    - run: npm test
     - run: npm run-script ci
     - uses: actions/upload-artifact@v2-preview
       with:

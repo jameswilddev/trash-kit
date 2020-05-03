@@ -17,7 +17,8 @@
     "src/engine/tsconfig.json": true,
     "src/games/*/tsconfig.json": true,
     "src/games/*/src/.declarations.ts": true,
-    "dist": true
+    "dist": true,
+    "**/*.js": true,
   },
   "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe"
 }

@@ -3,3 +3,4 @@
 /src/games/*/tsconfig.json
 /src/games/*/src/.declarations.ts
 /dist
+*.js
