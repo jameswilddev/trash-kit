@@ -41,7 +41,7 @@ export default function (
 
         return [
           new GenerateDeclarationsStep(item, false, buildUuid, gameDeclarationsProductionStore),
-          new ConvertDeclarationsToTypeScriptStep(item, gameDeclarationsProductionStore, gameDeclarationsTypeScriptTextProductionStore),
+          new ConvertDeclarationsToTypeScriptStep(true, item, gameDeclarationsProductionStore, gameDeclarationsTypeScriptTextProductionStore),
           new ParseTypeScriptStep(`.declarations.ts`, () => gameDeclarationsTypeScriptTextProductionStore.get(item), parsed => gameDeclarationsTypeScriptParsedProductionStore.set(item, parsed)),
           new CombineTypeScriptStep(
             () => {

@@ -5,6 +5,7 @@ import KeyValueStore from "../../stores/key-value-store"
 
 export default class ConvertDeclarationsToTypeScriptStep extends ActionStepBase {
   constructor(
+    private readonly ambient: boolean,
     private readonly game: string,
     private readonly gameDeclarationsStore: KeyValueStore<types.DeclarationSet>,
     private readonly gameDeclarationsTypeScriptTextStore: KeyValueStore<string>,
@@ -25,7 +26,7 @@ export default class ConvertDeclarationsToTypeScriptStep extends ActionStepBase 
 
     const constants = declarations
       .filter((declaration): declaration is types.ConstantDeclaration => declaration.type === `constant`)
-      .map(constantDeclaration => `declare const ${constantDeclaration.name}: ${constantDeclaration.valueType}`)
+      .map(constantDeclaration => `${this.ambient ? `declare ` : ``}const ${constantDeclaration.name}: ${constantDeclaration.valueType}${this.ambient ? `` : ` = ${JSON.stringify(constantDeclaration.value)}`}`)
 
     this.gameDeclarationsTypeScriptTextStore.set(this.game, types.concat(constants).join(`\n`))
   }
