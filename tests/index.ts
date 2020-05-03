@@ -65,7 +65,7 @@ function run(
 
     const mismatchingPixels = pixelmatch(expectedPng.data, actualPng.data, null, width, height, { threshold: 0.01 })
     expect(mismatchingPixels).toBeLessThan(10) // It's quite normal for antialiasing, etc. to be slightly off.
-  })
+  }, 100000)
 }
 
 describe(`production`, () => {
