@@ -40,7 +40,7 @@ export default function (
                 throw new Error(`Failed to inject ID into SVG def "${name}".`)
               }
 
-              return def.replace(/\sid=""/, `${matches[0].slice(0, matches[0].length - 5)}id="d${index}"`)
+              return def.replace(/\sid=""/, `${matches[0].slice(0, matches[0].length - 5)}id="${index}"`)
             })
             .join(``)
 

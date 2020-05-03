@@ -69,7 +69,7 @@ export default class GenerateDeclarationsStep extends ActionStepBase {
     orderedSvgNames.forEach((typeScriptName, index) => declarations.push({
       type: `type`,
       name: `${typeScriptName.slice(0, 1).toUpperCase()}${typeScriptName.slice(1)}`,
-      definition: `\`d${index}\``,
+      definition: `${index}`,
     }))
 
     declarations.push({
@@ -82,7 +82,7 @@ export default class GenerateDeclarationsStep extends ActionStepBase {
       type: `constant`,
       name: typeScriptName,
       valueType: `${typeScriptName.slice(0, 1).toUpperCase()}${typeScriptName.slice(1)}`,
-      value: `d${index}`,
+      value: index,
     }))
 
     this.gameDeclarationsStore.set(this.game, declarations)
