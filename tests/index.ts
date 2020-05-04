@@ -63,8 +63,13 @@ function run(
     const expectedPng = pngjs.PNG.sync.read(expectedBytes)
     const actualPng = pngjs.PNG.sync.read(actualBytes)
 
-    const mismatchingPixels = pixelmatch(expectedPng.data, actualPng.data, null, width, height, { threshold: 0.01 })
-    expect(mismatchingPixels).toBeLessThan(50) // It's quite normal for antialiasing, etc. to be slightly off.
+    // It's quite normal for antialiasing, etc. to be slightly off.
+
+    const mildlyMismatchingPixels = pixelmatch(expectedPng.data, actualPng.data, null, width, height, { threshold: 0.01 })
+    expect(mildlyMismatchingPixels).toBeLessThan(50)
+
+    const stronglyMismatchingPixels = pixelmatch(expectedPng.data, actualPng.data, null, width, height, { threshold: 0.1 })
+    expect(stronglyMismatchingPixels).toBeLessThan(10)
   }, 100000)
 }
 
