@@ -66,7 +66,7 @@ function run(
     // It's quite normal for antialiasing, etc. to be slightly off.
 
     const mildlyMismatchingPixels = pixelmatch(expectedPng.data, actualPng.data, null, width, height, { threshold: 0.01 })
-    expect(mildlyMismatchingPixels).toBeLessThan(50)
+    expect(mildlyMismatchingPixels).toBeLessThan(100)
 
     const stronglyMismatchingPixels = pixelmatch(expectedPng.data, actualPng.data, null, width, height, { threshold: 0.1 })
     expect(stronglyMismatchingPixels).toBeLessThan(10)
