@@ -308,6 +308,10 @@ Imported from `metadata.json`.
 
 The current state; modify as you please.
 
+#### `Falsy`
+
+Represents any value which is "falsy".
+
 #### `Truthiness`
 
 Either `1` or `undefined`.  Useful for indicating a `true`/`false` flag without

@@ -1,5 +1,7 @@
 let state: State
 
+type Falsy = false | 0 | null | ``
+
 type Truthiness = 1 | undefined
 
 type Json = EngineJson
