@@ -193,14 +193,15 @@ let root: SVGSVGElement
 type Group = SVGGElement
 type Sprite = SVGUseElement
 type Rectangle = SVGRectElement
+type TextObject = SVGTextElement
 
 type Parent = SVGSVGElement | Group
 
-type TransformableChild = Group | Sprite | Rectangle
-type FilterableChild = Group | Sprite | Rectangle
+type TransformableChild = Group | Sprite | Rectangle | TextObject
+type FilterableChild = Group | Sprite | Rectangle | TextObject
 type TransformableOrFilterableChild = TransformableChild | FilterableChild
 
-type ClickableChild = Group | Sprite | Rectangle
+type ClickableChild = Group | Sprite | Rectangle | TextObject
 
 function group(
   parent: Parent,
@@ -222,6 +223,20 @@ function rectangle(
   fill?: string
 ): Rectangle {
   return engineRectangle(parent, widthVirtualPixels, heightVirtualPixels, fill)
+}
+
+type TextAnchor = Falsy | `middle` | `end`
+type DominantBaseline = Falsy | `middle` | `hanging`
+
+function text(
+  parent: Parent,
+  textContent: string,
+  fontFamily?: Falsy | string,
+  color?: Falsy | string,
+  textAnchor?: TextAnchor,
+  dominantBaseline?: DominantBaseline,
+): TextObject {
+  return engineText(parent, textContent, fontFamily, color, textAnchor, dominantBaseline)
 }
 
 function transform(

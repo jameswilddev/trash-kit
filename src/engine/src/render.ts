@@ -48,6 +48,32 @@ function engineRectangle(
   return element
 }
 
+function engineText(
+  parent: Parent,
+  textContent: string,
+  fontFamily?: Falsy | string,
+  color?: Falsy | string,
+  textAnchor?: TextAnchor,
+  dominantBaseline?: DominantBaseline,
+): TextObject {
+  const element = document.createElementNS(`http://www.w3.org/2000/svg`, `text`)
+  if (textAnchor) {
+    element.setAttribute(`text-anchor`, textAnchor)
+  }
+  if (dominantBaseline) {
+    element.setAttribute(`dominant-baseline`, dominantBaseline)
+  }
+  element.textContent = textContent
+  if (fontFamily) {
+    element.setAttribute(`font-family`, fontFamily)
+  }
+  if (color) {
+    element.setAttribute(`fill`, `#${color}`)
+  }
+  parent.appendChild(element)
+  return element
+}
+
 function engineClick(
   child: ClickableChild,
   then: () => void,

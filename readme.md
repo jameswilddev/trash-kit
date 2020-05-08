@@ -232,7 +232,7 @@ It is not good for:
 ### Architecture
 
 ```
-initial -.-> state -> render -> viewports -.-> groups/sprites
+initial -.-> state -> render -> viewports -.-> groups/sprites/rectangles/text
          |                                 '-> click handlers -.
          '-----------------------------------------------------'
 ```
@@ -407,12 +407,41 @@ The rectangle is positioned in the top left corner.
 
 These are usually used to accept user input.
 
+##### `text`
+
+This creates text.  Newlines are not supported.
+
+```typescript
+
+// Displayed in black with the browser's default "serif" font at size 16px;
+// the origin is at the bottom left corner.
+const a = text(parentRootOrGroup, `Example Text`)
+
+// As above, but with the browser's default "sans serif" font instead.
+const b = text(parentRootOrGroup, `Example Text`, `sans-serif`)
+
+// As above, but in magenta.
+const c = text(parentRootOrGroup, `Example Text`, `sans-serif`, `f0f`)
+
+// As above, but the origin is the middle of the bottom edge.
+const d = text(parentRootOrGroup, `Example Text`, `sans-serif`, `f0f`, `middle`)
+
+// As above, but the origin is the bottom right corner.
+const e = text(parentRootOrGroup, `Example Text`, `sans-serif`, `f0f`, `end`)
+
+// As above, but the origin is the middle of the right edge.
+const f = text(parentRootOrGroup, `Example Text`, `sans-serif`, `f0f`, `end`, `middle`)
+
+// As above, but the origin is the top right corner.
+const g = text(parentRootOrGroup, `Example Text`, `sans-serif`, `f0f`, `end`, `hanging`)
+```
+
 #### Input
 
 ##### `click`
 
-Specify a callback to execute when a group, sprite or rectangle is clicked on or
-tapped.
+Specify a callback to execute when a group, sprite, rectangle or text is clicked
+on or tapped.
 
 ```typescript
 click(object, () => {
@@ -441,7 +470,7 @@ transform(object, [scale(0.5, 1)])
 filter(object, [hueRotate(240)])
 ```
 
-Groups, sprites and rectangles can be animated.
+Groups, sprites, rectangles and text can be animated.
 
 ##### `delay`
 
@@ -522,7 +551,7 @@ easeInOut(object, 2)
 #### Transforms
 
 These can be strung together to describe transformations applied to groups,
-sprites and rectangles.
+sprites, rectangles and text.
 
 Apply them using the `transform` function:
 
@@ -568,7 +597,7 @@ Scales by the given factor on the X and Y axes.
 #### Filters
 
 These can be strung together to describe postprocessing effects applied to
-groups, sprites and rectangles.
+groups, sprites, rectangles and text.
 
 Apply them using the `filter` function:
 
