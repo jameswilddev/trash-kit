@@ -33,7 +33,7 @@
     "express": "4.17.1",
     "extract-zip": "2.0.1",
     "html-minifier": "4.0.0",
-    "jasmine": "3.9.0",
+    "jasmine": "3.10.0",
     "jsonschema": "1.4.0",
     "pixelmatch": "5.2.1",
     "pngjs": "6.0.0",
