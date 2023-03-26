@@ -12,6 +12,7 @@ function engineSetTransition (
   durationSeconds: number
 ): void {
   // Force style refresh.
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
   getComputedStyle(element).top
 
   element.style.transition = `all ${durationSeconds}s ${easingFunction}`
