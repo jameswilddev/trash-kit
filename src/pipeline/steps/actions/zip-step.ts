@@ -34,6 +34,14 @@ export default class ZipStep extends ActionStepBase {
 
       const targetPath = path.join(temporaryDirectory, `output.zip`)
 
+      const stats = await fs.promises.stat(_7zipBin.path7za)
+
+      const executeBits = 10
+
+      if ((stats.mode & executeBits) !== executeBits) {
+        await fs.promises.chmod(_7zipBin.path7za, stats.mode | executeBits);
+      }
+
       await new Promise<void>((resolve, reject) => {
         childProcess
           .execFile(_7zipBin.path7za, [
