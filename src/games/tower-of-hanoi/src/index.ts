@@ -1,13 +1,13 @@
 const version = 1
 
-type State = {
+interface State {
   piece: number
   fromTower: number
   lifted: boolean
-  readonly towers: ReadonlyArray<number[]>
+  readonly towers: readonly number[][]
 }
 
-function initial(): State {
+function initial (): State {
   return {
     piece: 4,
     fromTower: 0,
@@ -21,7 +21,7 @@ const pieceHeightVirtualPixels = 20
 
 const pieces = [piece0_svg, piece1_svg, piece2_svg, piece3_svg, piece4_svg]
 
-function render(): void {
+function render (): void {
   sprite(root, background_svg)
 
   const won = state.towers[2].length === 5
