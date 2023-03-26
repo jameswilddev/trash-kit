@@ -45,7 +45,7 @@ function run(
   height: number,
   clicks: ReadonlyArray<[number, number]>,
 ): void {
-  it(name.join(` `), async () => {
+  it(name.slice(1).join(` `), async () => {
     const browser = await puppeteer.launch({ defaultViewport: { width, height } })
     const page = await browser.newPage()
     await page.goto(url())
