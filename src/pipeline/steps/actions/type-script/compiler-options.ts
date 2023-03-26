@@ -30,7 +30,8 @@ const output: typeScript.CompilerOptions = {
   jsx: typeScript.JsxEmit.Preserve,
   keyofStringsOnly: false,
   lib: [
-    'es2018'
+    'es5',
+    'dom'
   ],
   mapRoot: '',
   maxNodeModuleJsDepth: 0,
