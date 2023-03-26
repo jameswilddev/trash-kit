@@ -9,12 +9,12 @@ import * as puppeteer from "puppeteer"
 import pixelmatch = require("pixelmatch")
 import * as extractZip from "extract-zip"
 
-let productionHtml: string
-let productionZip: string
-let debug: childProcess.ChildProcess
+let productionHtml: null | string = null
+let productionZip: null | string = null
+let debug: null | childProcess.ChildProcess = null
 
 beforeAll(async () => {
-  await new Promise((resolve, reject) => childProcess.exec(`npm run ci`, error => {
+  await new Promise<void>((resolve, reject) => childProcess.exec(`npm run ci`, error => {
     if (error) {
       reject(error)
     }
@@ -33,9 +33,21 @@ beforeAll(async () => {
 }, 100000)
 
 afterAll(async () => {
-  await fs.promises.unlink(productionHtml)
-  await fs.promises.unlink(productionZip)
-  debug.kill()
+  if (productionHtml !== null) {
+    const productionHtmlCopy = productionHtml
+    productionHtml = null
+    await fs.promises.unlink(productionHtmlCopy)
+  }
+
+  if (productionZip !== null) {
+    const productionZipCopy = productionZip
+    productionZip = null
+    await fs.promises.unlink(productionZipCopy)
+  }
+
+  if (debug !== null) {
+    debug.kill()
+  }
 })
 
 function run(
@@ -79,14 +91,23 @@ describe(`production`, () => {
 
     beforeAll(async () => {
       extractedZip = path.join(os.tmpdir(), `${uuid.v4()}`)
+
+      if (productionZip === null) {
+        throw new Error(`Unexpectedly found no production zip to extract.`);
+      }
+
       await extractZip(productionZip, { dir: extractedZip })
     })
 
     afterAll(async () => {
-      await fs.promises.rmdir(extractedZip, { recursive: true })
+      await fs.promises.rm(extractedZip, { recursive: true })
     })
 
     it(`includes the html file`, async () => {
+      if (productionHtml === null) {
+        throw new Error(`Unexpectedly found no production HTML to compare.`);
+      }
+
       const expected = await fs.promises.readFile(productionHtml, `utf-8`)
       const actual = await fs.promises.readFile(path.join(extractedZip, `index.html`), `utf-8`)
 

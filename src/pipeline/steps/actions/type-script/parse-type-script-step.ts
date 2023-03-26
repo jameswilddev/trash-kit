@@ -22,7 +22,7 @@ export default class ParseTypeScriptStep extends ActionStepBase {
     const result = typeScript.createSourceFile(
       this.fileName,
       this.getText(),
-      typeScript.ScriptTarget.ES3,
+      typeScript.ScriptTarget.ES5,
       false,
       typeScript.ScriptKind.TS
     )

@@ -12,7 +12,9 @@ export default function (): StepBase {
     [
       `dom`,
       `es5`,
-      `scripthost`
+      `scripthost`,
+      'decorators',
+      'decorators.legacy',
     ]
       .map(name => {
         const path = require.resolve(`typescript/lib/lib.${name}.d.ts`)

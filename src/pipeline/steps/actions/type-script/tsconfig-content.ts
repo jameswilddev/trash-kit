@@ -5,5 +5,5 @@ export default {
   jsx: `preserve`,
   module: `None`,
   moduleResolution: `node`,
-  target: `ES3`,
+  target: `ES5`,
 }
