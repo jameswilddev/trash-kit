@@ -10,7 +10,7 @@ const output: typeScript.CompilerOptions = {
   baseUrl: './',
   checkJs: false,
   composite: false,
-  declaration: true,
+  declaration: false,
   declarationMap: false,
   disableReferencedProjectLoad: true,
   disableSolutionSearching: true,
