@@ -1,116 +1,59 @@
-import * as Svgo from "svgo"
+import * as Svgo from "svgo";
 import StepBase from "../step-base"
 import ActionStepBase from "./action-step-base"
 import iterativelyMinify from "../../utilities/iteratively-minify"
 
 const floatPrecision = 0
 
-const svgo = new Svgo({
-  plugins: [{
-    cleanupAttrs: true
-  }, {
-    inlineStyles: true
-  } as any, {
-    removeDoctype: true
-  }, {
-    removeXMLProcInst: true
-  }, {
-    removeComments: true
-  }, {
-    removeMetadata: true
-  }, {
-    removeTitle: true
-  }, {
-    removeDesc: true
-  }, {
-    removeUselessDefs: true
-  }, {
-    removeXMLNS: true
-  }, {
-    removeEditorsNSData: true
-  }, {
-    removeEmptyAttrs: true
-  }, {
-    removeHiddenElems: true
-  }, {
-    removeEmptyText: true
-  }, {
-    removeEmptyContainers: true
-  }, {
-    removeViewBox: true
-  }, {
-    cleanupEnableBackground: true
-  }, {
-    minifyStyles: true
-  }, {
-    convertStyleToAttrs: true
-  }, {
-    convertColors: true
-  }, {
-    convertPathData: {
-      applyTransforms: true,
-      applyTransformsStroked: true,
-      makeArcs: {
-        threshold: 2.5,
-        tolerance: 0.5
-      },
-      straightCurves: true,
-      lineShorthands: true,
-      curveSmoothShorthands: true,
-      floatPrecision,
-      transformPrecision: floatPrecision,
-      removeUseless: true,
-      collapseRepeated: true,
-      utilizeAbsolute: true,
-      leadingZero: true,
-      negativeExtraSpace: true,
-      noSpaceAfterFlags: true,
-      forceAbsolutePath: false
-    }
-  }, {
-    convertTransform: {
-      floatPrecision,
+const options: Svgo.Config = {
+  multipass: false,
+  floatPrecision,
+  plugins: [
+    'cleanupAttrs',
+    'cleanupEnableBackground',
+    'cleanupIds',
+    {
+      name: 'cleanupListOfValues', params: { floatPrecision }
     },
-  }, {
-    removeUnknownsAndDefaults: true
-  }, {
-    removeNonInheritableGroupAttrs: true
-  }, {
-    removeUselessStrokeAndFill: true
-  }, {
-    removeUnusedNS: true
-  }, {
-    cleanupIDs: true
-  }, {
-    cleanupNumericValues: {
-      floatPrecision,
-    },
-  }, {
-    cleanupListOfValues: {
-      floatPrecision,
-    },
-  }, {
-    moveElemsAttrsToGroup: true
-  }, {
-    moveGroupAttrsToElems: true
-  }, {
-    collapseGroups: true
-  }, {
-    removeRasterImages: true
-  }, {
-    mergePaths: true
-  }, {
-    convertShapeToPath: true
-  }, {
-    sortAttrs: true
-  }, {
-    removeDimensions: false
-  }, {
-    removeStyleElement: true
-  }, {
-    removeScriptElement: true
-  }]
-})
+    { name: 'cleanupNumericValues', "params": { floatPrecision } },
+    'collapseGroups',
+    'convertColors',
+    'convertEllipseToCircle',
+    { name: "convertPathData", "params": { floatPrecision } },
+    'convertShapeToPath',
+    'convertStyleToAttrs',
+    { name: "convertTransform", params: { floatPrecision } },
+    'inlineStyles',
+    { name: "mergePaths", "params": { floatPrecision } },
+    'mergeStyles',
+    'minifyStyles',
+    'moveElemsAttrsToGroup',
+    'moveGroupAttrsToElems',
+    'removeComments',
+    'removeDesc',
+    'removeDoctype',
+    'removeEditorsNSData',
+    'removeEmptyAttrs',
+    'removeEmptyContainers',
+    'removeEmptyText',
+    'removeHiddenElems',
+    'removeMetadata',
+    'removeNonInheritableGroupAttrs',
+    'removeOffCanvasPaths',
+    'removeScriptElement',
+    'removeTitle',
+    'removeUnknownsAndDefaults',
+    'removeUnusedNS',
+    'removeUselessDefs',
+    'removeUselessStrokeAndFill',
+    'removeViewBox',
+    'removeXMLNS',
+    'removeXMLProcInst',
+    // 'reusePaths', - Can't be enabled as it generates new IDs.
+    'sortAttrs',
+    'sortDefsChildren'
+  ],
+};
 
 export default class OptimizeSvgStep extends ActionStepBase {
   constructor(
@@ -127,7 +70,7 @@ export default class OptimizeSvgStep extends ActionStepBase {
   async execute(): Promise<void> {
     this.storeResult(await iterativelyMinify(
       this.getText(),
-      async previous => (await svgo.optimize(previous)).data
+      async previous => (Svgo.optimize(previous, options)).data
     ))
   }
 }

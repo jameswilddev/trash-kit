@@ -1,5 +1,8 @@
-const svg2js = require("svgo/lib/svgo/svg2js")
-const JS2SVG = require("svgo/lib/svgo/js2svg")
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const parser = require("svgo/lib/parser");
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const stringifier = require("svgo/lib/stringifier");
 import * as types from "../../../types"
 import Diff from "../../../files/diff"
 import StepBase from "../../../steps/step-base"
@@ -45,26 +48,28 @@ export default function (
         async () => {
           const text = gameSvgOptimizedStore.get(item.game, item.name)
 
-          const root = await new Promise<any>(resolve => svg2js(text, resolve))
+          const root = parser.parseSvg(text)
 
-          const children = root.content[0].content
+          const children = root.children[0].children
 
           if (children.length === 1) {
             // Remove the wrapping <svg> (there's already a single root).
-            root.content = children
+            root.children = children
           } else {
             // Replace the wrapping <svg> with a <g>.
-            const groupSource = await new Promise<any>(resolve => svg2js(`<svg><g></g></svg>`, resolve))
-            root.content = groupSource.content[0].content
-            groupSource.content[0].content[0].content = children
+            const groupSource = parser.parseSvg(`<svg><g></g></svg>`)
+
+            root.children = groupSource.children[0].children
+            groupSource.children[0].children[0].children = children
           }
 
           // Inject a blank ID.  This should be safely replaceable later down
           // the line, as we've already filtered out IDs using SVGO.
-          const idSource = await new Promise<any>(resolve => svg2js(`<svg id="" />`, resolve))
-          root.content[0].attrs.id = idSource.content[0].attrs.id
+          const idSource = parser.parseSvg(`<svg id="" />`)
 
-          const generated = new JS2SVG(root).data
+          root.children[0].attributes.id = idSource.children[0].attributes.id
+
+          const generated = stringifier.stringifySvg(root)
           gameSvgDefStore.set(item.game, item.name, generated)
         }
       ),
