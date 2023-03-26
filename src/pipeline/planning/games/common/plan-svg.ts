@@ -1,5 +1,8 @@
-const svg2js = require("svgo/lib/svgo/svg2js")
-const JS2SVG = require("svgo/lib/svgo/js2svg")
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const parser = require("svgo/lib/parser");
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const stringifier = require("svgo/lib/stringifier");
 import * as types from "../../../types"
 import Diff from "../../../files/diff"
 import StepBase from "../../../steps/step-base"
@@ -45,7 +48,7 @@ export default function (
         async () => {
           const text = gameSvgOptimizedStore.get(item.game, item.name)
 
-          const root = await new Promise<any>(resolve => svg2js(text, resolve))
+          const root = await new Promise<any>(resolve => parser.parseSvg(text, resolve))
 
           const children = root.content[0].content
 
@@ -54,17 +57,17 @@ export default function (
             root.content = children
           } else {
             // Replace the wrapping <svg> with a <g>.
-            const groupSource = await new Promise<any>(resolve => svg2js(`<svg><g></g></svg>`, resolve))
+            const groupSource = await new Promise<any>(resolve => parser.parseSvg(`<svg><g></g></svg>`, resolve))
             root.content = groupSource.content[0].content
             groupSource.content[0].content[0].content = children
           }
 
           // Inject a blank ID.  This should be safely replaceable later down
           // the line, as we've already filtered out IDs using SVGO.
-          const idSource = await new Promise<any>(resolve => svg2js(`<svg id="" />`, resolve))
+          const idSource = await new Promise<any>(resolve => parser.parseSvg(`<svg id="" />`, resolve))
           root.content[0].attrs.id = idSource.content[0].attrs.id
 
-          const generated = new JS2SVG(root).data
+          const generated = stringifier.stringifySvg(root).data
           gameSvgDefStore.set(item.game, item.name, generated)
         }
       ),
