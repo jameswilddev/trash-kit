@@ -42,7 +42,9 @@ export default function (
           sourceType: 'module',
           project: path.join('src', 'games', game, 'tsconfig.json')
         },
-        rules: {}
+        rules: {
+          '@typescript-eslint/strict-boolean-expressions': 'off'
+        }
       }
       ),
       path.join('src', 'games', game, '.eslintrc.json')

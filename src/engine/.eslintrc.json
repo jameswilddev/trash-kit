@@ -11,5 +11,7 @@
     "sourceType": "module",
     "project": "src/engine/tsconfig.json"
   },
-  "rules": {}
+  "rules": {
+    "@typescript-eslint/strict-boolean-expressions": "off"
+  }
 }
