@@ -8,22 +8,23 @@ const floatPrecision = 0
 const options: Svgo.Config = {
   multipass: false,
   floatPrecision,
-
   plugins: [
     'cleanupAttrs',
     'cleanupEnableBackground',
     'cleanupIds',
-    'cleanupListOfValues',
-    'cleanupNumericValues',
+    {
+      name: 'cleanupListOfValues', params: { floatPrecision }
+    },
+    { name: 'cleanupNumericValues', "params": { floatPrecision } },
     'collapseGroups',
     'convertColors',
     'convertEllipseToCircle',
-    'convertPathData',
+    { name: "convertPathData", "params": { floatPrecision } },
     'convertShapeToPath',
     'convertStyleToAttrs',
-    'convertTransform',
+    { name: "convertTransform", params: { floatPrecision } },
     'inlineStyles',
-    'mergePaths',
+    { name: "mergePaths", "params": { floatPrecision } },
     'mergeStyles',
     'minifyStyles',
     'moveElemsAttrsToGroup',
@@ -48,7 +49,7 @@ const options: Svgo.Config = {
     'removeViewBox',
     'removeXMLNS',
     'removeXMLProcInst',
-    'reusePaths',
+    // 'reusePaths', - Can't be enabled as it generates new IDs.
     'sortAttrs',
     'sortDefsChildren'
   ],
