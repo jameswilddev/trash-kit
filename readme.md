@@ -793,7 +793,7 @@ To make it easier to determine exactly which steps were planned, it is possible
 to query the hierarchy for a [nomnoml](http://www.nomnoml.com/) document
 detailing exactly which steps were planned to be executed and in what order.
 
-To do this, call `getNomNoml` on the result of `plan`.
+To do this, run `npm run-script nomnoml`.
 
 ## License
 

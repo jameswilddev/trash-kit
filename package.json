@@ -10,6 +10,7 @@
   "scripts": {
     "cli": "ts-node --project src/pipeline/tsconfig.json src/pipeline/cli",
     "ci": "ts-node --project src/pipeline/tsconfig.json src/pipeline/ci",
+    "nomnoml": "ts-node --project src/pipeline/tsconfig.json src/pipeline/nomnoml",
     "test": "tsc --project tests/tsconfig.json && jasmine --config=jasmine.json",
     "lint": "eslint \"**/*.ts\""
   },
