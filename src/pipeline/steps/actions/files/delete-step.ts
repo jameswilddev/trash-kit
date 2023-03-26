@@ -1,28 +1,27 @@
-import * as fs from "fs"
-import StepBase from "../../step-base"
-import ActionStepBase from "../action-step-base"
+import * as fs from 'fs'
+import ActionStepBase from '../action-step-base'
 
 export default class DeleteStep extends ActionStepBase {
-  constructor(
+  constructor (
     private readonly path: string
   ) {
     super(
-      `delete`,
+      'delete',
       [{
-        key: `path`,
+        key: 'path',
         value: path
       }],
-      (self: StepBase) => []
+      () => []
     )
   }
 
-  async execute(): Promise<void> {
+  async execute (): Promise<void> {
     let stats: null | fs.Stats = null
 
     try {
       stats = await fs.promises.stat(this.path)
     } catch (e) {
-      if (e instanceof Error && 'code' in e && e.code === `ENOENT`) {
+      if (e instanceof Error && 'code' in e && e.code === 'ENOENT') {
         return
       }
 

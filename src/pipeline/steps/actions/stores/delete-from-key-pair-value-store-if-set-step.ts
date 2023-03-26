@@ -1,30 +1,29 @@
-import KeyPairValueStore from "../../../stores/key-pair-value-store"
-import StepBase from "../../step-base"
-import ActionStepBase from "../action-step-base"
+import type KeyPairValueStore from '../../../stores/key-pair-value-store'
+import ActionStepBase from '../action-step-base'
 
 export default class DeleteFromKeyPairValueStoreIfSetStep<TValue> extends ActionStepBase {
-  constructor(
+  constructor (
     private readonly keyPairValueStore: KeyPairValueStore<TValue>,
     private readonly a: string,
     private readonly b: string
   ) {
     super(
-      `deleteFromKeyPairValueStoreIfSet`,
+      'deleteFromKeyPairValueStoreIfSet',
       [{
-        key: `keyValuePairStore`,
+        key: 'keyValuePairStore',
         value: keyPairValueStore.name
       }, {
-        key: `a`,
+        key: 'a',
         value: a
       }, {
-        key: `b`,
+        key: 'b',
         value: b
       }],
-      (self: StepBase) => []
+      () => []
     )
   }
 
-  async execute(): Promise<void> {
+  async execute (): Promise<void> {
     this.keyPairValueStore.deleteIfSet(this.a, this.b)
   }
 }

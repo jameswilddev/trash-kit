@@ -1,12 +1,17 @@
+// eslint-disable-line no-unused-vars
 let state: State
 
-type Falsy = false | 0 | null | ``
+// eslint-disable-line no-unused-vars
+type Falsy = false | 0 | null | ''
 
+// eslint-disable-line no-unused-vars
 type Truthiness = 1 | undefined
 
+// eslint-disable-line no-unused-vars
 type Json = EngineJson
 
-function linearInterpolate(
+// eslint-disable-line no-unused-vars
+function linearInterpolate (
   from: number,
   to: number,
   mixUnitInterval: number
@@ -14,7 +19,8 @@ function linearInterpolate(
   return from + (to - from) * mixUnitInterval
 }
 
-function dotProduct(
+// eslint-disable-line no-unused-vars
+function dotProduct (
   x1: number,
   y1: number,
   x2: number,
@@ -23,21 +29,24 @@ function dotProduct(
   return x1 * x2 + y1 * y2
 }
 
-function magnitudeSquared(
+// eslint-disable-line no-unused-vars
+function magnitudeSquared (
   x: number,
   y: number
 ): number {
   return dotProduct(x, y, x, y)
 }
 
-function magnitude(
+// eslint-disable-line no-unused-vars
+function magnitude (
   x: number,
   y: number
 ): number {
   return Math.sqrt(magnitudeSquared(x, y))
 }
 
-function distanceSquared(
+// eslint-disable-line no-unused-vars
+function distanceSquared (
   x1: number,
   y1: number,
   x2: number,
@@ -46,7 +55,8 @@ function distanceSquared(
   return magnitudeSquared(x2 - x1, y2 - y1)
 }
 
-function distance(
+// eslint-disable-line no-unused-vars
+function distance (
   x1: number,
   y1: number,
   x2: number,
@@ -55,55 +65,65 @@ function distance(
   return magnitude(x2 - x1, y2 - y1)
 }
 
+// eslint-disable-line no-unused-vars
 type Transform = string
 
-function translate(
+// eslint-disable-line no-unused-vars
+function translate (
   xVirtualPixels: number,
-  yVirtualPixels: number,
+  yVirtualPixels: number
 ): Transform {
   return `translate(${xVirtualPixels}px,${yVirtualPixels}px)`
 }
 
-function rotate(
-  degreesClockwise: number,
+// eslint-disable-line no-unused-vars
+function rotate (
+  degreesClockwise: number
 ): Transform {
   return `rotate(${degreesClockwise}deg)`
 }
 
-function scale(
+// eslint-disable-line no-unused-vars
+function scale (
   xFactor: number,
-  yFactor: number,
+  yFactor: number
 ): Transform {
   return `scale(${xFactor},${yFactor})`
 }
 
-function scaleUniform(
-  factor: number,
+// eslint-disable-line no-unused-vars
+function scaleUniform (
+  factor: number
 ): Transform {
   return `scale(${factor})`
 }
 
+// eslint-disable-line no-unused-vars
 type Filter = string
 
-function soften(
+// eslint-disable-line no-unused-vars
+function soften (
   virtualPixels: number
 ): Filter {
   return `blur(${virtualPixels}px)`
 }
 
-function brightness(
+// eslint-disable-line no-unused-vars
+function brightness (
   factor: number
 ): Filter {
   return `brightness(${factor})`
 }
 
-function contrast(
+// eslint-disable-line no-unused-vars
+function contrast (
   factor: number
 ): Filter {
   return `contrast(${factor})`
 }
 
-function sharpDropShadow(
+// eslint-disable-line no-unused-vars
+function sharpDropShadow (
   offsetXVirtualPixels: number,
   offsetYVirtualPixels: number,
   color?: string
@@ -117,7 +137,8 @@ function sharpDropShadow(
   return `${output})`
 }
 
-function softDropShadow(
+// eslint-disable-line no-unused-vars
+function softDropShadow (
   offsetXVirtualPixels: number,
   offsetYVirtualPixels: number,
   radiusVirtualPixels: number,
@@ -132,91 +153,118 @@ function softDropShadow(
   return `${output})`
 }
 
-function grayscale(
+// eslint-disable-line no-unused-vars
+function grayscale (
   factor: number
 ): Filter {
   return `grayscale(${factor})`
 }
 
-function hueRotate(
+// eslint-disable-line no-unused-vars
+function hueRotate (
   degrees: number
 ): Filter {
   return `hue-rotate(${degrees}deg)`
 }
 
-function invert(
+// eslint-disable-line no-unused-vars
+function invert (
   factor: number
 ): Filter {
   return `invert(${factor})`
 }
 
-function opacity(
+// eslint-disable-line no-unused-vars
+function opacity (
   factor: number
 ): Filter {
   return `opacity(${factor})`
 }
 
-function saturate(
+// eslint-disable-line no-unused-vars
+function saturate (
   factor: number
 ): Filter {
   return `saturate(${factor})`
 }
 
-function sepia(
+// eslint-disable-line no-unused-vars
+function sepia (
   factor: number
 ): Filter {
   return `sepia(${factor})`
 }
 
-function saveLoadAvailable(): Truthiness {
+// eslint-disable-line no-unused-vars
+function saveLoadAvailable (): Truthiness {
   try {
-    localStorage.setItem(`${gameName}-check`, `check`)
+    localStorage.setItem(`${gameName}-check`, 'check')
     return 1
   } catch { }
-  return
 }
 
-function save<T extends EngineJson>(name: string, content: T): Truthiness {
+// eslint-disable-line no-unused-vars
+function save<T extends EngineJson> (name: string, content: T): Truthiness {
   return engineStorageSave(`custom-${name}`, content)
 }
 
-function load<T extends EngineJson>(name: string): null | T {
+// eslint-disable-line no-unused-vars
+function load<T extends EngineJson> (name: string): null | T {
   return engineStorageLoad(`custom-${name}`)
 }
 
-function drop(name: string): Truthiness {
+// eslint-disable-line no-unused-vars
+function drop (name: string): Truthiness {
   return engineStorageDrop(`custom-${name}`)
 }
 
+// eslint-disable-line no-unused-vars
 let root: SVGSVGElement
 
+// eslint-disable-line no-unused-vars
 type Group = SVGGElement
+
+// eslint-disable-line no-unused-vars
 type Sprite = SVGUseElement
+
+// eslint-disable-line no-unused-vars
 type Rectangle = SVGRectElement
+
+// eslint-disable-line no-unused-vars
 type TextObject = SVGTextElement
 
+// eslint-disable-line no-unused-vars
 type Parent = SVGSVGElement | Group
 
+// eslint-disable-line no-unused-vars
 type TransformableChild = Group | Sprite | Rectangle | TextObject
+
+// eslint-disable-line no-unused-vars
 type FilterableChild = Group | Sprite | Rectangle | TextObject
+
+// eslint-disable-line no-unused-vars
 type TransformableOrFilterableChild = TransformableChild | FilterableChild
 
+// eslint-disable-line no-unused-vars
 type ClickableChild = Group | Sprite | Rectangle | TextObject
 
-function group(
-  parent: Parent,
+// eslint-disable-line no-unused-vars
+function group (
+  parent: Parent
 ): Group {
   return engineGroup(parent)
 }
 
-function sprite(
+// eslint-disable-line no-unused-vars
+function sprite (
   parent: Parent,
-  svg: AnySvg,
+  svg: AnySvg
 ): Sprite {
   return engineSprite(parent, svg)
 }
 
-function rectangle(
+// eslint-disable-line no-unused-vars
+function rectangle (
   parent: Parent,
   widthVirtualPixels: number,
   heightVirtualPixels: number,
@@ -225,79 +273,92 @@ function rectangle(
   return engineRectangle(parent, widthVirtualPixels, heightVirtualPixels, fill)
 }
 
-type TextAnchor = Falsy | `middle` | `end`
-type DominantBaseline = Falsy | `middle` | `hanging`
+// eslint-disable-line no-unused-vars
+type TextAnchor = Falsy | 'middle' | 'end'
 
-function text(
+// eslint-disable-line no-unused-vars
+type DominantBaseline = Falsy | 'middle' | 'hanging'
+
+// eslint-disable-line no-unused-vars
+function text (
   parent: Parent,
   textContent: string,
   fontFamily?: Falsy | string,
   color?: Falsy | string,
   textAnchor?: TextAnchor,
-  dominantBaseline?: DominantBaseline,
+  dominantBaseline?: DominantBaseline
 ): TextObject {
   return engineText(parent, textContent, fontFamily, color, textAnchor, dominantBaseline)
 }
 
-function transform(
+// eslint-disable-line no-unused-vars
+function transform (
   child: TransformableChild,
-  transforms: ReadonlyArray<Transform>,
+  transforms: readonly Transform[]
 ): void {
-  engineApplyTransformOrFilter(child, `transform`, transforms)
+  engineApplyTransformOrFilter(child, 'transform', transforms)
 }
 
-function filter(
+// eslint-disable-line no-unused-vars
+function filter (
   child: FilterableChild,
-  filters: ReadonlyArray<Filter>,
+  filters: readonly Filter[]
 ): void {
-  engineApplyTransformOrFilter(child, `filter`, filters)
+  engineApplyTransformOrFilter(child, 'filter', filters)
 }
 
-function delay(
+// eslint-disable-line no-unused-vars
+function delay (
   child: TransformableOrFilterableChild,
-  durationSeconds: number,
+  durationSeconds: number
 ): void {
-  engineSetTransition(child, `jump-end`, durationSeconds)
+  engineSetTransition(child, 'jump-end', durationSeconds)
 }
 
-function linear(
+// eslint-disable-line no-unused-vars
+function linear (
   child: TransformableOrFilterableChild,
-  durationSeconds: number,
+  durationSeconds: number
 ): void {
-  engineSetTransition(child, `linear`, durationSeconds)
+  engineSetTransition(child, 'linear', durationSeconds)
 }
 
-function easeOut(
+// eslint-disable-line no-unused-vars
+function easeOut (
   child: TransformableOrFilterableChild,
-  durationSeconds: number,
+  durationSeconds: number
 ): void {
-  engineSetTransition(child, `ease-out`, durationSeconds)
+  engineSetTransition(child, 'ease-out', durationSeconds)
 }
 
-function easeIn(
+// eslint-disable-line no-unused-vars
+function easeIn (
   child: TransformableOrFilterableChild,
-  durationSeconds: number,
+  durationSeconds: number
 ): void {
-  engineSetTransition(child, `ease-in`, durationSeconds)
+  engineSetTransition(child, 'ease-in', durationSeconds)
 }
 
-function easeInOut(
+// eslint-disable-line no-unused-vars
+function easeInOut (
   child: TransformableOrFilterableChild,
-  durationSeconds: number,
+  durationSeconds: number
 ): void {
-  engineSetTransition(child, `ease-in-out`, durationSeconds)
+  engineSetTransition(child, 'ease-in-out', durationSeconds)
 }
 
-function ease(
+// eslint-disable-line no-unused-vars
+function ease (
   child: TransformableOrFilterableChild,
-  durationSeconds: number,
+  durationSeconds: number
 ): void {
-  engineSetTransition(child, `ease`, durationSeconds)
+  engineSetTransition(child, 'ease', durationSeconds)
 }
 
-function click(
+// eslint-disable-line no-unused-vars
+function click (
   child: ClickableChild,
-  then: () => void,
+  then: () => void
 ): void {
   engineClick(child, then)
 }

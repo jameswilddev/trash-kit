@@ -1,3 +1,3 @@
-import KeyValueStore from "./key-value-store"
+import KeyValueStore from './key-value-store'
 
-export default new KeyValueStore<string>(`gameDeclarationsTypeScriptTextProduction`)
+export default new KeyValueStore<string>('gameDeclarationsTypeScriptTextProduction')

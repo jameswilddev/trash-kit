@@ -12,6 +12,6 @@ export default async function (
     previous = next
   }
 
-  console.warn(`Minification did not stabilize after 10 attempts.`)
+  console.warn('Minification did not stabilize after 10 attempts.')
   return previous
 }

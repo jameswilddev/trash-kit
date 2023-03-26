@@ -1,11 +1,11 @@
-import StepBase from "../../steps/step-base"
-import ActionStepBase from "../../steps/actions/action-step-base"
-import AggregatorStepBase from "./aggregator-step-base"
+import type StepBase from '../../steps/step-base'
+import type ActionStepBase from '../../steps/actions/action-step-base'
+import AggregatorStepBase from './aggregator-step-base'
 
 export default class ParallelStep extends AggregatorStepBase {
-  constructor(
+  constructor (
     name: string,
-    children: ReadonlyArray<StepBase>
+    children: readonly StepBase[]
   ) {
     super(
       `${name} (parallel)`,
@@ -13,18 +13,18 @@ export default class ParallelStep extends AggregatorStepBase {
       (self: StepBase) => children.map(child => ({
         from: self,
         to: child,
-        type: `strong`
+        type: 'strong'
       })),
       children
     )
   }
 
-  async executePerActionStep(
+  async executePerActionStep (
     onActionStep: (
       step: ActionStepBase,
       execute: () => Promise<void>
     ) => Promise<void>
   ): Promise<void> {
-    await Promise.all(this.children.map(child => child.executePerActionStep(onActionStep)))
+    await Promise.all(this.children.map(async child => { await child.executePerActionStep(onActionStep) }))
   }
 }

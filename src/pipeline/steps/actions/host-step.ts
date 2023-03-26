@@ -1,34 +1,33 @@
-import * as express from "express"
-import * as pug from "pug"
-import * as types from "../../types"
-import StepBase from "../step-base"
-import ActionStepBase from "./action-step-base"
-import KeyValueStore from "stores/key-value-store"
-import ValueStore from "stores/value-store"
+import * as express from 'express'
+import type * as pug from 'pug'
+import type * as types from '../../types'
+import ActionStepBase from './action-step-base'
+import type KeyValueStore from '../../stores/key-value-store'
+import type ValueStore from '../../stores/value-store'
 
 export default class HostStep extends ActionStepBase {
-  constructor(
+  constructor (
     private readonly gameHtmlStore: KeyValueStore<types.Versioned<string>>,
-    private readonly gameListPugStore: ValueStore<pug.compileTemplate>,
+    private readonly gameListPugStore: ValueStore<pug.compileTemplate>
   ) {
     super(
-      `host`,
+      'host',
       [],
-      (self: StepBase) => []
+      () => []
     )
   }
 
-  async execute(): Promise<void> {
-    return new Promise(
-      (resolve, reject) => express()
-        .get(`/`, (request, response) => {
+  async execute (): Promise<void> {
+    await new Promise<void>(
+      (resolve) => express()
+        .get('/', (_, response) => {
           const games = Object.keys(this.gameHtmlStore.getAll()).sort()
 
           if (games.length === 1) {
-            response.redirect(games[0])
+            response.redirect(games[0] as string)
           } else {
             response.send(this.gameListPugStore.get()({
-              games,
+              games
             }))
           }
         })
@@ -47,7 +46,7 @@ export default class HostStep extends ActionStepBase {
           if (html === null) {
             response.sendStatus(404)
           } else {
-            response.setHeader(`content-type`, `text/plain`)
+            response.setHeader('content-type', 'text/plain')
             response.send(html.uuid)
           }
         })

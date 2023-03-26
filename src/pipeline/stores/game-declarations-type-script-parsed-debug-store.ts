@@ -1,4 +1,4 @@
-import * as typeScript from "typescript"
-import KeyValueStore from "./key-value-store"
+import type * as typeScript from 'typescript'
+import KeyValueStore from './key-value-store'
 
-export default new KeyValueStore<typeScript.SourceFile>(`gameDeclarationsTypeScriptParsedDebug`)
+export default new KeyValueStore<typeScript.SourceFile>('gameDeclarationsTypeScriptParsedDebug')

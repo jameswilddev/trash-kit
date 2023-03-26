@@ -1,12 +1,12 @@
-function engineRender(): void {
+function engineRender (): void {
   engineDebugger()
 
-  root = document.getElementsByTagName(`svg`)[0]
+  root = document.getElementsByTagName('svg')[0]
 
   while (true) {
     const last = root.lastChild as Element
 
-    if (last.tagName === `defs`) {
+    if (last.tagName === 'defs') {
       break
     }
 
@@ -16,25 +16,25 @@ function engineRender(): void {
   render()
 }
 
-function engineGroup(
-  parent: Parent,
+function engineGroup (
+  parent: Parent
 ): Group {
-  const element = document.createElementNS(`http://www.w3.org/2000/svg`, `g`)
+  const element = document.createElementNS('http://www.w3.org/2000/svg', 'g')
   parent.appendChild(element)
   return element
 }
 
-function engineSprite(
+function engineSprite (
   parent: Parent,
-  svg: AnySvg,
+  svg: AnySvg
 ): Sprite {
-  const element = document.createElementNS(`http://www.w3.org/2000/svg`, `use`)
-  element.setAttributeNS(`http://www.w3.org/1999/xlink`, `href`, `#${svg}`)
+  const element = document.createElementNS('http://www.w3.org/2000/svg', 'use')
+  element.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `#${svg}`)
   parent.appendChild(element)
   return element
 }
 
-function engineRectangle(
+function engineRectangle (
   parent: Parent,
   widthVirtualPixels: number,
   heightVirtualPixels: number,
@@ -43,45 +43,45 @@ function engineRectangle(
   const element = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
   element.setAttribute('width', `${widthVirtualPixels}px`)
   element.setAttribute('height', `${heightVirtualPixels}px`)
-  element.setAttribute('fill', fill ? `#${fill}` : `#0000`)
+  element.setAttribute('fill', fill ? `#${fill}` : '#0000')
   parent.appendChild(element)
   return element
 }
 
-function engineText(
+function engineText (
   parent: Parent,
   textContent: string,
   fontFamily?: Falsy | string,
   color?: Falsy | string,
   textAnchor?: TextAnchor,
-  dominantBaseline?: DominantBaseline,
+  dominantBaseline?: DominantBaseline
 ): TextObject {
-  const element = document.createElementNS(`http://www.w3.org/2000/svg`, `text`)
+  const element = document.createElementNS('http://www.w3.org/2000/svg', 'text')
   if (textAnchor) {
-    element.setAttribute(`text-anchor`, textAnchor)
+    element.setAttribute('text-anchor', textAnchor)
   }
   if (dominantBaseline) {
-    element.setAttribute(`dominant-baseline`, dominantBaseline)
+    element.setAttribute('dominant-baseline', dominantBaseline)
   }
   element.textContent = textContent
   if (fontFamily) {
-    element.setAttribute(`font-family`, fontFamily)
+    element.setAttribute('font-family', fontFamily)
   }
   if (color) {
-    element.setAttribute(`fill`, `#${color}`)
+    element.setAttribute('fill', `#${color}`)
   }
   parent.appendChild(element)
   return element
 }
 
-function engineClick(
+function engineClick (
   child: ClickableChild,
-  then: () => void,
+  then: () => void
 ): void {
   child.onmousedown = handler
   child.ontouchstart = handler
 
-  function handler(
+  function handler (
     e: Event
   ): void {
     e.preventDefault()

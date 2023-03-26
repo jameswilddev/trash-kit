@@ -1,14 +1,14 @@
-import * as recursiveReaddir from "recursive-readdir"
-import isMonitored from "./files/is-monitored"
-import Diff from "./files/diff"
-import plan from "./planning/plan"
+import * as recursiveReaddir from 'recursive-readdir'
+import isMonitored from './files/is-monitored'
+import Diff from './files/diff'
+import plan from './planning/plan'
 
-async function program(): Promise<void> {
-  console.log(`Searching for files...`)
-  const files = (await recursiveReaddir(`src`)).filter(isMonitored)
-  console.log(`Planning...`)
+async function program (): Promise<void> {
+  console.log('Searching for files...')
+  const files = (await recursiveReaddir('src')).filter(isMonitored)
+  console.log('Planning...')
   const step = plan(new Diff(files, [], [], []), true, false)
-  console.log(`Executing plan...`)
+  console.log('Executing plan...')
   await step.executePerActionStep(async (step, execute) => {
     const description = step.getSingleLineDescription()
     console.log(`Starting step "${description}"...`)
@@ -21,7 +21,7 @@ async function program(): Promise<void> {
     }
     console.log(`Completed step "${description}".`)
   })
-  console.log(`Done.`)
+  console.log('Done.')
 }
 
 program().then(

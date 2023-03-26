@@ -1,6 +1,7 @@
 /node_modules
 /src/engine/tsconfig.json
 /src/games/*/tsconfig.json
+/src/games/*/.eslintrc.json
 /src/games/*/src/.declarations.ts
 /dist
 *.js

@@ -1,21 +1,20 @@
-import * as htmlMinifier from "html-minifier"
-import StepBase from "../step-base"
-import ActionStepBase from "./action-step-base"
-import iterativelyMinify from "../../utilities/iteratively-minify"
+import * as htmlMinifier from 'html-minifier'
+import ActionStepBase from './action-step-base'
+import iterativelyMinify from '../../utilities/iteratively-minify'
 
 export default class MinifyHtmlStep extends ActionStepBase {
-  constructor(
+  constructor (
     private readonly getHtml: () => string,
     private readonly storeResult: (html: string) => void
   ) {
     super(
-      `minifyHtml`,
+      'minifyHtml',
       [],
-      (self: StepBase) => []
+      () => []
     )
   }
 
-  async execute(): Promise<void> {
+  async execute (): Promise<void> {
     this.storeResult(await iterativelyMinify(
       this.getHtml(),
       async previous => htmlMinifier.minify(previous, {

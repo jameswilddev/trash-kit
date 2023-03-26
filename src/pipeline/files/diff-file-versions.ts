@@ -1,5 +1,5 @@
-import * as types from "../types"
-import Diff from "./diff"
+import type * as types from '../types'
+import Diff from './diff'
 
 export default function (
   previousFileVersions: types.FileVersions,

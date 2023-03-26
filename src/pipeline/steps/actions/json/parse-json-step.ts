@@ -1,20 +1,19 @@
-import * as types from "../../../types"
-import StepBase from "../../step-base"
-import ActionStepBase from "../action-step-base"
+import type * as types from '../../../types'
+import ActionStepBase from '../action-step-base'
 
 export default class ParseJsonStep<T extends types.Json> extends ActionStepBase {
-  constructor(
+  constructor (
     private readonly getText: () => string,
     private readonly storeJson: (json: T) => void
   ) {
     super(
-      `parseJson`,
+      'parseJson',
       [],
-      (self: StepBase) => []
+      () => []
     )
   }
 
-  async execute(): Promise<void> {
+  async execute (): Promise<void> {
     this.storeJson(JSON.parse(this.getText()))
   }
 }

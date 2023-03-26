@@ -1,10 +1,10 @@
-import * as progress from "progress"
-import * as types from "./types"
-import watch from "./files/watch"
-import diffFileVersions from "./files/diff-file-versions"
-import plan from "./planning/plan"
+import * as Progress from 'progress'
+import type * as types from './types'
+import watch from './files/watch'
+import diffFileVersions from './files/diff-file-versions'
+import plan from './planning/plan'
 
-async function program(): Promise<void> {
+async function program (): Promise<void> {
   let previousFileVersions: types.FileVersions = {}
   let firstRun = true
   await watch(async nextFileVersions => {
@@ -12,17 +12,17 @@ async function program(): Promise<void> {
     previousFileVersions = nextFileVersions
     firstRun = false
     let totalActions = 0
-    await step.executePerActionStep(async (step, execute) => { totalActions++ })
+    await step.executePerActionStep(async () => { totalActions++ })
     if (totalActions > 0) {
-      const bar = new progress(
-        `:bar :current/:total (:percent) :etas :message`,
+      const bar = new Progress(
+        ':bar :current/:total (:percent) :etas :message',
         {
           width: 80,
-          total: totalActions + 1,
+          total: totalActions + 1
         }
       )
 
-      bar.render({ message: `Starting...` })
+      bar.render({ message: 'Starting...' })
 
       try {
         await step.executePerActionStep(async (step, execute) => {
@@ -42,9 +42,9 @@ async function program(): Promise<void> {
         console.error(e)
       }
 
-      bar.tick({ message: `Done.` })
+      bar.tick({ message: 'Done.' })
     } else {
-      console.log(`Nothing to do.`)
+      console.log('Nothing to do.')
     }
   })
 }

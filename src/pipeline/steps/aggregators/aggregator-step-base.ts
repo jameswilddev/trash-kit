@@ -1,20 +1,20 @@
-import StepBase from "../step-base"
+import StepBase from '../step-base'
 
 export default abstract class AggregatorStepBase extends StepBase {
-  protected readonly children: ReadonlyArray<StepBase>
+  protected readonly children: readonly StepBase[]
 
-  constructor(
+  constructor (
     descriptionName: string,
     descriptionArguments: ReadonlyArray<{
-      readonly key: string,
+      readonly key: string
       readonly value: string
     }>,
     descriptionLinks: (self: StepBase) => ReadonlyArray<{
       readonly from: StepBase
       readonly to: StepBase
-      readonly type: `strong` | `weak`
+      readonly type: 'strong' | 'weak'
     }>,
-    children: ReadonlyArray<StepBase>
+    children: readonly StepBase[]
   ) {
     super(
       descriptionName,

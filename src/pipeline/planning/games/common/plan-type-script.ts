@@ -1,22 +1,22 @@
-import * as path from "path"
-import * as types from "../../../types"
-import Diff from "../../../files/diff"
-import StepBase from "../../../steps/step-base"
-import DeleteFromKeyPairValueStoreIfSetStep from "../../../steps/actions/stores/delete-from-key-pair-value-store-if-set-step"
-import ReadTextFileStep from "../../../steps/actions/files/read-text-file-step"
-import ParseTypeScriptStep from "../../../steps/actions/type-script/parse-type-script-step"
-import gameTypeScriptTextStore from "../../../stores/game-type-script-text-store"
-import gameTypeScriptParsedStore from "../../../stores/game-type-script-parsed-store"
+import * as path from 'path'
+import type * as types from '../../../types'
+import type Diff from '../../../files/diff'
+import type StepBase from '../../../steps/step-base'
+import DeleteFromKeyPairValueStoreIfSetStep from '../../../steps/actions/stores/delete-from-key-pair-value-store-if-set-step'
+import ReadTextFileStep from '../../../steps/actions/files/read-text-file-step'
+import ParseTypeScriptStep from '../../../steps/actions/type-script/parse-type-script-step'
+import gameTypeScriptTextStore from '../../../stores/game-type-script-text-store'
+import gameTypeScriptParsedStore from '../../../stores/game-type-script-parsed-store'
 
-function generateTypeScriptPath(file: types.EngineFile): string {
-  return path.join(`game`, `${file.name}.${file.extension}`)
+function generateTypeScriptPath (file: types.EngineFile): string {
+  return path.join('game', `${file.name}.${file.extension}`)
 }
 
 export default function (
   typeScriptDiff: Diff<types.GameSrcFile>
 ): StepBase {
   return typeScriptDiff.generateSteps(
-    `typeScript`,
+    'typeScript',
     false,
     item => item.name,
     item => [
@@ -30,18 +30,22 @@ export default function (
     item => [
       new ReadTextFileStep(
         item.path,
-        text => gameTypeScriptTextStore.set(
-          item.game, generateTypeScriptPath(item), text
-        )
+        text => {
+          gameTypeScriptTextStore.set(
+            item.game, generateTypeScriptPath(item), text
+          )
+        }
       ),
       new ParseTypeScriptStep(
         generateTypeScriptPath(item),
         () => gameTypeScriptTextStore.get(
           item.game, generateTypeScriptPath(item)
         ),
-        parsed => gameTypeScriptParsedStore.set(
-          item.game, generateTypeScriptPath(item), parsed
-        )
+        parsed => {
+          gameTypeScriptParsedStore.set(
+            item.game, generateTypeScriptPath(item), parsed
+          )
+        }
       )
     ]
   )

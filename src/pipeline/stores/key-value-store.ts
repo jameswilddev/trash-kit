@@ -1,56 +1,56 @@
-import StoreBase from "./store-base"
+import StoreBase from './store-base'
 
 export default class KeyValueStore<TValue> extends StoreBase {
-  private readonly keysAndValues: { [key: string]: TValue } = {}
+  private readonly keysAndValues = new Map<string, TValue>()
 
-  hasKey(
+  hasKey (
     key: string
   ): boolean {
-    return Object.prototype.hasOwnProperty.call(this.keysAndValues, key)
+    return this.keysAndValues.has(key)
   }
 
-  get(
+  get (
     key: string
   ): TValue {
     if (this.hasKey(key)) {
-      return this.keysAndValues[key]
+      return this.keysAndValues.get(key) as TValue
     } else {
       throw new Error(`Unable to get key ${JSON.stringify(key)} which is not currently set in store "${this.name}".`)
     }
   }
 
-  getAll(): { readonly [key: string]: TValue } {
-    const output: { [key: string]: TValue } = {}
+  getAll (): ReadonlyMap<string, TValue> {
+    const output = new Map<string, TValue>()
     for (const key in this.keysAndValues) {
-      output[key] = this.keysAndValues[key]
+      output.set(key, this.keysAndValues.get(key) as TValue)
     }
     return output
   }
 
-  tryGet(
+  tryGet (
     key: string
   ): null | TValue {
     if (this.hasKey(key)) {
-      return this.keysAndValues[key]
+      return this.keysAndValues.get(key) as TValue
     } else {
       return null
     }
   }
 
-  set(
+  set (
     key: string,
     value: TValue
   ): void {
     if (this.hasKey(key)) {
       throw new Error(`Unable to set key ${JSON.stringify(key)} which is already set in store "${this.name}".`)
     } else {
-      this.keysAndValues[key] = value
+      this.keysAndValues.set(key, value)
     }
   }
 
-  deleteIfSet(
+  deleteIfSet (
     key: string
   ): void {
-    delete this.keysAndValues[key]
+    this.keysAndValues.delete(key)
   }
 }

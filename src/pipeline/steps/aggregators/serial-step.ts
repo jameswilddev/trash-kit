@@ -1,11 +1,11 @@
-import StepBase from "../../steps/step-base"
-import ActionStepBase from "../../steps/actions/action-step-base"
-import AggregatorStepBase from "./aggregator-step-base"
+import type StepBase from '../../steps/step-base'
+import type ActionStepBase from '../../steps/actions/action-step-base'
+import AggregatorStepBase from './aggregator-step-base'
 
 export default class SerialStep extends AggregatorStepBase {
-  constructor(
+  constructor (
     name: string,
-    children: ReadonlyArray<StepBase>
+    children: readonly StepBase[]
   ) {
     super(
       `${name} (serial)`,
@@ -14,18 +14,18 @@ export default class SerialStep extends AggregatorStepBase {
         .map(child => ({
           from: self,
           to: child,
-          type: `strong` as (`strong` | `weak`)
+          type: 'strong' as ('strong' | 'weak')
         }))
         .concat(children.slice(1).map((child, i) => ({
-          from: children[i],
+          from: children[i] as StepBase,
           to: child,
-          type: `weak`
+          type: 'weak'
         }))),
       children
     )
   }
 
-  async executePerActionStep(
+  async executePerActionStep (
     onActionStep: (
       step: ActionStepBase,
       execute: () => Promise<void>
