@@ -790,7 +790,7 @@ The most error-prone part of the build pipeline is planning; it can be difficult
 to determine exactly which steps should be executed based on the given diff.
 
 To make it easier to determine exactly which steps were planned, it is possible
-to query the hierarchy for a [nomnoml](http://www.nomnoml.com/) document
+to query the hierarchy for a [nomnoml](https://www.nomnoml.com/) document
 detailing exactly which steps were planned to be executed and in what order.
 
 To do this, run `npm run-script nomnoml`.
