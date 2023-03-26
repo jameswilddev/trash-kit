@@ -24,7 +24,6 @@ const output: typeScript.CompilerOptions = {
   experimentalDecorators: false,
   forceConsistentCasingInFileNames: true,
   importHelpers: false,
-  // "incremental": false,
   inlineSourceMap: false,
   inlineSources: false,
   isolatedModules: false,
