@@ -4,8 +4,8 @@ import Diff from './files/diff'
 import plan from './planning/plan'
 
 async function program (): Promise<void> {
-  const files = (await recursiveReaddir('src')).filter(isMonitored)
-  const step = plan(new Diff(files, [], [], []), true, false)
+  const files = new Set((await recursiveReaddir('src')).filter(isMonitored))
+  const step = plan(new Diff(files, new Set(), new Set(), new Set()), true, false)
   console.log(step.getNomNoml())
 }
 

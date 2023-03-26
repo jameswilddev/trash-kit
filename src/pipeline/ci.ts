@@ -5,9 +5,9 @@ import plan from './planning/plan'
 
 async function program (): Promise<void> {
   console.log('Searching for files...')
-  const files = (await recursiveReaddir('src')).filter(isMonitored)
+  const files = new Set((await recursiveReaddir('src')).filter(isMonitored))
   console.log('Planning...')
-  const step = plan(new Diff(files, [], [], []), true, false)
+  const step = plan(new Diff(files, new Set(), new Set(), new Set()), true, false)
   console.log('Executing plan...')
   await step.executePerActionStep(async (step, execute) => {
     const description = step.getSingleLineDescription()
