@@ -36,7 +36,7 @@ export default class ZipStep extends ActionStepBase {
 
       const stats = await fs.promises.stat(_7zipBin.path7za)
 
-      const executeBits = 10
+      const executeBits = 73
 
       if ((stats.mode & executeBits) !== executeBits) {
         await fs.promises.chmod(_7zipBin.path7za, stats.mode | executeBits);
