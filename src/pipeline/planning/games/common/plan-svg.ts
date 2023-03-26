@@ -50,24 +50,24 @@ export default function (
 
           const root = parser.parseSvg(text)
 
-          const children = root.children
+          const children = root.children[0].children
 
           if (children.length === 1) {
             // Remove the wrapping <svg> (there's already a single root).
-            root.content = children
+            root.children = children
           } else {
             // Replace the wrapping <svg> with a <g>.
             const groupSource = parser.parseSvg(`<svg><g></g></svg>`)
 
-            root.content = groupSource.content[0].content
-            groupSource.content[0].content[0].content = children
+            root.children = groupSource.children[0].children
+            groupSource.children[0].children[0].children = children
           }
 
           // Inject a blank ID.  This should be safely replaceable later down
           // the line, as we've already filtered out IDs using SVGO.
           const idSource = parser.parseSvg(`<svg id="" />`)
 
-          root.content[0].attributes.id = idSource.children[0].attributes.id
+          root.children[0].attributes.id = idSource.children[0].attributes.id
 
           const generated = stringifier.stringifySvg(root)
           gameSvgDefStore.set(item.game, item.name, generated)
