@@ -71,7 +71,6 @@ const output: typeScript.CompilerOptions = {
   target: typeScript.ScriptTarget.ES5,
   typeRoots: [],
   types: [
-    'node'
   ],
   useDefineForClassFields: true,
   useUnknownInCatchVariables: true
