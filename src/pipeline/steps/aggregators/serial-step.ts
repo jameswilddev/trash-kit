@@ -10,17 +10,17 @@ export default class SerialStep extends AggregatorStepBase {
     super(
       `${name} (serial)`,
       [],
-      (self: StepBase) => children
-        .map(child => ({
-          from: self,
-          to: child,
-          type: 'strong' as ('strong' | 'weak')
-        }))
-        .concat(children.slice(1).map((child, i) => ({
-          from: children[i] as StepBase,
-          to: child,
-          type: 'weak'
-        }))),
+      (self: StepBase) => children.length === 0
+        ? []
+        : [
+            {
+              from: self,
+              to: children[0] as StepBase
+            },
+            ...children.slice(1).map((child, i) => ({
+              from: children[i] as StepBase,
+              to: child
+            }))],
       children
     )
   }

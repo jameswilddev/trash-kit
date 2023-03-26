@@ -11,7 +11,6 @@ export default abstract class StepBase {
   private readonly descriptionLinks: ReadonlyArray<{
     readonly from: StepBase
     readonly to: StepBase
-    readonly type: 'strong' | 'weak'
   }>
 
   constructor (
@@ -23,7 +22,6 @@ export default abstract class StepBase {
     descriptionLinks: (self: StepBase) => ReadonlyArray<{
       readonly from: StepBase
       readonly to: StepBase
-      readonly type: 'strong' | 'weak'
     }>
   ) {
     this.uuid = uuid.v4()
@@ -35,8 +33,7 @@ export default abstract class StepBase {
     this.descriptionLinks = descriptionLinks(this)
       .map(link => ({
         from: link.from,
-        to: link.to,
-        type: link.type
+        to: link.to
       }))
   }
 
@@ -68,6 +65,6 @@ export default abstract class StepBase {
           distinctLinked.push(step)
         }
       })
-    return `[${this.uuid};${this.descriptionName}${this.descriptionArguments.map(argument => `|${argument.key}: ${argument.value}`).join('')}]${distinctLinked.map(linked => `\n${linked.getNomNoml()}`).join('')}${this.descriptionLinks.map(link => `\n[${link.from.uuid}] ${link.type === 'strong' ? '->' : '-->'} [${link.to.uuid}]`).join('')}`
+    return `[${this.uuid};${this.descriptionName}${this.descriptionArguments.map(argument => `|${argument.key}: ${argument.value}`).join('')}]${distinctLinked.map(linked => `\n${linked.getNomNoml()}`).join('')}${this.descriptionLinks.map(link => `\n[${link.from.uuid}] -> [${link.to.uuid}]`).join('')}`
   }
 }
