@@ -22,7 +22,7 @@ export default class DeleteStep extends ActionStepBase {
     try {
       stats = await fs.promises.stat(this.path)
     } catch (e) {
-      if (e.code === `ENOENT`) {
+      if (e instanceof Error && 'code' in e && e.code === `ENOENT`) {
         return
       }
 
@@ -32,7 +32,7 @@ export default class DeleteStep extends ActionStepBase {
     if (stats.isFile()) {
       await fs.promises.unlink(this.path)
     } else if (stats.isDirectory()) {
-      await fs.promises.rmdir(this.path, { recursive: true })
+      await fs.promises.rm(this.path, { recursive: true })
     } else {
       throw new Error(`Unclear how to delete "${this.path}" (not a file or directory).`)
     }

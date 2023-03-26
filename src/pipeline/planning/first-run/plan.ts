@@ -50,16 +50,18 @@ export default function (
         let chosen = `127.0.0.1`
 
         for (const iface of Object.values(os.networkInterfaces())) {
-          for (const address of iface) {
-            if (address.family !== 'IPv4') {
-              continue
-            }
+          if (iface !== undefined) {
+            for (const address of iface) {
+              if (address.family !== 'IPv4') {
+                continue
+              }
 
-            if (address.internal) {
-              continue
-            }
+              if (address.internal) {
+                continue
+              }
 
-            chosen = address.address
+              chosen = address.address
+            }
           }
         }
 
