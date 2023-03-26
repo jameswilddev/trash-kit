@@ -4,7 +4,7 @@ export default {
   ...compilerOptions,
   jsx: 'preserve',
   module: 'None',
-  moduleResolution: 'node16',
+  moduleResolution: 'classic',
   target: 'ES5',
   newLine: 'lf'
 }

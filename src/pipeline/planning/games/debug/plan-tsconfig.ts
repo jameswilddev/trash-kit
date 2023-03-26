@@ -33,7 +33,7 @@ export default function (
         env: {
           browser: true,
           es2021: true,
-          node: true
+          node: false
         },
         extends: 'standard-with-typescript',
         overrides: [],

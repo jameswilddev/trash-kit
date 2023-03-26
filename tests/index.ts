@@ -22,8 +22,8 @@ beforeAll(async () => {
     resolve()
   }))
 
-  productionHtml = path.join(os.tmpdir(), `${uuid.v4() as string}.html`)
-  productionZip = path.join(os.tmpdir(), `${uuid.v4() as string}.zip`)
+  productionHtml = path.join(os.tmpdir(), `${uuid.v4()}.html`)
+  productionZip = path.join(os.tmpdir(), `${uuid.v4()}.zip`)
 
   await fs.promises.copyFile(path.join('dist', 'tower-of-hanoi.html'), productionHtml)
   await fs.promises.copyFile(path.join('dist', 'tower-of-hanoi.zip'), productionZip)
@@ -90,7 +90,7 @@ describe('production', () => {
     let extractedZip: string
 
     beforeAll(async () => {
-      extractedZip = path.join(os.tmpdir(), `${uuid.v4() as string}`)
+      extractedZip = path.join(os.tmpdir(), `${uuid.v4()}`)
 
       if (productionZip === null) {
         throw new Error('Unexpectedly found no production zip to extract.')
