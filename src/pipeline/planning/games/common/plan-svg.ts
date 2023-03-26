@@ -48,26 +48,28 @@ export default function (
         async () => {
           const text = gameSvgOptimizedStore.get(item.game, item.name)
 
-          const root = await new Promise<any>(resolve => parser.parseSvg(text, resolve))
+          const root = parser.parseSvg(text)
 
-          const children = root.content[0].content
+          const children = root.children
 
           if (children.length === 1) {
             // Remove the wrapping <svg> (there's already a single root).
             root.content = children
           } else {
             // Replace the wrapping <svg> with a <g>.
-            const groupSource = await new Promise<any>(resolve => parser.parseSvg(`<svg><g></g></svg>`, resolve))
+            const groupSource = parser.parseSvg(`<svg><g></g></svg>`)
+
             root.content = groupSource.content[0].content
             groupSource.content[0].content[0].content = children
           }
 
           // Inject a blank ID.  This should be safely replaceable later down
           // the line, as we've already filtered out IDs using SVGO.
-          const idSource = await new Promise<any>(resolve => parser.parseSvg(`<svg id="" />`, resolve))
-          root.content[0].attrs.id = idSource.content[0].attrs.id
+          const idSource = parser.parseSvg(`<svg id="" />`)
 
-          const generated = stringifier.stringifySvg(root).data
+          root.content[0].attributes.id = idSource.children[0].attributes.id
+
+          const generated = stringifier.stringifySvg(root)
           gameSvgDefStore.set(item.game, item.name, generated)
         }
       ),
