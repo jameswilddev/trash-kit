@@ -9,25 +9,25 @@ import tsconfigContent from '../../../steps/actions/type-script/tsconfig-content
 export default function (
   games: Diff<string>
 ): StepBase {
-  const tsconfigAdditions: readonly StepBase[] = games
+  const tsconfigAdditions: readonly StepBase[] = [...games
     .added
-    .map(game => new WriteFileStep(
-      () => JSON.stringify({
-        include: [
-          path.join('src', '.declarations.ts'),
-          path.join('src', '**', '*.ts'),
-          path.join('..', '..', 'engine', 'src', '**', '*.ts')
-        ],
-        exclude: [
-          path.join('..', '..', 'engine', 'src', '**', '*.d.ts')
-        ],
-        compilerOptions: tsconfigContent
-      }),
-      path.join('src', 'games', game, 'tsconfig.json')
-    ))
+  ].map(game => new WriteFileStep(
+    () => JSON.stringify({
+      include: [
+        path.join('src', '.declarations.ts'),
+        path.join('src', '**', '*.ts'),
+        path.join('..', '..', 'engine', 'src', '**', '*.ts')
+      ],
+      exclude: [
+        path.join('..', '..', 'engine', 'src', '**', '*.d.ts')
+      ],
+      compilerOptions: tsconfigContent
+    }),
+    path.join('src', 'games', game, 'tsconfig.json')
+  ))
 
-  const eslintAdditions: readonly StepBase[] = games
-    .added
+  const eslintAdditions: readonly StepBase[] = [...games
+    .added]
     .map(game => new WriteFileStep(
       () => JSON.stringify({
         env: {
@@ -48,14 +48,14 @@ export default function (
       path.join('src', 'games', game, '.eslintrc.json')
     ))
 
-  const tsconfigDeletions: readonly StepBase[] = games
-    .deleted
+  const tsconfigDeletions: readonly StepBase[] = [...games
+    .deleted]
     .map(game => new DeleteStep(
       path.join('src', 'games', game, 'tsconfig.json'))
     )
 
-  const eslintDeletions: readonly StepBase[] = games
-    .deleted
+  const eslintDeletions: readonly StepBase[] = [...games
+    .deleted]
     .map(game => new DeleteStep(
       path.join('src', 'games', game, '.eslintrc.json'))
     )

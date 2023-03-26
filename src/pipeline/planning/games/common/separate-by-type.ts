@@ -11,8 +11,7 @@ export default function (
     metadata: file => file.type === 'metadata' ? file : null
   })
 
-  const unsortedAddedOrUpdated = typeSeparated.unsorted.added
-    .concat(typeSeparated.unsorted.updated)
+  const unsortedAddedOrUpdated = [...typeSeparated.unsorted.added, ...typeSeparated.unsorted.updated]
   if (unsortedAddedOrUpdated.length > 0) {
     const message = `The following game paths were not recognized: ${
       unsortedAddedOrUpdated

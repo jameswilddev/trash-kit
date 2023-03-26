@@ -1,11 +1,10 @@
 import * as Progress from 'progress'
-import type * as types from './types'
 import watch from './files/watch'
 import diffFileVersions from './files/diff-file-versions'
 import plan from './planning/plan'
 
 async function program (): Promise<void> {
-  let previousFileVersions: types.FileVersions = {}
+  let previousFileVersions: ReadonlyMap<string, number> = new Map()
   let firstRun = true
   await watch(async nextFileVersions => {
     const step = plan(diffFileVersions(previousFileVersions, nextFileVersions), firstRun, true)

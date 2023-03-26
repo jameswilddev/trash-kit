@@ -77,8 +77,8 @@ export default function (
     }
   })
 
-  const unsortedAddedOrUpdated = typeSeparated.unsorted.added
-    .concat(typeSeparated.unsorted.updated)
+  const unsortedAddedOrUpdated = [...typeSeparated.unsorted.added, ...typeSeparated.unsorted.updated]
+
   if (unsortedAddedOrUpdated.length > 0) {
     const message = `The following paths were not recognized: ${
       unsortedAddedOrUpdated
