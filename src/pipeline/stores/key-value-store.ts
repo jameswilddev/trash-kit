@@ -20,11 +20,7 @@ export default class KeyValueStore<TValue> extends StoreBase {
   }
 
   getAll (): ReadonlyMap<string, TValue> {
-    const output = new Map<string, TValue>()
-    for (const key in this.keysAndValues) {
-      output.set(key, this.keysAndValues.get(key) as TValue)
-    }
-    return output
+    return new Map(this.keysAndValues)
   }
 
   tryGet (
