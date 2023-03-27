@@ -1,7 +1,7 @@
 function engineRender (): void {
   engineDebugger()
 
-  root = document.getElementsByTagName('svg')[0]
+  root = document.getElementsByTagName('svg')[0] as SVGSVGElement
 
   while (true) {
     const last = root.lastChild as Element

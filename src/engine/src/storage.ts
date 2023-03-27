@@ -3,6 +3,7 @@ function engineStorageSave<T extends EngineJson> (key: string, content: T): Trut
     localStorage.setItem(`${gameName}-${key}`, JSON.stringify(content))
     return 1
   } catch { }
+  return undefined
 }
 
 function engineStorageLoad<T extends EngineJson> (key: string): null | T {
@@ -20,4 +21,5 @@ function engineStorageDrop (key: string): Truthiness {
     localStorage.removeItem(`${gameName}-${key}`)
     return 1
   } catch { }
+  return undefined
 }
