@@ -33,7 +33,7 @@
     "jasmine": "4.6.0",
     "jsonschema": "1.4.1",
     "pixelmatch": "5.3.0",
-    "pngjs": "6.0.0",
+    "pngjs": "7.0.0",
     "progress": "2.0.3",
     "pug": "3.0.2",
     "puppeteer": "^19.8.0",
