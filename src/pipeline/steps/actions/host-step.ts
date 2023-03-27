@@ -21,7 +21,7 @@ export default class HostStep extends ActionStepBase {
     await new Promise<void>(
       (resolve) => express()
         .get('/', (_, response) => {
-          const games = Object.keys(this.gameHtmlStore.getAll()).sort()
+          const games = [...this.gameHtmlStore.getAll().keys()].sort()
 
           if (games.length === 1) {
             response.redirect(games[0] as string)

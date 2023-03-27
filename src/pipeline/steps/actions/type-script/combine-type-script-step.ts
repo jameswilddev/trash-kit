@@ -61,7 +61,7 @@ export default class CombineTypeScriptStep extends ActionStepBase {
     }
 
     const program = typeScript.createProgram({
-      rootNames: Object.keys(allSourceFiles).sort(),
+      rootNames: [...allSourceFiles.keys()].sort(),
       options: compilerOptions,
       host,
       configFileParsingDiagnostics: []
