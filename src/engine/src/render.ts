@@ -41,8 +41,8 @@ function engineRectangle (
   fill?: string
 ): Rectangle {
   const element = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-  element.setAttribute('width', `${widthVirtualPixels}px`)
-  element.setAttribute('height', `${heightVirtualPixels}px`)
+  element.setAttribute('width', `${widthVirtualPixels}`)
+  element.setAttribute('height', `${heightVirtualPixels}`)
   element.setAttribute('fill', fill ? `#${fill}` : '#0000')
   parent.appendChild(element)
   return element
