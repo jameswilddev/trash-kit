@@ -15,7 +15,7 @@ const output: typeScript.CompilerOptions = {
   disableReferencedProjectLoad: true,
   disableSolutionSearching: true,
   disableSourceOfProjectReferenceRedirect: true,
-  downlevelIteration: true,
+  downlevelIteration: false,
   emitBOM: false,
   emitDeclarationOnly: false,
   emitDecoratorMetadata: false,
