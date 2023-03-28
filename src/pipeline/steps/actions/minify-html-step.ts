@@ -15,7 +15,7 @@ export default class MinifyHtmlStep extends ActionStepBase {
   }
 
   async execute (): Promise<void> {
-    this.storeResult(await iterativelyMinify(
+    const iterated = await iterativelyMinify(
       this.getHtml(),
       async previous => htmlMinifier.minify(previous, {
         caseSensitive: false,
@@ -47,6 +47,8 @@ export default class MinifyHtmlStep extends ActionStepBase {
         trimCustomFragments: true,
         useShortDoctype: true
       })
-    ))
+    )
+
+    this.storeResult(iterated.replace('<!doctypehtml>', '').replace('<body>', ''))
   }
 }
