@@ -7,9 +7,7 @@ import gameSvgDefStore from '../../../stores/game-svg-def-store'
 import gameSvgDefCombinationStore from '../../../stores/game-svg-def-combination-store'
 
 function getOrderedTypeScriptNames (game: string): readonly string[] {
-  return Object
-    .keys(gameSvgDefStore.tryGetAllByBaseKey(game))
-    .sort()
+  return [...gameSvgDefStore.tryGetAllByBaseKey(game).keys()].sort()
 }
 
 export default function (

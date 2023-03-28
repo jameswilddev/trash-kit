@@ -72,9 +72,7 @@ export default class GenerateDeclarationsStep extends ActionStepBase {
       value: metadata.safeAreaHeightVirtualPixels
     })
 
-    const orderedSvgNames = Object
-      .keys(gameSvgDefStore.tryGetAllByBaseKey(this.game))
-      .sort()
+    const orderedSvgNames = [...gameSvgDefStore.tryGetAllByBaseKey(this.game).keys()].sort()
 
     orderedSvgNames.forEach((typeScriptName, index) => declarations.push({
       type: 'type',
