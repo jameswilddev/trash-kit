@@ -9,8 +9,9 @@
   "license": "MIT",
   "scripts": {
     "cli": "ts-node --project src/pipeline/tsconfig.json --files src/pipeline/cli",
+    "cli-nomnoml": "ts-node --project src/pipeline/tsconfig.json --files src/pipeline/cli-nomnoml",
     "ci": "ts-node --project src/pipeline/tsconfig.json --files src/pipeline/ci",
-    "nomnoml": "ts-node --project src/pipeline/tsconfig.json src/pipeline/nomnoml",
+    "ci-nomnoml": "ts-node --project src/pipeline/tsconfig.json --files src/pipeline/ci-nomnoml",
     "test": "tsc --project tests/tsconfig.json && jasmine --config=jasmine.json",
     "typecheck-pipeline": "tsc --project src/pipeline/tsconfig.json",
     "lint": "cd src/engine && eslint \"src/**/*.ts\" && cd ../games && find . -maxdepth 1 -type d \\( ! -name . \\) -exec bash -c \"cd '{}' && eslint \\\"src/**/*.ts\\\"\" \\; && cd ../pipeline && eslint \"**/*.ts\""
