@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, prefer-const
-let state = undefined as unknown as State
+let state: State
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Truthiness = 1 | undefined

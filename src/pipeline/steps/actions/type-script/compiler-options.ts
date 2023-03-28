@@ -6,7 +6,7 @@ const output: typeScript.CompilerOptions = {
   allowUmdGlobalAccess: false,
   allowUnreachableCode: false,
   allowUnusedLabels: false,
-  alwaysStrict: true,
+  alwaysStrict: false,
   baseUrl: './',
   checkJs: false,
   composite: false,
