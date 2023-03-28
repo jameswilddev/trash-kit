@@ -10,6 +10,7 @@ import ReadTextFileStep from '../../../steps/actions/files/read-text-file-step'
 import vscodeSettingsInputTextStore from '../../../stores/vscode-settings-input-text-store'
 import vscodeSettingsOutputTextStore from '../../../stores/vscode-settings-output-text-store'
 import ArbitraryStep from '../../../steps/actions/arbitrary-step'
+import DeleteFromValueStoreIfSetStep from '../../../steps/actions/stores/delete-from-value-store-if-set-step'
 
 export default function (
   games: Diff<string>
@@ -88,7 +89,13 @@ export default function (
         const outputText = `${JSON.stringify(outputJson, null, 2)}\n`
         vscodeSettingsOutputTextStore.set(outputText)
       }),
-      new WriteFileStep(() => vscodeSettingsOutputTextStore.get(), path.join('.vscode', 'settings.json'))
+      new ParallelStep('postGeneration', [
+        new DeleteFromValueStoreIfSetStep(vscodeSettingsInputTextStore),
+        new SerialStep('write', [
+          new WriteFileStep(() => vscodeSettingsOutputTextStore.get(), path.join('.vscode', 'settings.json')),
+          new DeleteFromValueStoreIfSetStep(vscodeSettingsOutputTextStore)
+        ])
+      ])
     ]))
   }
 
