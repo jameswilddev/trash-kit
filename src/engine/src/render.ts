@@ -29,7 +29,7 @@ function engineSprite (
   svg: AnySvg
 ): Sprite {
   const element = document.createElementNS('http://www.w3.org/2000/svg', 'use')
-  element.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `#${svg}`)
+  element.setAttribute('href', `#${svg}`)
   parent.appendChild(element)
   return element
 }
