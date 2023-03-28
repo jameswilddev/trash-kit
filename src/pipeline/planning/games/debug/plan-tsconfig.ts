@@ -49,7 +49,8 @@ export default function (
           project: 'tsconfig.json'
         },
         rules: {
-          '@typescript-eslint/strict-boolean-expressions': 'off'
+          '@typescript-eslint/strict-boolean-expressions': 'off',
+          '@typescript-eslint/no-unused-vars': 'off'
         }
       }
       ),
