@@ -5,15 +5,15 @@ export default function (
     return false
   }
 
-  if (/src[\\\/]engine[\\\/]tsconfig\.json/.test(path)) {
+  if (/src[\\/]engine[\\/]tsconfig\.json/.test(path)) {
     return false
   }
 
-  if (/src[\\\/]games[\\\/](?:[a-z]|[a-z][a-z0-9-]{0,48}[a-z0-9])[\\\/]tsconfig\.json/.test(path)) {
+  if (/src[\\/]games[\\/](?:[a-z]|[a-z][a-z0-9-]{0,48}[a-z0-9])[\\/]tsconfig\.json/.test(path)) {
     return false
   }
 
-  if (/^src[\\\/]pipeline[\\\/]/.test(path)) {
+  if (/^src[\\/]pipeline[\\/]/.test(path)) {
     return false
   }
 

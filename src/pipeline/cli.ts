@@ -1,28 +1,27 @@
-import * as progress from "progress"
-import * as types from "./types"
-import watch from "./files/watch"
-import diffFileVersions from "./files/diff-file-versions"
-import plan from "./planning/plan"
+import * as Progress from 'progress'
+import watch from './files/watch'
+import diffFileVersions from './files/diff-file-versions'
+import plan from './planning/plan'
 
-async function program(): Promise<void> {
-  let previousFileVersions: types.FileVersions = {}
+async function program (): Promise<void> {
+  let previousFileVersions: ReadonlyMap<string, number> = new Map()
   let firstRun = true
   await watch(async nextFileVersions => {
     const step = plan(diffFileVersions(previousFileVersions, nextFileVersions), firstRun, true)
     previousFileVersions = nextFileVersions
     firstRun = false
     let totalActions = 0
-    await step.executePerActionStep(async (step, execute) => { totalActions++ })
+    await step.executePerActionStep(async () => { totalActions++ })
     if (totalActions > 0) {
-      const bar = new progress(
-        `:bar :current/:total (:percent) :etas :message`,
+      const bar = new Progress(
+        ':bar :current/:total (:percent) :etas :message',
         {
           width: 80,
-          total: totalActions + 1,
+          total: totalActions + 1
         }
       )
 
-      bar.render({ message: `Starting...` })
+      bar.render({ message: 'Starting...' })
 
       try {
         await step.executePerActionStep(async (step, execute) => {
@@ -42,9 +41,9 @@ async function program(): Promise<void> {
         console.error(e)
       }
 
-      bar.tick({ message: `Done.` })
+      bar.tick({ message: 'Done.' })
     } else {
-      console.log(`Nothing to do.`)
+      console.log('Nothing to do.')
     }
   })
 }

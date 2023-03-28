@@ -4,9 +4,9 @@ if (engineDebug) {
     try {
       engineRequest = new XMLHttpRequest()
     } catch (ex) {
-      engineRequest = new ActiveXObject(`Microsoft.XMLHTTP`)
+      engineRequest = new ActiveXObject('Microsoft.XMLHTTP')
     }
-    engineRequest.open(`GET`, `${location.href}/uuid`, true)
+    engineRequest.open('GET', `${location.href}/uuid`, true)
     engineRequest.onreadystatechange = () => {
       if (engineRequest.readyState === 4 && engineRequest.status === 200) {
         if (engineRequest.responseText !== engineUuid) {

@@ -1,4 +1,4 @@
-import * as pug from "pug"
-import ValueStore from "./value-store"
+import type * as pug from 'pug'
+import ValueStore from './value-store'
 
-export default new ValueStore<pug.compileTemplate>(`gameListPug`)
+export default new ValueStore<pug.compileTemplate>('gameListPug')

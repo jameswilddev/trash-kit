@@ -1,12 +1,15 @@
+// eslint-disable-next-line prefer-const
 let state: State
-
-type Falsy = false | 0 | null | ``
 
 type Truthiness = 1 | undefined
 
 type Json = EngineJson
 
-function linearInterpolate(
+type JsonObject = EngineJsonObject
+
+type JsonArray = EngineJsonArray
+
+function linearInterpolate (
   from: number,
   to: number,
   mixUnitInterval: number
@@ -14,7 +17,7 @@ function linearInterpolate(
   return from + (to - from) * mixUnitInterval
 }
 
-function dotProduct(
+function dotProduct (
   x1: number,
   y1: number,
   x2: number,
@@ -23,21 +26,21 @@ function dotProduct(
   return x1 * x2 + y1 * y2
 }
 
-function magnitudeSquared(
+function magnitudeSquared (
   x: number,
   y: number
 ): number {
   return dotProduct(x, y, x, y)
 }
 
-function magnitude(
+function magnitude (
   x: number,
   y: number
 ): number {
   return Math.sqrt(magnitudeSquared(x, y))
 }
 
-function distanceSquared(
+function distanceSquared (
   x1: number,
   y1: number,
   x2: number,
@@ -46,7 +49,7 @@ function distanceSquared(
   return magnitudeSquared(x2 - x1, y2 - y1)
 }
 
-function distance(
+function distance (
   x1: number,
   y1: number,
   x2: number,
@@ -57,53 +60,53 @@ function distance(
 
 type Transform = string
 
-function translate(
+function translate (
   xVirtualPixels: number,
-  yVirtualPixels: number,
+  yVirtualPixels: number
 ): Transform {
   return `translate(${xVirtualPixels}px,${yVirtualPixels}px)`
 }
 
-function rotate(
-  degreesClockwise: number,
+function rotate (
+  degreesClockwise: number
 ): Transform {
   return `rotate(${degreesClockwise}deg)`
 }
 
-function scale(
+function scale (
   xFactor: number,
-  yFactor: number,
+  yFactor: number
 ): Transform {
   return `scale(${xFactor},${yFactor})`
 }
 
-function scaleUniform(
-  factor: number,
+function scaleUniform (
+  factor: number
 ): Transform {
   return `scale(${factor})`
 }
 
 type Filter = string
 
-function soften(
+function soften (
   virtualPixels: number
 ): Filter {
   return `blur(${virtualPixels}px)`
 }
 
-function brightness(
+function brightness (
   factor: number
 ): Filter {
   return `brightness(${factor})`
 }
 
-function contrast(
+function contrast (
   factor: number
 ): Filter {
   return `contrast(${factor})`
 }
 
-function sharpDropShadow(
+function sharpDropShadow (
   offsetXVirtualPixels: number,
   offsetYVirtualPixels: number,
   color?: string
@@ -117,7 +120,7 @@ function sharpDropShadow(
   return `${output})`
 }
 
-function softDropShadow(
+function softDropShadow (
   offsetXVirtualPixels: number,
   offsetYVirtualPixels: number,
   radiusVirtualPixels: number,
@@ -132,91 +135,97 @@ function softDropShadow(
   return `${output})`
 }
 
-function grayscale(
+function grayscale (
   factor: number
 ): Filter {
   return `grayscale(${factor})`
 }
 
-function hueRotate(
+function hueRotate (
   degrees: number
 ): Filter {
   return `hue-rotate(${degrees}deg)`
 }
 
-function invert(
+function invert (
   factor: number
 ): Filter {
   return `invert(${factor})`
 }
 
-function opacity(
+function opacity (
   factor: number
 ): Filter {
   return `opacity(${factor})`
 }
 
-function saturate(
+function saturate (
   factor: number
 ): Filter {
   return `saturate(${factor})`
 }
 
-function sepia(
+function sepia (
   factor: number
 ): Filter {
   return `sepia(${factor})`
 }
 
-function saveLoadAvailable(): Truthiness {
+function saveLoadAvailable (): Truthiness {
   try {
-    localStorage.setItem(`${gameName}-check`, `check`)
-    return 1
+    localStorage.setItem(`${gameName}-check`, 'check')
+    return truthy
   } catch { }
-  return
+
+  return falsy
 }
 
-function save<T extends EngineJson>(name: string, content: T): Truthiness {
+function save<T extends EngineJson> (name: string, content: T): Truthiness {
   return engineStorageSave(`custom-${name}`, content)
 }
 
-function load<T extends EngineJson>(name: string): null | T {
+function load<T extends EngineJson> (name: string): null | T {
   return engineStorageLoad(`custom-${name}`)
 }
 
-function drop(name: string): Truthiness {
+function drop (name: string): Truthiness {
   return engineStorageDrop(`custom-${name}`)
 }
 
 let root: SVGSVGElement
 
 type Group = SVGGElement
+
 type Sprite = SVGUseElement
+
 type Rectangle = SVGRectElement
+
 type TextObject = SVGTextElement
 
 type Parent = SVGSVGElement | Group
 
 type TransformableChild = Group | Sprite | Rectangle | TextObject
+
 type FilterableChild = Group | Sprite | Rectangle | TextObject
+
 type TransformableOrFilterableChild = TransformableChild | FilterableChild
 
 type ClickableChild = Group | Sprite | Rectangle | TextObject
 
-function group(
-  parent: Parent,
+function group (
+  parent: Parent
 ): Group {
   return engineGroup(parent)
 }
 
-function sprite(
+function sprite (
   parent: Parent,
-  svg: AnySvg,
+  svg: AnySvg
 ): Sprite {
   return engineSprite(parent, svg)
 }
 
-function rectangle(
+function rectangle (
   parent: Parent,
   widthVirtualPixels: number,
   heightVirtualPixels: number,
@@ -225,79 +234,80 @@ function rectangle(
   return engineRectangle(parent, widthVirtualPixels, heightVirtualPixels, fill)
 }
 
-type TextAnchor = Falsy | `middle` | `end`
-type DominantBaseline = Falsy | `middle` | `hanging`
+type TextAnchor = 'middle' | 'end'
 
-function text(
+type DominantBaseline = 'middle' | 'hanging'
+
+function text (
   parent: Parent,
   textContent: string,
-  fontFamily?: Falsy | string,
-  color?: Falsy | string,
+  fontFamily?: string,
+  color?: string,
   textAnchor?: TextAnchor,
-  dominantBaseline?: DominantBaseline,
+  dominantBaseline?: DominantBaseline
 ): TextObject {
   return engineText(parent, textContent, fontFamily, color, textAnchor, dominantBaseline)
 }
 
-function transform(
+function transform (
   child: TransformableChild,
-  transforms: ReadonlyArray<Transform>,
+  transforms: readonly Transform[]
 ): void {
-  engineApplyTransformOrFilter(child, `transform`, transforms)
+  engineApplyTransformOrFilter(child, 'transform', transforms)
 }
 
-function filter(
+function filter (
   child: FilterableChild,
-  filters: ReadonlyArray<Filter>,
+  filters: readonly Filter[]
 ): void {
-  engineApplyTransformOrFilter(child, `filter`, filters)
+  engineApplyTransformOrFilter(child, 'filter', filters)
 }
 
-function delay(
+function delay (
   child: TransformableOrFilterableChild,
-  durationSeconds: number,
+  durationSeconds: number
 ): void {
-  engineSetTransition(child, `jump-end`, durationSeconds)
+  engineSetTransition(child, 'jump-end', durationSeconds)
 }
 
-function linear(
+function linear (
   child: TransformableOrFilterableChild,
-  durationSeconds: number,
+  durationSeconds: number
 ): void {
-  engineSetTransition(child, `linear`, durationSeconds)
+  engineSetTransition(child, 'linear', durationSeconds)
 }
 
-function easeOut(
+function easeOut (
   child: TransformableOrFilterableChild,
-  durationSeconds: number,
+  durationSeconds: number
 ): void {
-  engineSetTransition(child, `ease-out`, durationSeconds)
+  engineSetTransition(child, 'ease-out', durationSeconds)
 }
 
-function easeIn(
+function easeIn (
   child: TransformableOrFilterableChild,
-  durationSeconds: number,
+  durationSeconds: number
 ): void {
-  engineSetTransition(child, `ease-in`, durationSeconds)
+  engineSetTransition(child, 'ease-in', durationSeconds)
 }
 
-function easeInOut(
+function easeInOut (
   child: TransformableOrFilterableChild,
-  durationSeconds: number,
+  durationSeconds: number
 ): void {
-  engineSetTransition(child, `ease-in-out`, durationSeconds)
+  engineSetTransition(child, 'ease-in-out', durationSeconds)
 }
 
-function ease(
+function ease (
   child: TransformableOrFilterableChild,
-  durationSeconds: number,
+  durationSeconds: number
 ): void {
-  engineSetTransition(child, `ease`, durationSeconds)
+  engineSetTransition(child, 'ease', durationSeconds)
 }
 
-function click(
+function click (
   child: ClickableChild,
-  then: () => void,
+  then: () => void
 ): void {
   engineClick(child, then)
 }

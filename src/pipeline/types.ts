@@ -1,26 +1,22 @@
-import StepBase from "./steps/step-base"
-import Diff from "./files/diff"
+import type StepBase from './steps/step-base'
+import type Diff from './files/diff'
 
-export type FileVersions = {
-  readonly [path: string]: number
-}
-
-export type EngineFile = {
+export interface EngineFile {
   readonly path: string
   readonly name: string
   readonly extension: string
 }
 
-export type GameSrcFile = {
-  readonly type: `src`
+export interface GameSrcFile {
+  readonly type: 'src'
   readonly path: string
   readonly game: string
   readonly name: string
   readonly extension: string
 }
 
-export type GameMetadataFile = {
-  readonly type: `metadata`
+export interface GameMetadataFile {
+  readonly type: 'metadata'
   readonly path: string
   readonly game: string
 }
@@ -29,40 +25,36 @@ export type GameFile =
   | GameSrcFile
   | GameMetadataFile
 
-export type EnginePlanningResult = {
+export interface EnginePlanningResult {
   readonly allGamesRequireJavascriptRegeneration: boolean
   readonly allGamesRequireHtmlRegeneration: boolean
   readonly step: StepBase
 }
 
-export type Versioned<T> = {
+export interface Versioned<T> {
   readonly payload: T
   readonly uuid: string
 }
 
-export type Json =
-  | string
-  | number
-  | boolean
-  | ReadonlyArray<Json>
-  | { readonly [key: string]: Json }
-  | null
+interface JsonObject extends Readonly<Record<string, Json>> {}
+interface JsonArray extends ReadonlyArray<Json> { }
+export type Json = string | number | boolean | Date | JsonObject | JsonArray
 
-export type MetadataJson = {
+export interface MetadataJson extends JsonObject {
   readonly safeAreaWidthVirtualPixels: number
   readonly safeAreaHeightVirtualPixels: number
   readonly backgroundColor: string
 }
 
-export type ConstantDeclaration = {
-  readonly type: `constant`
+export interface ConstantDeclaration {
+  readonly type: 'constant'
   readonly name: string
   readonly valueType: string
-  readonly value: Json
+  readonly value: any
 }
 
-export type TypeDeclaration = {
-  readonly type: `type`
+export interface TypeDeclaration {
+  readonly type: 'type'
   readonly name: string
   readonly definition: string
 }
@@ -71,9 +63,9 @@ export type Declaration =
   | ConstantDeclaration
   | TypeDeclaration
 
-export type DeclarationSet = ReadonlyArray<Declaration>
+export type DeclarationSet = readonly Declaration[]
 
-export type TypeSeparated = {
+export interface TypeSeparated {
   readonly sortedByKey: {
     readonly typeScript: Diff<GameSrcFile>
     readonly svg: Diff<GameSrcFile>

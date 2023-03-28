@@ -1,22 +1,21 @@
-import * as htmlMinifier from "html-minifier"
-import StepBase from "../step-base"
-import ActionStepBase from "./action-step-base"
-import iterativelyMinify from "../../utilities/iteratively-minify"
+import * as htmlMinifier from 'html-minifier'
+import ActionStepBase from './action-step-base'
+import iterativelyMinify from '../../utilities/iteratively-minify'
 
 export default class MinifyHtmlStep extends ActionStepBase {
-  constructor(
+  constructor (
     private readonly getHtml: () => string,
     private readonly storeResult: (html: string) => void
   ) {
     super(
-      `minifyHtml`,
+      'minifyHtml',
       [],
-      (self: StepBase) => []
+      () => []
     )
   }
 
-  async execute(): Promise<void> {
-    this.storeResult(await iterativelyMinify(
+  async execute (): Promise<void> {
+    const iterated = await iterativelyMinify(
       this.getHtml(),
       async previous => htmlMinifier.minify(previous, {
         caseSensitive: false,
@@ -48,6 +47,8 @@ export default class MinifyHtmlStep extends ActionStepBase {
         trimCustomFragments: true,
         useShortDoctype: true
       })
-    ))
+    )
+
+    this.storeResult(iterated.replace('<!doctypehtml>', '').replace('<body>', ''))
   }
 }

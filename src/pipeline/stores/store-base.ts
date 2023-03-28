@@ -1,5 +1,5 @@
 export default abstract class StoreBase {
-  constructor(
+  constructor (
     public readonly name: string
   ) {
   }

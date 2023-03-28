@@ -40,6 +40,8 @@ See an [example game](src/games/tower-of-hanoi/src)!
 
 - Install [Visual Studio Code](https://code.visualstudio.com/).
 
+- Install the [ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint).
+
 - Install [Node.js](https://nodejs.org/en/).  I'd recommend LTS.
 
 - Clone this repository.
@@ -61,6 +63,8 @@ See an [example game](src/games/tower-of-hanoi/src)!
 - Press Ctrl+Shift+B and you should see a command-line application start in the
   terminal at the bottom of Visual Studio Code.
 
+- Files are generated for IDE tooling including ESLint and TypeScript.
+
 - Your games should now be testable at `http://localhost:3333/`.
 
 - Any changes you make, to code or content, will be reflected there
@@ -74,7 +78,8 @@ See `File structure` for details on adding new or modifying existing games.
 ### Continuous Integration
 
 By default, a GitHub Action will build every game in your repository and make
-the HTML and zip files available as artifacts attached to the builds.
+the HTML and zip files available as artifacts attached to the builds.  ESLint is
+also ran.
 
 There are additionally basic "smoke tests", which launch the included
 `tower-of-hanoi` in a headless Chrome and ensure that some basic features work.
@@ -253,6 +258,11 @@ For that reason, avoid referencing or defining anything prefixed `engine` or
 `Engine` on the global scope within game code.  This is likely an internal
 implementation detail which could break in future engine updates.
 
+ESLint is not designed for projects built like this, and is unable to see that
+declarations made in one file may be used in others without exporting them.  For
+this reason, the `@typescript-eslint/no-unused-vars` rule is disabled in both
+engine and game code.
+
 ### To be defined by your game
 
 The following must be defined by your game TypeScript for building to succeed.
@@ -308,18 +318,31 @@ Imported from `metadata.json`.
 
 The current state; modify as you please.
 
-#### `Falsy`
+#### `truthy`
 
-Represents any value which is "falsy".
+A value to use in place of `true` to minimize file size.
+
+#### `falsy`
+
+A value to use in place of `false` to minimize file size.
 
 #### `Truthiness`
 
-Either `1` or `undefined`.  Useful for indicating a `true`/`false` flag without
-the overhead of `return !1` or similar.
+Either `truthy` or `falsy`.  ESLint rule
+`@typescript-eslint/strict-boolean-expressions` has been disabled to make this
+less awkward to use.
 
 #### `Json`
 
 Types which can be serialized to or deserialized from JSON.
+
+#### `JsonObject`
+
+Represents a JSON de/serializable object.
+
+#### `JsonArray`
+
+Represents a JSON de/serializable array.
 
 #### `linearInterpolate`
 
@@ -790,10 +813,10 @@ The most error-prone part of the build pipeline is planning; it can be difficult
 to determine exactly which steps should be executed based on the given diff.
 
 To make it easier to determine exactly which steps were planned, it is possible
-to query the hierarchy for a [nomnoml](http://www.nomnoml.com/) document
+to query the hierarchy for a [nomnoml](https://www.nomnoml.com/) document
 detailing exactly which steps were planned to be executed and in what order.
 
-To do this, call `getNomNoml` on the result of `plan`.
+To do this, run `npm run-script ci-nomnoml` or `npm run-script cli-nomnoml`.
 
 ## License
 

@@ -1,13 +1,16 @@
 const version = 1
 
-type State = {
-  piece: number
-  fromTower: number
+type Tower = 0 | 1 | 2
+type Piece = 0 | 1 | 2 | 3 | 4
+
+interface State extends JsonObject {
+  piece: Piece
+  fromTower: Tower
   lifted: boolean
-  readonly towers: ReadonlyArray<number[]>
+  readonly towers: readonly [Piece[], Piece[], Piece[]]
 }
 
-function initial(): State {
+function initial (): State {
   return {
     piece: 4,
     fromTower: 0,
@@ -19,16 +22,16 @@ function initial(): State {
 const towerWidthVirtualPixels = safeAreaWidthVirtualPixels / 3
 const pieceHeightVirtualPixels = 20
 
-const pieces = [piece0_svg, piece1_svg, piece2_svg, piece3_svg, piece4_svg]
+const pieces: readonly [Piece0_svg, Piece1_svg, Piece2_svg, Piece3_svg, Piece4_svg] = [piece0_svg, piece1_svg, piece2_svg, piece3_svg, piece4_svg]
 
-function render(): void {
+function render (): void {
   sprite(root, background_svg)
 
   const won = state.towers[2].length === 5
 
   let x = 0
   for (let i = 0; i < 3; i++) {
-    const tower = state.towers[i]
+    const tower = state.towers[i] as Piece[]
     let y = 0
 
     for (const piece of tower) {
@@ -55,7 +58,7 @@ function render(): void {
 
     if (!won) {
       if (state.lifted) {
-        if (!tower.length || tower[tower.length - 1] < state.piece) {
+        if (!tower.length || (tower[tower.length - 1] as Piece) < state.piece) {
           const hitbox = rectangle(root, towerWidthVirtualPixels, safeAreaHeightVirtualPixels)
           transform(hitbox, [translate(x, 0)])
           click(hitbox, () => {
@@ -68,8 +71,8 @@ function render(): void {
           const hitbox = rectangle(root, towerWidthVirtualPixels, safeAreaHeightVirtualPixels)
           transform(hitbox, [translate(x, 0)])
           click(hitbox, () => {
-            state.fromTower = iCopy
-            state.piece = tower[tower.length - 1]
+            state.fromTower = iCopy as Tower
+            state.piece = tower[tower.length - 1] as Piece
             state.lifted = true
             tower.length--
           })

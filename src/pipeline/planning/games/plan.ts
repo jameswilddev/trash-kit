@@ -1,11 +1,11 @@
-import * as types from "../../types"
-import Diff from "../../files/diff"
-import StepBase from "../../steps/step-base"
-import SerialStep from "../../steps/aggregators/serial-step"
-import separateByType from "./common/separate-by-type"
-import planCommon from "./common/plan-common"
-import planDebug from "./debug/plan-debug"
-import planProduction from "./production/plan-production"
+import type * as types from '../../types'
+import type Diff from '../../files/diff'
+import type StepBase from '../../steps/step-base'
+import SerialStep from '../../steps/aggregators/serial-step'
+import separateByType from './common/separate-by-type'
+import planCommon from './common/plan-common'
+import planDebug from './debug/plan-debug'
+import planProduction from './production/plan-production'
 
 export default function (
   debug: boolean,
@@ -27,5 +27,5 @@ export default function (
 
   steps.push(planProduction(debug, enginePlanningResult, games, typeSeparated))
 
-  return new SerialStep(`games`, steps)
+  return new SerialStep('games', steps)
 }

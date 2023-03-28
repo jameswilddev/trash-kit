@@ -1,12 +1,12 @@
-function engineStorageSave<T extends EngineJson>(key: string, content: T): Truthiness {
+function engineStorageSave<T extends EngineJson> (key: string, content: T): Truthiness {
   try {
     localStorage.setItem(`${gameName}-${key}`, JSON.stringify(content))
-    return 1
+    return truthy
   } catch { }
-  return
+  return falsy
 }
 
-function engineStorageLoad<T extends EngineJson>(key: string): null | T {
+function engineStorageLoad<T extends EngineJson> (key: string): null | T {
   try {
     const json = localStorage.getItem(`${gameName}-${key}`)
     if (json !== null) {
@@ -16,10 +16,10 @@ function engineStorageLoad<T extends EngineJson>(key: string): null | T {
   return null
 }
 
-function engineStorageDrop(key: string): Truthiness {
+function engineStorageDrop (key: string): Truthiness {
   try {
     localStorage.removeItem(`${gameName}-${key}`)
-    return 1
+    return truthy
   } catch { }
-  return
+  return falsy
 }

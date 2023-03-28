@@ -1,21 +1,21 @@
-import StoreBase from "./store-base"
+import StoreBase from './store-base'
 
 export default class ValueStore<TValue> extends StoreBase {
   private value: null | { readonly value: TValue } = null
 
-  hasValue(): boolean {
+  hasValue (): boolean {
     return this.value !== null
   }
 
-  get(): TValue {
+  get (): TValue {
     if (this.value === null) {
-      throw new Error(`Unable to get a value which is not currently set.`)
+      throw new Error('Unable to get a value which is not currently set.')
     } else {
       return this.value.value
     }
   }
 
-  tryGet(): null | TValue {
+  tryGet (): null | TValue {
     if (this.value === null) {
       return null
     } else {
@@ -23,17 +23,17 @@ export default class ValueStore<TValue> extends StoreBase {
     }
   }
 
-  set(
+  set (
     value: TValue
   ): void {
     if (this.value === null) {
       this.value = { value }
     } else {
-      throw new Error(`Unable to set a value which is already set.`)
+      throw new Error('Unable to set a value which is already set.')
     }
   }
 
-  deleteIfSet(): void {
+  deleteIfSet (): void {
     this.value = null
   }
 }

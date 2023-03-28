@@ -1,24 +1,24 @@
-import * as path from "path"
-import * as types from "../../types"
-import Diff from "../../files/diff"
-import StepBase from "../../steps/step-base"
-import SerialStep from "../../steps/aggregators/serial-step"
-import DeleteFromKeyValueStoreIfSetStep from "../../steps/actions/stores/delete-from-key-value-store-if-set-step"
-import ReadTextFileStep from "../../steps/actions/files/read-text-file-step"
-import ParseTypeScriptStep from "../../steps/actions/type-script/parse-type-script-step"
-import CombineTypeScriptStep from "../../steps/actions/type-script/combine-type-script-step"
-import engineTypeScriptTextStore from "../../stores/engine-type-script-text-store"
-import engineTypeScriptParsedStore from "../../stores/engine-type-script-parsed-store"
+import * as path from 'path'
+import type * as types from '../../types'
+import type Diff from '../../files/diff'
+import type StepBase from '../../steps/step-base'
+import SerialStep from '../../steps/aggregators/serial-step'
+import DeleteFromKeyValueStoreIfSetStep from '../../steps/actions/stores/delete-from-key-value-store-if-set-step'
+import ReadTextFileStep from '../../steps/actions/files/read-text-file-step'
+import ParseTypeScriptStep from '../../steps/actions/type-script/parse-type-script-step'
+import CombineTypeScriptStep from '../../steps/actions/type-script/combine-type-script-step'
+import engineTypeScriptTextStore from '../../stores/engine-type-script-text-store'
+import engineTypeScriptParsedStore from '../../stores/engine-type-script-parsed-store'
 
 export default function (
   typeScriptDiff: Diff<types.EngineFile>
 ): StepBase {
-  function generateTypeScriptPath(file: types.EngineFile): string {
-    return path.join(`engine`, `${file.name}.${file.extension}`)
+  function generateTypeScriptPath (file: types.EngineFile): string {
+    return path.join('engine', `${file.name}.${file.extension}`)
   }
 
   const typeScriptFileSteps = typeScriptDiff.generateSteps(
-    `files`,
+    'files',
     false,
     item => item.name,
     item => [
@@ -32,12 +32,12 @@ export default function (
     item => [
       new ReadTextFileStep(
         item.path,
-        text => engineTypeScriptTextStore.set(generateTypeScriptPath(item), text)
+        text => { engineTypeScriptTextStore.set(generateTypeScriptPath(item), text) }
       ),
       new ParseTypeScriptStep(
         generateTypeScriptPath(item),
         () => engineTypeScriptTextStore.get(generateTypeScriptPath(item)),
-        parsed => engineTypeScriptParsedStore.set(generateTypeScriptPath(item), parsed)
+        parsed => { engineTypeScriptParsedStore.set(generateTypeScriptPath(item), parsed) }
       )
     ]
   )
@@ -48,13 +48,13 @@ export default function (
     steps.push(
       new CombineTypeScriptStep(
         () => [engineTypeScriptParsedStore.getAll()],
-        () => { },
-      ),
+        () => { }
+      )
     )
   }
 
   return new SerialStep(
-    `typeScript`,
+    'typeScript',
     steps
   )
 }

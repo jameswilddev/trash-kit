@@ -1,3 +1,3 @@
-import KeyValueStore from "./key-value-store"
+import KeyValueStore from './key-value-store'
 
-export default new KeyValueStore<string>(`gameJavascriptProduction`)
+export default new KeyValueStore<string>('gameJavascriptProduction')

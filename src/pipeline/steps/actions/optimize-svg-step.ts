@@ -1,7 +1,6 @@
-import * as Svgo from "svgo";
-import StepBase from "../step-base"
-import ActionStepBase from "./action-step-base"
-import iterativelyMinify from "../../utilities/iteratively-minify"
+import * as Svgo from 'svgo'
+import ActionStepBase from './action-step-base'
+import iterativelyMinify from '../../utilities/iteratively-minify'
 
 const floatPrecision = 0
 
@@ -15,16 +14,16 @@ const options: Svgo.Config = {
     {
       name: 'cleanupListOfValues', params: { floatPrecision }
     },
-    { name: 'cleanupNumericValues', "params": { floatPrecision } },
+    { name: 'cleanupNumericValues', params: { floatPrecision } },
     'collapseGroups',
     'convertColors',
     'convertEllipseToCircle',
-    { name: "convertPathData", "params": { floatPrecision } },
+    { name: 'convertPathData', params: { floatPrecision } },
     'convertShapeToPath',
     'convertStyleToAttrs',
-    { name: "convertTransform", params: { floatPrecision } },
+    { name: 'convertTransform', params: { floatPrecision } },
     'inlineStyles',
-    { name: "mergePaths", "params": { floatPrecision } },
+    { name: 'mergePaths', params: { floatPrecision } },
     'mergeStyles',
     'minifyStyles',
     'moveElemsAttrsToGroup',
@@ -52,22 +51,22 @@ const options: Svgo.Config = {
     // 'reusePaths', - Can't be enabled as it generates new IDs.
     'sortAttrs',
     'sortDefsChildren'
-  ],
-};
+  ]
+}
 
 export default class OptimizeSvgStep extends ActionStepBase {
-  constructor(
+  constructor (
     private readonly getText: () => string,
     private readonly storeResult: (optimized: string) => void
   ) {
     super(
-      `optimizeSvgStep`,
+      'optimizeSvgStep',
       [],
-      (self: StepBase) => []
+      () => []
     )
   }
 
-  async execute(): Promise<void> {
+  async execute (): Promise<void> {
     this.storeResult(await iterativelyMinify(
       this.getText(),
       async previous => (Svgo.optimize(previous, options)).data

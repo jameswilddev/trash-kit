@@ -1,24 +1,23 @@
-import * as typeScript from "typescript"
-import StepBase from "../../step-base"
-import ActionStepBase from "../action-step-base"
+import * as typeScript from 'typescript'
+import ActionStepBase from '../action-step-base'
 
 export default class ParseTypeScriptStep extends ActionStepBase {
-  constructor(
+  constructor (
     private readonly fileName: string,
     private readonly getText: () => string,
     private readonly storeResult: (parsed: typeScript.SourceFile) => void
   ) {
     super(
-      `parseTypeScript`,
+      'parseTypeScript',
       [{
-        key: `fileName`,
+        key: 'fileName',
         value: fileName
       }],
-      (self: StepBase) => []
+      () => []
     )
   }
 
-  async execute(): Promise<void> {
+  async execute (): Promise<void> {
     const result = typeScript.createSourceFile(
       this.fileName,
       this.getText(),

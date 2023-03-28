@@ -1,9 +1,10 @@
-import compilerOptions from "./compiler-options"
+import compilerOptions from './compiler-options'
 
 export default {
   ...compilerOptions,
-  jsx: `preserve`,
-  module: `None`,
-  moduleResolution: `node`,
-  target: `ES5`,
+  jsx: 'preserve',
+  module: 'None',
+  moduleResolution: 'classic',
+  target: 'ES5',
+  newLine: 'lf'
 }
