@@ -10,6 +10,7 @@ jobs:
           node-version: "18.15"
           registry-url: "https://registry.npmjs.org"
       - run: npm ci
+      - run: npm run-script typecheck-pipeline
       - run: npm test
       - run: npm run-script ci
       - run: npm run-script lint
