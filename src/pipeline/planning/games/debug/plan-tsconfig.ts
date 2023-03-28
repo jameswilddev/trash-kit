@@ -5,6 +5,11 @@ import ParallelStep from '../../../steps/aggregators/parallel-step'
 import DeleteStep from '../../../steps/actions/files/delete-step'
 import WriteFileStep from '../../../steps/actions/files/write-file-step'
 import tsconfigContent from '../../../steps/actions/type-script/tsconfig-content'
+import SerialStep from '../../../steps/aggregators/serial-step'
+import ReadTextFileStep from '../../../steps/actions/files/read-text-file-step'
+import vscodeSettingsInputTextStore from '../../../stores/vscode-settings-input-text-store'
+import vscodeSettingsOutputTextStore from '../../../stores/vscode-settings-output-text-store'
+import ArbitraryStep from '../../../steps/actions/arbitrary-step'
 
 export default function (
   games: Diff<string>
@@ -40,7 +45,7 @@ export default function (
         parserOptions: {
           ecmaVersion: 'latest',
           sourceType: 'module',
-          project: path.join('src', 'games', game, 'tsconfig.json')
+          project: 'tsconfig.json'
         },
         rules: {
           '@typescript-eslint/strict-boolean-expressions': 'off'
@@ -62,8 +67,33 @@ export default function (
       path.join('src', 'games', game, '.eslintrc.json'))
     )
 
+  const steps = [...tsconfigAdditions, ...eslintAdditions, ...tsconfigDeletions, ...eslintDeletions]
+
+  if (games.requiresClean()) {
+    steps.push(new SerialStep('updateEslintWorkingDirectories', [
+      new ReadTextFileStep(path.join('.vscode', 'settings.json'), (text) => { vscodeSettingsInputTextStore.set(text) }),
+      new ArbitraryStep('updateEslintWorkingDirectories', async () => {
+        const inputText = vscodeSettingsInputTextStore.get()
+        const inputJson: { 'eslint.workingDirectories': readonly string[] } = JSON.parse(inputText)
+
+        const outputJson = {
+          ...inputJson,
+          'eslint.workingDirectories': [
+            path.join('src', 'engine'),
+            ...[...games.added, ...games.unmodified, ...games.updated].map(game => path.join('src', 'games', game)),
+            path.join('src', 'pipeline')
+          ]
+        }
+
+        const outputText = `${JSON.stringify(outputJson, null, 2)}\n`
+        vscodeSettingsOutputTextStore.set(outputText)
+      }),
+      new WriteFileStep(() => vscodeSettingsOutputTextStore.get(), path.join('.vscode', 'settings.json'))
+    ]))
+  }
+
   return new ParallelStep(
     'tsconfig',
-    tsconfigAdditions.concat(eslintAdditions).concat(tsconfigDeletions).concat(eslintDeletions)
+    steps
   )
 }

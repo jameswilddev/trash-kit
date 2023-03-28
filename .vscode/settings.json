@@ -9,7 +9,7 @@
     "source.fixAll.eslint": true
   },
   "[typescript]": {
-    "editor.formatOnSave": false,
+    "editor.formatOnSave": false
   },
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
@@ -25,7 +25,12 @@
     "src/games/*/.eslintrc.json": true,
     "src/games/*/src/.declarations.ts": true,
     "dist": true,
-    "**/*.js": true,
+    "**/*.js": true
   },
-  "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe"
+  "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
+  "eslint.workingDirectories": [
+    "src/engine",
+    "src/games/tower-of-hanoi",
+    "src/pipeline"
+  ]
 }
