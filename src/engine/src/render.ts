@@ -51,8 +51,8 @@ function engineRectangle (
 function engineText (
   parent: Parent,
   textContent: string,
-  fontFamily?: Falsy | string,
-  color?: Falsy | string,
+  fontFamily?: string,
+  color?: string,
   textAnchor?: TextAnchor,
   dominantBaseline?: DominantBaseline
 ): TextObject {

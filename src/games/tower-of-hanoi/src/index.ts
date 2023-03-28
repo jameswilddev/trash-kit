@@ -1,6 +1,6 @@
 const version = 1
 
-interface State {
+interface State extends JsonObject {
   piece: number
   fromTower: number
   lifted: boolean

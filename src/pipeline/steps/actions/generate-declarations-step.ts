@@ -23,6 +23,20 @@ export default class GenerateDeclarationsStep extends ActionStepBase {
 
     declarations.push({
       type: 'constant',
+      name: 'truthy',
+      valueType: '1',
+      value: 1
+    })
+
+    declarations.push({
+      type: 'constant',
+      name: 'falsy',
+      valueType: 'undefined',
+      value: undefined
+    })
+
+    declarations.push({
+      type: 'constant',
       name: 'engineDebug',
       valueType: JSON.stringify(this.engineDebug),
       value: this.engineDebug
@@ -71,7 +85,7 @@ export default class GenerateDeclarationsStep extends ActionStepBase {
     declarations.push({
       type: 'type',
       name: 'AnySvg',
-      definition: orderedSvgNames.map(typeScriptName => `${typeScriptName.slice(0, 1).toUpperCase()}${typeScriptName.slice(1)}`).join(' | ')
+      definition: orderedSvgNames.length === 0 ? 'never' : orderedSvgNames.map(typeScriptName => `${typeScriptName.slice(0, 1).toUpperCase()}${typeScriptName.slice(1)}`).join(' | ')
     })
 
     orderedSvgNames.forEach((typeScriptName, index) => declarations.push({

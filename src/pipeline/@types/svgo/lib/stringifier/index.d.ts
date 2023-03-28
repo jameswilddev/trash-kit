@@ -1,8 +1,8 @@
 declare module 'svgo/lib/stringifier' {
   interface SvgoNode {
-    readonly attributes: Record<string, string>
-    readonly children: SvgoNode[]
+    attributes: { id?: string }
+    children: SvgoNode[]
   }
 
-  export function parseSvg (node: SvgoNode): string
+  export function stringifySvg (node: SvgoNode): string
 }

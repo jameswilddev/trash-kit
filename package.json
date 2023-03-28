@@ -8,8 +8,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "cli": "ts-node --project src/pipeline/tsconfig.json src/pipeline/cli",
-    "ci": "ts-node --project src/pipeline/tsconfig.json src/pipeline/ci",
+    "cli": "ts-node --project src/pipeline/tsconfig.json --files src/pipeline/cli",
+    "ci": "ts-node --project src/pipeline/tsconfig.json --files src/pipeline/ci",
     "nomnoml": "ts-node --project src/pipeline/tsconfig.json src/pipeline/nomnoml",
     "test": "tsc --project tests/tsconfig.json && jasmine --config=jasmine.json",
     "typecheck-pipeline": "tsc --project src/pipeline/tsconfig.json",

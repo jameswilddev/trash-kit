@@ -1,3 +1,6 @@
+declare const truthy: 1
+declare const falsy: undefined
+
 declare const engineDebug: boolean
 declare const engineUuid: string
 declare const gameName: string

@@ -1,6 +1,6 @@
 const engineStateVersion = 4
 
-interface EngineState {
+interface EngineState extends EngineJsonObject {
   readonly engineVersion: number
   readonly gameVersion: number
   readonly state: State

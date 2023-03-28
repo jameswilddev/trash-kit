@@ -1,7 +1,3 @@
-type EngineJson =
-  | string
-  | number
-  | boolean
-  | readonly EngineJson[]
-  | { readonly [key: string]: EngineJson }
-  | null
+interface EngineJsonObject extends Readonly<Record<string, Json>> { }
+interface EngineJsonArray extends ReadonlyArray<Json> { }
+type EngineJson = string | number | boolean | Date | EngineJsonObject | EngineJsonArray

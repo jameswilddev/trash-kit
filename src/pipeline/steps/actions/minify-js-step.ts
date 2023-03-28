@@ -20,7 +20,7 @@ export default class MinifyJsStep extends ActionStepBase {
     this.storeResult(await iterativelyMinify(
       this.getJavascript(),
       async previous => {
-        const globalDefs: Record<string, types.Json> = {}
+        const globalDefs: Record<string, any> = {}
 
         this
           .getDeclarations()

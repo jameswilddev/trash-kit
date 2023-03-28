@@ -8,11 +8,7 @@ import OptimizeSvgStep from '../../../steps/actions/optimize-svg-step'
 import gameSvgTextStore from '../../../stores/game-svg-text-store'
 import gameSvgOptimizedStore from '../../../stores/game-svg-optimized-store'
 import gameSvgDefStore from '../../../stores/game-svg-def-store'
-
-// @ts-expect-error TODO: TypeScript unable to find d.ts file.
 import * as parser from 'svgo/lib/parser'
-
-// @ts-expect-error TODO: TypeScript unable to find d.ts file.
 import * as stringifier from 'svgo/lib/stringifier'
 
 export default function (
@@ -53,7 +49,7 @@ export default function (
 
           const root = parser.parseSvg(text)
 
-          const children = root.children[0].children
+          const children = (root.children[0] as parser.SvgoNode).children
 
           if (children.length === 1) {
             // Remove the wrapping <svg> (there's already a single root).
@@ -62,15 +58,15 @@ export default function (
             // Replace the wrapping <svg> with a <g>.
             const groupSource = parser.parseSvg('<svg><g></g></svg>')
 
-            root.children = groupSource.children[0].children
-            groupSource.children[0].children[0].children = children
+            root.children = (groupSource.children[0] as parser.SvgoNode).children;
+            ((groupSource.children[0] as parser.SvgoNode).children[0] as parser.SvgoNode).children = children
           }
 
           // Inject a blank ID.  This should be safely replaceable later down
           // the line, as we've already filtered out IDs using SVGO.
-          const idSource = parser.parseSvg('<svg id="" />')
+          const idSource = parser.parseSvg('<svg id="" />');
 
-          root.children[0].attributes.id = idSource.children[0].attributes.id
+          (root.children[0] as parser.SvgoNode).attributes.id = (idSource.children[0] as parser.SvgoNode).attributes.id as string
 
           const generated = stringifier.stringifySvg(root)
           gameSvgDefStore.set(item.game, item.name, generated)

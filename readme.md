@@ -308,18 +308,29 @@ Imported from `metadata.json`.
 
 The current state; modify as you please.
 
-#### `Falsy`
+#### `truthy`
 
-Represents any value which is "falsy".
+A value to use in place of `true` to minimize file size.
+
+#### `falsy`
+
+A value to use in place of `false` to minimize file size.
 
 #### `Truthiness`
 
-Either `1` or `undefined`.  Useful for indicating a `true`/`false` flag without
-the overhead of `return !1` or similar.
+Either `truthy` or `falsy`.
 
 #### `Json`
 
 Types which can be serialized to or deserialized from JSON.
+
+#### `JsonObject`
+
+Represents a JSON de/serializable object.
+
+#### `JsonArray`
+
+Represents a JSON de/serializable array.
 
 #### `linearInterpolate`
 

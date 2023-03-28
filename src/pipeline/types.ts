@@ -36,15 +36,9 @@ export interface Versioned<T> {
   readonly uuid: string
 }
 
-export type Json =
-  | string
-  | number
-  | boolean
-  | readonly Json[]
-  | JsonObject
-  | null
-
-export type JsonObject = Readonly<Record<string, Json>>
+interface JsonObject extends Readonly<Record<string, Json>> {}
+interface JsonArray extends ReadonlyArray<Json> { }
+export type Json = string | number | boolean | Date | JsonObject | JsonArray
 
 export interface MetadataJson extends JsonObject {
   readonly safeAreaWidthVirtualPixels: number
@@ -56,7 +50,7 @@ export interface ConstantDeclaration {
   readonly type: 'constant'
   readonly name: string
   readonly valueType: string
-  readonly value: Json
+  readonly value: any
 }
 
 export interface TypeDeclaration {

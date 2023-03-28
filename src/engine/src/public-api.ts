@@ -2,13 +2,16 @@
 let state = undefined as unknown as State
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-type Falsy = false | 0 | null | ''
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Truthiness = 1 | undefined
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Json = EngineJson
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+type JsonObject = EngineJsonObject
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+type JsonArray = EngineJsonArray
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function linearInterpolate (
@@ -199,8 +202,10 @@ function sepia (
 function saveLoadAvailable (): Truthiness {
   try {
     localStorage.setItem(`${gameName}-check`, 'check')
-    return 1
+    return truthy
   } catch { }
+
+  return falsy
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -274,17 +279,17 @@ function rectangle (
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-type TextAnchor = Falsy | 'middle' | 'end'
+type TextAnchor = 'middle' | 'end'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-type DominantBaseline = Falsy | 'middle' | 'hanging'
+type DominantBaseline = 'middle' | 'hanging'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function text (
   parent: Parent,
   textContent: string,
-  fontFamily?: Falsy | string,
-  color?: Falsy | string,
+  fontFamily?: string,
+  color?: string,
   textAnchor?: TextAnchor,
   dominantBaseline?: DominantBaseline
 ): TextObject {
