@@ -17,7 +17,7 @@
     "lint": "cd src/engine && eslint \"src/**/*.ts\" && cd ../games && find . -maxdepth 1 -type d \\( ! -name . \\) -exec bash -c \"cd '{}' && eslint \\\"src/**/*.ts\\\"\" \\; && cd ../pipeline && eslint \"**/*.ts\""
   },
   "dependencies": {
-    "@types/express": "4.17.17",
+    "@types/express": "4.17.18",
     "@types/html-minifier": "4.0.3",
     "@types/jasmine": "4.3.6",
     "@types/node": "18.17.19",
