@@ -24,7 +24,7 @@
     "@types/pixelmatch": "5.2.6",
     "@types/pngjs": "6.0.3",
     "@types/progress": "2.0.6",
-    "@types/pug": "2.0.8",
+    "@types/pug": "2.0.9",
     "@types/puppeteer": "5.4.7",
     "@types/qrcode-terminal": "0.12.1",
     "@types/recursive-readdir": "2.2.3",
