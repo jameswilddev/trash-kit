@@ -29,7 +29,7 @@
     "@types/qrcode-terminal": "0.12.2",
     "@types/recursive-readdir": "2.2.4",
     "@typescript-eslint/eslint-plugin": "5.62.0",
-    "@types/svgo": "2.6.4",
+    "@types/svgo": "3.0.0",
     "@types/uuid": "9.0.8",
     "7zip-bin": "5.2.0",
     "chokidar": "3.6.0",
