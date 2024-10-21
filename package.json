@@ -28,7 +28,7 @@
     "@types/puppeteer": "7.0.4",
     "@types/qrcode-terminal": "0.12.2",
     "@types/recursive-readdir": "2.2.4",
-    "@typescript-eslint/eslint-plugin": "5.62.0",
+    "@typescript-eslint/eslint-plugin": "8.11.0",
     "@types/svgo": "3.0.0",
     "@types/uuid": "10.0.0",
     "7zip-bin": "5.2.0",
